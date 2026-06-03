@@ -22,291 +22,222 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #0f1117;
-  --surface: #1a1d27;
-  --card: #22263a;
-  --border: #2e3350;
-  --primary: #4f8ef7;
-  --primary-dark: #3a70d4;
-  --success: #2ecc71;
-  --warning: #f39c12;
-  --danger: #e74c3c;
-  --text: #e8eaf6;
-  --muted: #8892b0;
-  --accent: #64ffda;
+  --bg: #0f1117; --surface: #1a1d27; --card: #22263a; --border: #2e3350;
+  --primary: #4f8ef7; --primary-dark: #3a70d4;
+  --success: #2ecc71; --warning: #f39c12; --danger: #e74c3c;
+  --text: #e8eaf6; --muted: #8892b0; --accent: #64ffda;
 }
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--bg); color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  min-height: 100vh;
-  max-width: 480px;
-  margin: 0 auto;
+  min-height: 100vh; max-width: 480px; margin: 0 auto;
   -webkit-font-smoothing: antialiased;
 }
-
-/* ===== HEADER ===== */
 .header {
-  background: var(--surface);
-  padding: 16px 20px 0;
+  background: var(--surface); padding: 14px 20px 0;
   position: sticky; top: 0; z-index: 100;
   border-bottom: 1px solid var(--border);
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 .header-top { display: flex; align-items: baseline; gap: 10px; }
-.header h1 { font-size: 22px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; }
-.header-sub { font-size: 12px; color: var(--muted); }
-.tabs { display: flex; margin-top: 12px; }
+.header h1 { font-size: 20px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; }
+.header-sub { font-size: 11px; color: var(--muted); }
+.tabs { display: flex; margin-top: 10px; }
 .tab {
-  flex: 1; padding: 10px; text-align: center;
-  font-size: 13px; font-weight: 600; color: var(--muted);
+  flex: 1; padding: 9px 4px; text-align: center;
+  font-size: 11px; font-weight: 700; color: var(--muted);
   cursor: pointer; border-bottom: 2px solid transparent;
-  transition: all 0.2s; user-select: none;
+  transition: all 0.2s; user-select: none; letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
 
-/* ===== CONTENT ===== */
-.content { padding: 16px 16px 48px; }
+.content { padding: 14px 14px 48px; }
 .page { display: none; }
 .page.active { display: block; }
 
-/* ===== FORM ===== */
 .section-label {
   font-size: 10px; font-weight: 800; color: var(--muted);
   text-transform: uppercase; letter-spacing: 1px;
-  margin: 20px 0 10px; display: flex; align-items: center; gap: 8px;
+  margin: 18px 0 9px; display: flex; align-items: center; gap: 8px;
 }
 .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .section-label:first-of-type { margin-top: 4px; }
 
-.field { margin-bottom: 11px; }
-.field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; font-weight: 500; }
-
+.field { margin-bottom: 10px; }
+.field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
 .field input, .field select {
-  width: 100%;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  padding: 12px 14px;
-  color: var(--text);
-  font-size: 15px;
-  -webkit-appearance: none; appearance: none;
-  transition: border-color 0.15s;
+  width: 100%; background: var(--card); border: 1px solid var(--border);
+  border-radius: 9px; padding: 11px 13px; color: var(--text); font-size: 15px;
+  -webkit-appearance: none; appearance: none; transition: border-color 0.15s;
 }
 .field select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238892b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 38px;
-  background-color: var(--card);
+  background-repeat: no-repeat; background-position: right 13px center;
+  padding-right: 36px; background-color: var(--card);
 }
 .field input:focus, .field select:focus {
   outline: none; border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(79,142,247,0.15);
 }
 .field input::placeholder { color: #4a5170; }
-
-.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
 .prefix-wrap { position: relative; }
-.prefix {
-  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-  color: var(--muted); font-size: 14px; pointer-events: none; z-index: 1;
-}
+.prefix { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 14px; pointer-events: none; z-index: 1; }
 .prefix-wrap input { padding-left: 24px; }
 .suffix-wrap { position: relative; }
-.suffix {
-  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-  color: var(--muted); font-size: 12px; pointer-events: none;
-}
-.suffix-wrap input { padding-right: 40px; }
+.suffix { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 12px; pointer-events: none; }
+.suffix-wrap input { padding-right: 38px; }
 
-/* ===== BUTTONS ===== */
-.btn {
-  width: 100%; padding: 15px; border: none; border-radius: 10px;
-  font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 18px;
-  transition: all 0.15s; letter-spacing: 0.2px;
-}
+.btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.15s; }
 .btn-primary { background: var(--primary); color: white; }
 .btn-primary:active { background: var(--primary-dark); transform: scale(0.98); }
 .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn-success { background: var(--success); color: white; margin-top: 12px; }
+.btn-success { background: var(--success); color: white; margin-top: 10px; }
 .btn-success:active { filter: brightness(0.9); transform: scale(0.98); }
 
-/* ===== LOADING ===== */
-.loading { text-align: center; padding: 36px 0; color: var(--muted); font-size: 14px; }
-.spinner {
-  width: 30px; height: 30px;
-  border: 3px solid var(--border); border-top-color: var(--primary);
-  border-radius: 50%; animation: spin 0.75s linear infinite;
-  margin: 0 auto 14px;
-}
+.loading { text-align: center; padding: 32px 0; color: var(--muted); font-size: 14px; }
+.spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.75s linear infinite; margin: 0 auto 12px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ===== DECLINE CARD ===== */
-.decline-card {
-  background: linear-gradient(145deg, #2a0a0a, #1a0808);
-  border: 1px solid rgba(231,76,60,0.5);
-  border-radius: 16px; padding: 28px 20px; text-align: center;
-  margin-top: 4px;
-  box-shadow: 0 8px 32px rgba(231,76,60,0.2);
-}
-.decline-icon { font-size: 40px; margin-bottom: 10px; }
-.decline-title { font-size: 22px; font-weight: 800; color: #ff6b6b; margin-bottom: 6px; }
-.decline-sub { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
-.decline-detail {
-  background: rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.2);
-  border-radius: 8px; padding: 14px; font-size: 13px; color: #ffb3b3; line-height: 1.6;
-}
+.decline-card { background: linear-gradient(145deg,#2a0a0a,#1a0808); border: 1px solid rgba(231,76,60,0.5); border-radius: 16px; padding: 26px 20px; text-align: center; margin-top: 4px; }
+.decline-icon { font-size: 38px; margin-bottom: 8px; }
+.decline-title { font-size: 20px; font-weight: 800; color: #ff6b6b; margin-bottom: 5px; }
+.decline-sub { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+.decline-detail { background: rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.2); border-radius: 8px; padding: 13px; font-size: 13px; color: #ffb3b3; line-height: 1.6; }
 .decline-detail strong { color: #ff6b6b; }
 
-/* ===== WARNING BOX ===== */
-.warn-box {
-  background: rgba(243,156,18,0.1); border: 1px solid rgba(243,156,18,0.35);
-  border-radius: 10px; padding: 14px 16px; margin-bottom: 12px;
-  font-size: 13px; color: #ffd166; line-height: 1.5;
-}
+.warn-box { background: rgba(243,156,18,0.1); border: 1px solid rgba(243,156,18,0.35); border-radius: 10px; padding: 13px 15px; margin-bottom: 10px; font-size: 13px; color: #ffd166; line-height: 1.5; }
 .warn-box strong { color: var(--warning); }
 .warn-text { color: var(--warning) !important; }
 
-/* ===== RESULTS ===== */
-#results { margin-top: 22px; }
-
-.bid-card {
-  background: linear-gradient(145deg, #0d2040 0%, #0d3028 100%);
-  border: 1px solid rgba(100,255,218,0.25);
-  border-radius: 16px; padding: 22px 20px; text-align: center;
-  margin-bottom: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
-}
+#results { margin-top: 20px; }
+.bid-card { background: linear-gradient(145deg,#0d2040 0%,#0d3028 100%); border: 1px solid rgba(100,255,218,0.25); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 10px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
 .bid-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-.bid-amount { font-size: 52px; font-weight: 800; color: var(--accent); margin: 6px 0 2px; line-height: 1; letter-spacing: -2px; }
+.bid-amount { font-size: 48px; font-weight: 800; color: var(--accent); margin: 5px 0 2px; line-height: 1; letter-spacing: -2px; }
 .bid-sub { font-size: 13px; color: #8892b0; }
-.bid-tags { margin-top: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
-.tag {
-  display: inline-block; padding: 4px 9px; border-radius: 6px;
-  font-size: 11px; font-weight: 700;
-}
+.bid-tags { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+.tag { display: inline-block; padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 700; }
 .tag-overnight { background: rgba(103,58,183,0.3); color: #ce93d8; border: 1px solid rgba(103,58,183,0.4); }
 .tag-weekend   { background: rgba(245,124,0,0.2);  color: #ffb74d; border: 1px solid rgba(245,124,0,0.35); }
 .tag-detention { background: rgba(79,142,247,0.15); color: #90caf9; border: 1px solid rgba(79,142,247,0.3); }
 .tag-base      { background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid var(--border); }
-.floor-label {
-  margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08);
-  font-size: 13px; color: var(--muted);
-}
+.floor-label { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: var(--muted); }
 .floor-label strong { color: var(--warning); }
 
-.result-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 16px; margin-bottom: 10px;
-}
-.result-card h3 {
-  font-size: 11px; font-weight: 800; color: var(--muted);
-  text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 12px;
-}
-.result-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 7px 0; font-size: 14px; border-bottom: 1px solid rgba(46,51,80,0.6);
-}
+.result-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 9px; }
+.result-card h3 { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 10px; }
+.result-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 13px; border-bottom: 1px solid rgba(46,51,80,0.6); }
 .result-row:last-child { border-bottom: none; padding-bottom: 0; }
-.result-row .lbl { color: var(--muted); font-size: 13px; flex: 1; padding-right: 10px; }
+.result-row .lbl { color: var(--muted); font-size: 12px; flex: 1; padding-right: 8px; }
 .result-row .val { font-weight: 600; text-align: right; white-space: nowrap; }
 .result-row.total .lbl, .result-row.total .val { color: var(--text); font-weight: 700; }
 .result-row.accent-row .lbl, .result-row.accent-row .val { color: var(--accent); }
 .result-row.warn-row .lbl, .result-row.warn-row .val { color: var(--warning); }
-.small-val { font-size: 12px !important; max-width: 55%; text-align: right; }
-
-/* RPM bar */
-.rpm-bar { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
-.rpm-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
-.rpm-track { background: var(--border); border-radius: 4px; height: 8px; overflow: hidden; }
+.small-val { font-size: 11px !important; max-width: 55%; text-align: right; }
+.rpm-bar { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+.rpm-label { font-size: 11px; color: var(--muted); margin-bottom: 5px; }
+.rpm-track { background: var(--border); border-radius: 4px; height: 7px; overflow: hidden; }
 .rpm-fill { height: 100%; border-radius: 4px; }
 
-/* ===== SETTINGS ===== */
-.save-confirm { text-align: center; color: var(--success); font-size: 13px; margin-top: 8px; min-height: 20px; font-weight: 600; }
-.info-note {
-  background: rgba(79,142,247,0.08); border: 1px solid rgba(79,142,247,0.2);
-  border-radius: 8px; padding: 12px 14px; font-size: 12px; color: #8ab4f8;
-  line-height: 1.6; margin-top: 20px;
-}
+/* RATE ADJUSTMENT */
+.rate-adj-panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-top: 9px; display: none; }
+.rate-adj-panel.visible { display: block; }
+.rate-adj-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.rate-adj-title { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; flex: 1; }
+.lock-btn { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 5px 9px; font-size: 15px; cursor: pointer; color: var(--text); transition: all 0.15s; }
+.lock-btn.unlocked { border-color: var(--warning); background: rgba(243,156,18,0.1); }
+.rate-adj-slider { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; background: var(--border); border-radius: 3px; outline: none; margin: 8px 0 4px; cursor: pointer; }
+.rate-adj-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: var(--primary); border-radius: 50%; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+.rate-adj-slider:disabled { opacity: 0.4; cursor: not-allowed; }
+.rate-adj-slider:disabled::-webkit-slider-thumb { background: var(--muted); cursor: not-allowed; }
+.rate-adj-marks { display: flex; justify-content: space-between; font-size: 9px; color: var(--muted); margin-bottom: 10px; }
+.rate-adj-result { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--border); }
+.rate-adj-pct { font-size: 22px; font-weight: 800; }
+.rate-adj-pct.pos { color: var(--success); }
+.rate-adj-pct.neg { color: var(--danger); }
+.rate-adj-pct.zero { color: var(--muted); }
+.rate-adj-bid-val { font-size: 26px; font-weight: 800; color: var(--accent); }
 
-/* ===== HOME TIME CARD ===== */
-.home-card {
-  background: linear-gradient(145deg, #0a2a1a, #0d3020);
-  border: 1px solid rgba(100,255,218,0.35);
-  border-radius: 14px; padding: 18px 20px;
-  margin-bottom: 12px;
-  box-shadow: 0 6px 24px rgba(100,255,218,0.08);
-  display: flex; align-items: center; gap: 14px;
-}
-.home-icon { font-size: 32px; flex-shrink: 0; }
+/* LOG BID BUTTON */
+.log-bid-btn { display: block; width: 100%; padding: 11px; border: 1px solid var(--border); border-radius: 9px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 9px; transition: all 0.15s; text-align: center; }
+.log-bid-btn.logged { color: var(--success); border-color: var(--success); background: rgba(46,204,113,0.06); }
+.log-bid-btn:active { background: var(--card); }
+
+/* HOME CARD */
+.home-card { background: linear-gradient(145deg,#0a2a1a,#0d3020); border: 1px solid rgba(100,255,218,0.35); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+.home-icon { font-size: 28px; flex-shrink: 0; }
 .home-body { flex: 1; }
-.home-title { font-size: 14px; font-weight: 800; color: var(--accent); margin-bottom: 3px; }
+.home-title { font-size: 13px; font-weight: 800; color: var(--accent); margin-bottom: 3px; }
 .home-detail { font-size: 12px; color: #8ab4f8; line-height: 1.5; }
 .home-detail strong { color: var(--accent); }
-.home-badge {
-  background: rgba(100,255,218,0.15); border: 1px solid rgba(100,255,218,0.3);
-  color: var(--accent); font-size: 10px; font-weight: 800;
-  padding: 3px 8px; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.5px;
-  margin-top: 6px; display: inline-block;
-}
+.home-badge { background: rgba(100,255,218,0.15); border: 1px solid rgba(100,255,218,0.3); color: var(--accent); font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 5px; display: inline-block; }
 
-/* ===== FUEL UPDATE BUTTON ===== */
+/* FUEL UPDATE */
 .fuel-row { display: flex; gap: 8px; align-items: flex-end; }
 .fuel-row .field { flex: 1; margin-bottom: 0; }
-.btn-fetch {
-  padding: 12px 14px; border: none; border-radius: 9px;
-  background: var(--primary); color: white;
-  font-size: 12px; font-weight: 700; cursor: pointer;
-  white-space: nowrap; transition: all 0.15s; flex-shrink: 0;
-}
+.btn-fetch { padding: 11px 12px; border: none; border-radius: 9px; background: var(--primary); color: white; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: all 0.15s; flex-shrink: 0; }
 .btn-fetch:active { background: var(--primary-dark); transform: scale(0.97); }
 .btn-fetch:disabled { opacity: 0.4; cursor: not-allowed; }
-.fuel-status { font-size: 11px; margin-top: 5px; min-height: 16px; }
+.fuel-status { font-size: 11px; margin-top: 4px; min-height: 15px; }
 .fuel-status.ok  { color: var(--success); }
 .fuel-status.err { color: var(--danger); }
 
-/* ===== RATE CARD ===== */
-.rate-card-table {
-  width: 100%; border-collapse: collapse; margin-top: 2px;
-  font-size: 13px;
-}
-.rate-card-table th {
-  text-align: left; padding: 6px 7px;
-  color: var(--muted); font-size: 9px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.6px;
-  border-bottom: 1px solid var(--border);
-}
+/* SETTINGS */
+.save-confirm { text-align: center; color: var(--success); font-size: 13px; margin-top: 8px; min-height: 18px; font-weight: 600; }
+.info-note { background: rgba(79,142,247,0.08); border: 1px solid rgba(79,142,247,0.2); border-radius: 8px; padding: 11px 13px; font-size: 12px; color: #8ab4f8; line-height: 1.6; margin-top: 18px; }
+
+/* RATE CARD */
+.rate-card-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.rate-card-table th { text-align: left; padding: 5px 6px; color: var(--muted); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--border); }
 .rate-card-table th:not(:first-child) { text-align: right; }
-.rate-card-table td {
-  padding: 8px 7px; border-bottom: 1px solid rgba(46,51,80,0.5);
-  vertical-align: middle; font-size: 12px;
-}
+.rate-card-table td { padding: 7px 6px; border-bottom: 1px solid rgba(46,51,80,0.5); vertical-align: middle; }
 .rate-card-table tr:last-child td { border-bottom: none; }
 .rate-card-table td:not(:first-child) { text-align: right; font-weight: 600; }
 .rate-card-table .dist-label { color: var(--muted); font-weight: 600; }
 .rate-card-table .bid-val { color: var(--accent); }
-.rate-card-table .cpm-val { color: var(--text); }
-.rate-card-table .days-val { color: var(--muted); font-size: 11px; }
 .rate-card-table .base-applied { color: var(--warning); }
-.rate-card-note { font-size: 11px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
+.rate-card-note { font-size: 10px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
 
-/* ===== CITY RESOLUTION NOTICE ===== */
-.resolve-notice {
-  background: rgba(243,156,18,0.08); border: 1px solid rgba(243,156,18,0.3);
-  border-radius: 8px; padding: 10px 14px; margin-bottom: 10px;
-  font-size: 12px; color: #ffd166; line-height: 1.5;
-}
+/* CITY RESOLUTION */
+.resolve-notice { background: rgba(243,156,18,0.08); border: 1px solid rgba(243,156,18,0.3); border-radius: 8px; padding: 9px 13px; margin-bottom: 9px; font-size: 12px; color: #ffd166; line-height: 1.5; }
 .resolve-notice strong { color: var(--warning); }
 
-/* ===== INSTALL HINT ===== */
-.install-hint {
-  background: rgba(100,255,218,0.06); border: 1px solid rgba(100,255,218,0.15);
-  border-radius: 10px; padding: 12px 14px; font-size: 12px; color: #64ffda;
-  line-height: 1.6; margin-bottom: 16px; display: none;
-}
+/* COMPARE TAB */
+.route-block-label { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; display: inline-block; margin-top: 14px; margin-bottom: 8px; }
+.compare-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.compare-table th { padding: 7px 8px; font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--border); }
+.compare-table th:first-child { text-align: left; }
+.compare-table th:not(:first-child) { text-align: right; }
+.compare-table td { padding: 7px 8px; border-bottom: 1px solid rgba(46,51,80,0.5); text-align: right; font-weight: 600; }
+.compare-table td:first-child { text-align: left; color: var(--muted); font-size: 12px; font-weight: 400; }
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table .better { color: var(--success); }
+.compare-table .worse  { color: var(--muted); }
+.compare-table .home-yes { color: var(--accent); }
+
+/* LOG TAB */
+.log-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.log-stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 11px 6px; text-align: center; }
+.log-stat-val { font-size: 19px; font-weight: 800; color: var(--accent); }
+.log-stat-lbl { font-size: 9px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+.log-entry { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 13px; margin-bottom: 8px; }
+.log-entry-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+.log-entry-route { font-size: 14px; font-weight: 700; color: var(--text); }
+.log-entry-date { font-size: 11px; color: var(--muted); white-space: nowrap; margin-left: 8px; }
+.log-entry-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.log-entry-bid { font-size: 20px; font-weight: 800; color: var(--accent); }
+.log-entry-actions { display: flex; gap: 7px; margin-top: 9px; }
+.log-act { flex: 1; padding: 7px; border-radius: 7px; border: 1px solid var(--border); background: none; color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+.log-act.won  { background: rgba(46,204,113,0.12); border-color: var(--success); color: var(--success); }
+.log-act.lost { background: rgba(231,76,60,0.10); border-color: var(--danger);  color: #ff8a80; }
+.log-empty { text-align: center; padding: 36px 16px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.btn-export { width: 100%; padding: 11px; border: 1px solid var(--border); border-radius: 9px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: 14px; transition: all 0.15s; }
+.btn-export:active { background: var(--card); color: var(--text); }
+
+/* INSTALL HINT */
+.install-hint { background: rgba(100,255,218,0.06); border: 1px solid rgba(100,255,218,0.15); border-radius: 10px; padding: 11px 13px; font-size: 12px; color: #64ffda; line-height: 1.6; margin-bottom: 14px; display: none; }
 </style>
 </head>
 <body>
@@ -317,360 +248,291 @@ body {
     <span class="header-sub">Freight Bid Calculator</span>
   </div>
   <div class="tabs">
-    <div class="tab active" onclick="switchTab(this,'calc')">Calculator</div>
-    <div class="tab" onclick="switchTab(this,'settings')">⚙️ Settings</div>
+    <div class="tab active"  onclick="switchTab(this,'calc')">Calc</div>
+    <div class="tab"         onclick="switchTab(this,'compare')">Compare</div>
+    <div class="tab"         onclick="switchTab(this,'log')" id="tab-log">Log</div>
+    <div class="tab"         onclick="switchTab(this,'settings')">⚙️</div>
   </div>
 </div>
 
 <div class="content">
 
-  <!-- ===== CALCULATOR ===== -->
-  <div class="page active" id="page-calc">
-
-    <div class="install-hint" id="install-hint">
-      💡 <strong>Tip:</strong> In Chrome, tap ⋮ → <em>Add to Home screen</em> to install as an app.
-    </div>
-
-    <div class="section-label">Route</div>
-    <div class="field">
-      <label>Pickup City, State</label>
-      <input type="text" id="pickup-city" placeholder="e.g. Portland, ME" autocomplete="off" autocorrect="off">
-    </div>
-    <div class="field">
-      <label>Destination City, State</label>
-      <input type="text" id="dest-city" placeholder="e.g. Los Angeles, CA" autocomplete="off" autocorrect="off">
-    </div>
-    <div class="field">
-      <label>Deadhead Miles to Pickup</label>
-      <div class="suffix-wrap">
-        <input type="number" id="deadhead-miles" placeholder="0" min="0" inputmode="decimal">
-        <span class="suffix">mi</span>
-      </div>
-    </div>
-
-    <div class="section-label">Schedule</div>
-    <div class="row-2">
-      <div class="field">
-        <label>Pickup Day</label>
-        <select id="pickup-day">
-          <option value="1">Monday</option>
-          <option value="2">Tuesday</option>
-          <option value="3">Wednesday</option>
-          <option value="4">Thursday</option>
-          <option value="5">Friday</option>
-          <option value="6">Saturday</option>
-          <option value="0">Sunday</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Pickup Time</label>
-        <select id="pickup-time">
-          <option value="0">00:00</option>
-          <option value="1">01:00</option>
-          <option value="2">02:00</option>
-          <option value="3">03:00</option>
-          <option value="4">04:00</option>
-          <option value="5">05:00</option>
-          <option value="6">06:00</option>
-          <option value="7">07:00</option>
-          <option value="8" selected>08:00</option>
-          <option value="9">09:00</option>
-          <option value="10">10:00</option>
-          <option value="11">11:00</option>
-          <option value="12">12:00</option>
-          <option value="13">13:00</option>
-          <option value="14">14:00</option>
-          <option value="15">15:00</option>
-          <option value="16">16:00</option>
-          <option value="17">17:00</option>
-          <option value="18">18:00</option>
-          <option value="19">19:00</option>
-          <option value="20">20:00</option>
-          <option value="21">21:00</option>
-          <option value="22">22:00</option>
-          <option value="23">23:00</option>
-          <option value="24">23:59</option>
-        </select>
-      </div>
-    </div>
-    <div class="row-2">
-      <div class="field">
-        <label>Delivery Time</label>
-        <select id="delivery-time">
-          <option value="0">00:00</option>
-          <option value="1">01:00</option>
-          <option value="2">02:00</option>
-          <option value="3">03:00</option>
-          <option value="4">04:00</option>
-          <option value="5">05:00</option>
-          <option value="6">06:00</option>
-          <option value="7">07:00</option>
-          <option value="8">08:00</option>
-          <option value="9">09:00</option>
-          <option value="10">10:00</option>
-          <option value="11">11:00</option>
-          <option value="12">12:00</option>
-          <option value="13">13:00</option>
-          <option value="14">14:00</option>
-          <option value="15">15:00</option>
-          <option value="16" selected>16:00</option>
-          <option value="17">17:00</option>
-          <option value="18">18:00</option>
-          <option value="19">19:00</option>
-          <option value="20">20:00</option>
-          <option value="21">21:00</option>
-          <option value="22">22:00</option>
-          <option value="23">23:00</option>
-          <option value="24">23:59</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Additional Days</label>
-        <select id="additional-days">
-          <option value="0">Same day</option>
-          <option value="1">+1 day</option>
-          <option value="2">+2 days</option>
-          <option value="3">+3 days</option>
-          <option value="4">+4 days</option>
-          <option value="5">+5 days</option>
-          <option value="6">+6 days</option>
-          <option value="7">+7 days</option>
-          <option value="8">+8 days</option>
-          <option value="9">+9 days</option>
-          <option value="10">+10 days</option>
-          <option value="11">+11 days</option>
-          <option value="12">+12 days</option>
-          <option value="13">+13 days</option>
-          <option value="14">+14 days</option>
-        </select>
-      </div>
-    </div>
-
-    <button class="btn btn-primary" id="calc-btn" onclick="calculate()">Calculate Bid →</button>
-    <div id="results"></div>
+<!-- ===== CALCULATOR ===== -->
+<div class="page active" id="page-calc">
+  <div class="install-hint" id="install-hint">
+    💡 <strong>Tip:</strong> In Chrome, tap ⋮ → <em>Add to Home screen</em> to install as an app.
   </div>
 
-  <!-- ===== SETTINGS ===== -->
-  <div class="page" id="page-settings">
-
-    <div class="section-label">Fuel &amp; Vehicle</div>
-
-    <div class="field">
-      <label>EIA API Key &nbsp;<a href="https://www.eia.gov/opendata/register.php" target="_blank" style="color:var(--primary);font-size:11px">Get free key ↗</a></label>
-      <input type="text" id="s-eia-key" placeholder="Paste your EIA API key here" autocomplete="off" autocorrect="off" style="font-size:13px;font-family:monospace">
-    </div>
-
-    <div class="fuel-row">
-      <div class="field">
-        <label>Fuel Type</label>
-        <select id="s-fuel-type">
-          <option value="diesel">Diesel</option>
-          <option value="regular">Regular Gas</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Fuel Price</label>
-        <div class="prefix-wrap suffix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-fuel-price" step="0.01" placeholder="3.75" inputmode="decimal">
-          <span class="suffix">/gal</span>
-        </div>
-      </div>
-      <button class="btn-fetch" id="fuel-fetch-btn" onclick="fetchFuelPrice()">⟳ Update</button>
-    </div>
-    <div class="fuel-status" id="fuel-status"></div>
-
-    <div class="row-2" style="margin-top:11px">
-      <div class="field">
-        <label>Fuel Economy</label>
-        <div class="suffix-wrap">
-          <input type="number" id="s-mpg" step="0.1" placeholder="16.5" inputmode="decimal">
-          <span class="suffix">mpg</span>
-        </div>
-      </div>
-      <div class="field">
-        <label>Delivery Speed</label>
-        <div class="suffix-wrap">
-          <input type="number" id="s-speed" step="1" placeholder="52" inputmode="decimal">
-          <span class="suffix">mph</span>
-        </div>
-      </div>
-    </div>
-    <div class="field">
-      <label>Maintenance Cost</label>
-      <div class="prefix-wrap suffix-wrap">
-        <span class="prefix">$</span>
-        <input type="number" id="s-maint" step="0.01" placeholder="0.07" inputmode="decimal">
-        <span class="suffix">/mi</span>
-      </div>
-    </div>
-
-    <div class="section-label">Profit Target</div>
-    <div class="row-2">
-      <div class="field">
-        <label>Target Profit</label>
-        <div class="prefix-wrap suffix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-daily-target" step="10" placeholder="700" inputmode="decimal">
-          <span class="suffix">/day</span>
-        </div>
-      </div>
-      <div class="field">
-        <label>Floor Profit</label>
-        <div class="prefix-wrap suffix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-floor-profit" step="10" placeholder="500" inputmode="decimal">
-          <span class="suffix">/day</span>
-        </div>
-      </div>
-    </div>
-    <div class="row-2">
-      <div class="field">
-        <label>Base Trip Cost</label>
-        <div class="prefix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-base-trip" step="10" placeholder="100" inputmode="decimal">
-        </div>
-      </div>
-      <div class="field">
-        <label>Min Rate / Loaded Mile</label>
-        <div class="prefix-wrap suffix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-min-rate" step="0.05" placeholder="1.80" inputmode="decimal">
-          <span class="suffix">/mi</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-label">Differentials</div>
-    <div class="field">
-      <label>Deadhead Rate (fuel at-cost + this per hour driven)</label>
-      <div class="prefix-wrap suffix-wrap">
-        <span class="prefix">$</span>
-        <input type="number" id="s-deadhead-rate" step="1" placeholder="20" inputmode="decimal">
-        <span class="suffix">/hr</span>
-      </div>
-    </div>
-    <div class="row-3">
-      <div class="field">
-        <label>Overnight /night</label>
-        <div class="prefix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-overnight" step="5" placeholder="150" inputmode="decimal">
-        </div>
-      </div>
-      <div class="field">
-        <label>Weekend /hr</label>
-        <div class="prefix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-weekend" step="5" placeholder="100" inputmode="decimal">
-        </div>
-      </div>
-      <div class="field">
-        <label>Detention /hr</label>
-        <div class="prefix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-detention" step="5" placeholder="50" inputmode="decimal">
-        </div>
-      </div>
-    </div>
-
-    <div class="section-label">Hot Shot Market Rates ($/mi)</div>
-    <div class="row-3">
-      <div class="field">
-        <label>Short (0–100mi)</label>
-        <div class="prefix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-mkt-short" step="0.01" placeholder="4.36" inputmode="decimal">
-        </div>
-      </div>
-      <div class="field">
-        <label>Medium (101–600)</label>
-        <div class="prefix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-mkt-medium" step="0.01" placeholder="2.56" inputmode="decimal">
-        </div>
-      </div>
-      <div class="field">
-        <label>Long (&gt;600mi)</label>
-        <div class="prefix-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="s-mkt-long" step="0.01" placeholder="1.77" inputmode="decimal">
-        </div>
-      </div>
-    </div>
-
-    <div class="section-label">Home Base</div>
-    <div class="field">
-      <label>Home City</label>
-      <input type="text" id="s-home-city" placeholder="Germantown, TN" autocorrect="off">
-    </div>
-
-    <button class="btn btn-success" onclick="saveSettings()">Save Settings ✓</button>
-    <div class="save-confirm" id="save-confirm"></div>
-
-    <div class="section-label">Expected Bid Rate Card</div>
-    <div class="result-card" style="padding:12px 8px">
-      <table class="rate-card-table" id="rate-card-table">
-        <thead>
-          <tr>
-            <th>Distance</th>
-            <th>Days</th>
-            <th>Bid</th>
-            <th>¢/mi</th>
-            <th>$/day</th>
-          </tr>
-        </thead>
-        <tbody id="rate-card-body">
-          <tr><td colspan="4" style="text-align:center;color:var(--muted);padding:14px">Save settings to generate rate card</td></tr>
-        </tbody>
-      </table>
-      <div class="rate-card-note" id="rate-card-note"></div>
-    </div>
-
-    <div class="info-note">
-      <strong>Bid formula:</strong> Fuel + Maintenance + (billing days × profit/day) + differentials = floor bid. Recommended bid adds 15%.<br><br>
-      <strong>Home base</strong> is not included in mileage costs. It's used only to flag trips where you can drive home from the drop and arrive by 8 PM — those bids are reduced 15% to help you win them.<br><br>
-      <strong>Sleep:</strong> 1 hr rest per 3 hrs driving, on trips ≥ 15 hrs of drive time.<br><br>
-      <strong>Billing days</strong> are fuzzy: pickup after noon = ½ day; delivery before noon = ½ day; all other days count as full days.<br><br>
-      <strong>Base trip cost</strong> sets a minimum floor — useful for rejecting very short trips that aren't worth the effort.
+  <div class="section-label">Route</div>
+  <div class="field">
+    <label>Pickup City, State</label>
+    <input type="text" id="pickup-city" placeholder="e.g. Portland, ME" autocomplete="off" autocorrect="off">
+  </div>
+  <div class="field">
+    <label>Destination City, State</label>
+    <input type="text" id="dest-city" placeholder="e.g. Los Angeles, CA" autocomplete="off" autocorrect="off">
+  </div>
+  <div class="field">
+    <label>Deadhead Miles to Pickup</label>
+    <div class="suffix-wrap">
+      <input type="number" id="deadhead-miles" placeholder="0" min="0" inputmode="decimal">
+      <span class="suffix">mi</span>
     </div>
   </div>
+
+  <div class="section-label">Schedule</div>
+  <div class="row-2">
+    <div class="field">
+      <label>Pickup Day</label>
+      <select id="pickup-day">
+        <option value="1">Monday</option><option value="2">Tuesday</option>
+        <option value="3">Wednesday</option><option value="4">Thursday</option>
+        <option value="5">Friday</option><option value="6">Saturday</option>
+        <option value="0">Sunday</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Pickup Time</label>
+      <select id="pickup-time"></select>
+    </div>
+  </div>
+  <div class="row-2">
+    <div class="field">
+      <label>Delivery Day</label>
+      <select id="delivery-day">
+        <option value="1">Monday</option><option value="2">Tuesday</option>
+        <option value="3">Wednesday</option><option value="4">Thursday</option>
+        <option value="5">Friday</option><option value="6">Saturday</option>
+        <option value="0">Sunday</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Delivery Time</label>
+      <select id="delivery-time"></select>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" id="calc-btn" onclick="calculate()">Calculate Bid →</button>
+  <div id="results"></div>
+
+  <!-- Rate Adjustment Panel (shown after calculation) -->
+  <div class="rate-adj-panel" id="rate-adj-panel">
+    <div class="rate-adj-header">
+      <span class="rate-adj-title">Rate Adjustment</span>
+      <button class="lock-btn" id="rate-lock-btn" onclick="toggleRateAdj()">🔒</button>
+    </div>
+    <input type="range" class="rate-adj-slider" id="rate-adj-slider"
+           min="-50" max="300" step="5" value="0" disabled
+           oninput="updateRateAdjDisplay()">
+    <div class="rate-adj-marks">
+      <span>−50%</span><span>0%</span><span>+100%</span><span>+200%</span><span>+300%</span>
+    </div>
+    <div class="rate-adj-result">
+      <div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:2px">ADJUSTMENT</div>
+        <div class="rate-adj-pct zero" id="rate-adj-pct">0%</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:10px;color:var(--muted);margin-bottom:2px">ADJUSTED BID</div>
+        <div class="rate-adj-bid-val" id="rate-adj-bid-val">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Log This Bid -->
+  <button class="log-bid-btn" id="log-bid-btn" onclick="logCurrentBid()" style="display:none">
+    📋 Log This Bid
+  </button>
+</div>
+
+<!-- ===== COMPARE ===== -->
+<div class="page" id="page-compare">
+  <div class="route-block-label" style="margin-top:4px">Route A</div>
+  <div class="field"><label>Pickup City</label><input type="text" id="cmp-a-pickup" placeholder="e.g. Memphis, TN" autocomplete="off" autocorrect="off"></div>
+  <div class="field"><label>Destination City</label><input type="text" id="cmp-a-dest" placeholder="e.g. Nashville, TN" autocomplete="off" autocorrect="off"></div>
+  <div class="field"><label>Deadhead Miles</label><div class="suffix-wrap"><input type="number" id="cmp-a-dh" placeholder="0" min="0" inputmode="decimal"><span class="suffix">mi</span></div></div>
+  <div class="row-2">
+    <div class="field"><label>Pickup Day</label><select id="cmp-a-pday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
+    <div class="field"><label>Pickup Time</label><select id="cmp-a-ptime"></select></div>
+  </div>
+  <div class="row-2">
+    <div class="field"><label>Delivery Day</label><select id="cmp-a-dday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
+    <div class="field"><label>Delivery Time</label><select id="cmp-a-dtime"></select></div>
+  </div>
+
+  <div class="route-block-label">Route B</div>
+  <div class="field"><label>Pickup City</label><input type="text" id="cmp-b-pickup" placeholder="e.g. Nashville, TN" autocomplete="off" autocorrect="off"></div>
+  <div class="field"><label>Destination City</label><input type="text" id="cmp-b-dest" placeholder="e.g. Atlanta, GA" autocomplete="off" autocorrect="off"></div>
+  <div class="field"><label>Deadhead Miles</label><div class="suffix-wrap"><input type="number" id="cmp-b-dh" placeholder="0" min="0" inputmode="decimal"><span class="suffix">mi</span></div></div>
+  <div class="row-2">
+    <div class="field"><label>Pickup Day</label><select id="cmp-b-pday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
+    <div class="field"><label>Pickup Time</label><select id="cmp-b-ptime"></select></div>
+  </div>
+  <div class="row-2">
+    <div class="field"><label>Delivery Day</label><select id="cmp-b-dday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
+    <div class="field"><label>Delivery Time</label><select id="cmp-b-dtime"></select></div>
+  </div>
+
+  <button class="btn btn-primary" id="cmp-btn" onclick="compareRoutes()">Compare Routes →</button>
+  <div id="compare-results"></div>
+</div>
+
+<!-- ===== LOG ===== -->
+<div class="page" id="page-log">
+  <div class="log-stats" id="log-stats">
+    <div class="log-stat"><div class="log-stat-val">—</div><div class="log-stat-lbl">Bids</div></div>
+    <div class="log-stat"><div class="log-stat-val">—</div><div class="log-stat-lbl">Win Rate</div></div>
+    <div class="log-stat"><div class="log-stat-val">—</div><div class="log-stat-lbl">Miles</div></div>
+  </div>
+  <button class="btn-export" onclick="exportMileageCSV()">⬇ Export Mileage Log (CSV)</button>
+  <div id="log-list"><div class="log-empty">No bids logged yet.<br>Use the Calc tab and tap "Log This Bid."</div></div>
+</div>
+
+<!-- ===== SETTINGS ===== -->
+<div class="page" id="page-settings">
+
+  <div class="section-label">Fuel &amp; Vehicle</div>
+  <div class="field">
+    <label>EIA API Key &nbsp;<a href="https://www.eia.gov/opendata/register.php" target="_blank" style="color:var(--primary);font-size:11px">Get free key ↗</a></label>
+    <input type="text" id="s-eia-key" placeholder="Paste your EIA API key here" autocomplete="off" autocorrect="off" style="font-size:13px;font-family:monospace">
+  </div>
+  <div class="fuel-row">
+    <div class="field">
+      <label>Fuel Type</label>
+      <select id="s-fuel-type"><option value="diesel">Diesel</option><option value="regular">Regular</option></select>
+    </div>
+    <div class="field">
+      <label>Fuel Price</label>
+      <div class="prefix-wrap suffix-wrap">
+        <span class="prefix">$</span>
+        <input type="number" id="s-fuel-price" step="0.01" placeholder="3.75" inputmode="decimal">
+        <span class="suffix">/gal</span>
+      </div>
+    </div>
+    <button class="btn-fetch" id="fuel-fetch-btn" onclick="fetchFuelPrice()">⟳ Update</button>
+  </div>
+  <div class="fuel-status" id="fuel-status"></div>
+  <div class="fuel-status" id="fuel-last-updated" style="color:var(--muted)"></div>
+
+  <div class="row-2" style="margin-top:10px">
+    <div class="field">
+      <label>Fuel Economy</label>
+      <div class="suffix-wrap"><input type="number" id="s-mpg" step="0.1" placeholder="16.5" inputmode="decimal"><span class="suffix">mpg</span></div>
+    </div>
+    <div class="field">
+      <label>Delivery Speed</label>
+      <div class="suffix-wrap"><input type="number" id="s-speed" step="1" placeholder="52" inputmode="decimal"><span class="suffix">mph</span></div>
+    </div>
+  </div>
+  <div class="row-2">
+    <div class="field">
+      <label>Tank Size</label>
+      <div class="suffix-wrap"><input type="number" id="s-tank-size" step="1" placeholder="40" inputmode="decimal"><span class="suffix">gal</span></div>
+    </div>
+    <div class="field">
+      <label>Refuel At</label>
+      <div class="suffix-wrap"><input type="number" id="s-refuel-at" step="5" placeholder="25" inputmode="decimal"><span class="suffix">%</span></div>
+    </div>
+  </div>
+  <div class="field">
+    <label>Maintenance Cost</label>
+    <div class="prefix-wrap suffix-wrap">
+      <span class="prefix">$</span>
+      <input type="number" id="s-maint" step="0.01" placeholder="0.07" inputmode="decimal">
+      <span class="suffix">/mi</span>
+    </div>
+  </div>
+
+  <div class="section-label">Profit Target</div>
+  <div class="row-2">
+    <div class="field">
+      <label>Target Profit</label>
+      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-daily-target" step="10" placeholder="700" inputmode="decimal"><span class="suffix">/day</span></div>
+    </div>
+    <div class="field">
+      <label>Floor Profit</label>
+      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-floor-profit" step="10" placeholder="500" inputmode="decimal"><span class="suffix">/day</span></div>
+    </div>
+  </div>
+  <div class="row-2">
+    <div class="field">
+      <label>Base Trip Cost</label>
+      <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-base-trip" step="10" placeholder="100" inputmode="decimal"></div>
+    </div>
+    <div class="field">
+      <label>Min Rate / Loaded Mile</label>
+      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-min-rate" step="0.05" placeholder="1.80" inputmode="decimal"><span class="suffix">/mi</span></div>
+    </div>
+  </div>
+
+  <div class="section-label">Differentials</div>
+  <div class="field">
+    <label>Deadhead Rate (fuel + maintenance at-cost, plus this per hour)</label>
+    <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-deadhead-rate" step="1" placeholder="20" inputmode="decimal"><span class="suffix">/hr</span></div>
+  </div>
+  <div class="row-3">
+    <div class="field"><label>Overnight /night</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-overnight" step="5" placeholder="50" inputmode="decimal"></div></div>
+    <div class="field"><label>Weekend /hr</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-weekend" step="5" placeholder="5" inputmode="decimal"></div></div>
+    <div class="field"><label>Detention /hr</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-detention" step="5" placeholder="15" inputmode="decimal"></div></div>
+  </div>
+
+  <div class="section-label">Hot Shot Market Rates ($/mi)</div>
+  <div class="row-3">
+    <div class="field"><label>Short (0–50mi)</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-mkt-short" step="0.01" placeholder="4.36" inputmode="decimal"></div></div>
+    <div class="field"><label>Medium (400mi)</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-mkt-medium" step="0.01" placeholder="2.56" inputmode="decimal"></div></div>
+    <div class="field"><label>Long (1000mi)</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-mkt-long" step="0.01" placeholder="1.77" inputmode="decimal"></div></div>
+  </div>
+
+  <div class="section-label">Home Base</div>
+  <div class="field"><label>Home City</label><input type="text" id="s-home-city" placeholder="Germantown, TN" autocorrect="off"></div>
+
+  <button class="btn btn-success" onclick="saveSettings()">Save Settings ✓</button>
+  <div class="save-confirm" id="save-confirm"></div>
+
+  <div class="section-label">Expected Bid Rate Card</div>
+  <div class="result-card" style="padding:10px 6px">
+    <table class="rate-card-table">
+      <thead><tr><th>Distance</th><th>Days</th><th>Bid</th><th>$/mi</th><th>$/day</th></tr></thead>
+      <tbody id="rate-card-body"><tr><td colspan="5" style="text-align:center;color:var(--muted);padding:12px">Save settings to generate</td></tr></tbody>
+    </table>
+    <div class="rate-card-note" id="rate-card-note"></div>
+  </div>
+
+  <div class="info-note">
+    <strong>Bid formula:</strong> Fuel + Maintenance + (billing days × profit/day) + differentials = bid.<br><br>
+    <strong>Home base</strong> is used only to flag home-time trips (bid −15%) and overnight distance checks.<br><br>
+    <strong>Sleep:</strong> 1 hr per 3 hrs driving, on trips ≥ 15 hrs drive time.<br><br>
+    <strong>Billing days:</strong> pickup after noon = ½ day; delivery before noon = ½ day.<br><br>
+    <strong>Rate adjustment</strong> is locked by default — tap 🔒 in the Calc tab after calculating to unlock.
+  </div>
+</div>
 
 </div><!-- /content -->
 
 <script>
-// ── Built-in API key fallback ─────────────────────────────────────────────
-// Key is intentionally blank here — enter it once in Settings on your device
-// and it will be saved to localStorage automatically.
-window.RS_CONFIG = {
-  eiaApiKey: ''
-};
+window.RS_CONFIG = { eiaApiKey: '' };
 </script>
 <script src="ratesetter-config.js" onerror=""></script>
 <script>
-// ===========================
+// ═══════════════════════════════════════════
 // SETTINGS
-// ===========================
+// ═══════════════════════════════════════════
 const DEFAULTS = {
   fuelPrice: 3.75, fuelType: 'diesel', eiaApiKey: '',
+  fuelLastUpdated: null, fuelLastPeriod: null,
   mpg: 16.5, maint: 0.07, speed: 52,
+  tankSize: 40, refuelAt: 25,
   dailyTarget: 700, floorProfit: 500, baseTripCost: 100, minRatePerMile: 1.80,
   deadheadRate: 20,
   overnight: 50, weekend: 5, detention: 15,
   homeCity: 'Germantown, TN',
-  mktShort: 4.36,   // hot shot $/mi, 0–100 miles
-  mktMedium: 2.56,  // hot shot $/mi, 101–600 miles
-  mktLong: 1.77     // hot shot $/mi, >600 miles
+  mktShort: 4.36, mktMedium: 2.56, mktLong: 1.77
 };
 
 function loadSettings() {
   try {
     const s = JSON.parse(localStorage.getItem('rs_settings') || '{}');
-    // Fall back to config file key if localStorage has none
-    if (!s.eiaApiKey && window.RS_CONFIG?.eiaApiKey) {
-      s.eiaApiKey = window.RS_CONFIG.eiaApiKey;
-    }
+    if (!s.eiaApiKey && window.RS_CONFIG?.eiaApiKey) s.eiaApiKey = window.RS_CONFIG.eiaApiKey;
     return { ...DEFAULTS, ...s };
   } catch { return { ...DEFAULTS }; }
 }
@@ -679,24 +541,26 @@ function saveSettings() {
   const n = id => parseFloat(document.getElementById(id).value);
   const t = id => document.getElementById(id).value.trim();
   const s = {
-    fuelPrice:      n('s-fuel-price')     || DEFAULTS.fuelPrice,
+    fuelPrice:      n('s-fuel-price')    || DEFAULTS.fuelPrice,
     fuelType:       document.getElementById('s-fuel-type').value || DEFAULTS.fuelType,
     eiaApiKey:      document.getElementById('s-eia-key').value.trim(),
-    mpg:            n('s-mpg')            || DEFAULTS.mpg,
-    maint:          n('s-maint')          || DEFAULTS.maint,
-    speed:          n('s-speed')          || DEFAULTS.speed,
-    dailyTarget:    n('s-daily-target')   || DEFAULTS.dailyTarget,
-    floorProfit:    n('s-floor-profit')   || DEFAULTS.floorProfit,
-    baseTripCost:   n('s-base-trip')      || DEFAULTS.baseTripCost,
-    minRatePerMile: n('s-min-rate')       || DEFAULTS.minRatePerMile,
-    deadheadRate:   n('s-deadhead-rate')   || DEFAULTS.deadheadRate,
-    overnight:      n('s-overnight')      || DEFAULTS.overnight,
-    weekend:        n('s-weekend')        || DEFAULTS.weekend,
-    detention:      n('s-detention')      || DEFAULTS.detention,
-    homeCity:       t('s-home-city')      || DEFAULTS.homeCity,
-    mktShort:       n('s-mkt-short')      || DEFAULTS.mktShort,
-    mktMedium:      n('s-mkt-medium')     || DEFAULTS.mktMedium,
-    mktLong:        n('s-mkt-long')       || DEFAULTS.mktLong
+    mpg:            n('s-mpg')           || DEFAULTS.mpg,
+    maint:          n('s-maint')         || DEFAULTS.maint,
+    speed:          n('s-speed')         || DEFAULTS.speed,
+    tankSize:       n('s-tank-size')     || DEFAULTS.tankSize,
+    refuelAt:       n('s-refuel-at')     || DEFAULTS.refuelAt,
+    dailyTarget:    n('s-daily-target')  || DEFAULTS.dailyTarget,
+    floorProfit:    n('s-floor-profit')  || DEFAULTS.floorProfit,
+    baseTripCost:   n('s-base-trip')     || DEFAULTS.baseTripCost,
+    minRatePerMile: n('s-min-rate')      || DEFAULTS.minRatePerMile,
+    deadheadRate:   n('s-deadhead-rate') || DEFAULTS.deadheadRate,
+    overnight:      n('s-overnight')     || DEFAULTS.overnight,
+    weekend:        n('s-weekend')       || DEFAULTS.weekend,
+    detention:      n('s-detention')     || DEFAULTS.detention,
+    homeCity:       t('s-home-city')     || DEFAULTS.homeCity,
+    mktShort:       n('s-mkt-short')     || DEFAULTS.mktShort,
+    mktMedium:      n('s-mkt-medium')    || DEFAULTS.mktMedium,
+    mktLong:        n('s-mkt-long')      || DEFAULTS.mktLong
   };
   localStorage.setItem('rs_settings', JSON.stringify(s));
   updateRateCard();
@@ -707,208 +571,202 @@ function saveSettings() {
 
 function populateSettings() {
   const s = loadSettings();
-  document.getElementById('s-fuel-price').value   = s.fuelPrice;
-  document.getElementById('s-fuel-type').value    = s.fuelType;
-  document.getElementById('s-eia-key').value      = s.eiaApiKey;
-  document.getElementById('s-mpg').value          = s.mpg;
-  document.getElementById('s-maint').value        = s.maint;
-  document.getElementById('s-speed').value        = s.speed;
-  document.getElementById('s-daily-target').value = s.dailyTarget;
-  document.getElementById('s-floor-profit').value = s.floorProfit;
-  document.getElementById('s-base-trip').value    = s.baseTripCost;
-  document.getElementById('s-min-rate').value     = s.minRatePerMile;
-  document.getElementById('s-deadhead-rate').value = s.deadheadRate;
-  document.getElementById('s-overnight').value    = s.overnight;
-  document.getElementById('s-weekend').value      = s.weekend;
-  document.getElementById('s-detention').value    = s.detention;
-  document.getElementById('s-home-city').value    = s.homeCity;
-  document.getElementById('s-mkt-short').value   = s.mktShort;
-  document.getElementById('s-mkt-medium').value  = s.mktMedium;
-  document.getElementById('s-mkt-long').value    = s.mktLong;
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+  set('s-fuel-price', s.fuelPrice);
+  set('s-fuel-type',  s.fuelType);
+  set('s-eia-key',    s.eiaApiKey);
+  set('s-mpg',        s.mpg);
+  set('s-maint',      s.maint);
+  set('s-speed',      s.speed);
+  set('s-tank-size',  s.tankSize);
+  set('s-refuel-at',  s.refuelAt);
+  set('s-daily-target', s.dailyTarget);
+  set('s-floor-profit', s.floorProfit);
+  set('s-base-trip',  s.baseTripCost);
+  set('s-min-rate',   s.minRatePerMile);
+  set('s-deadhead-rate', s.deadheadRate);
+  set('s-overnight',  s.overnight);
+  set('s-weekend',    s.weekend);
+  set('s-detention',  s.detention);
+  set('s-home-city',  s.homeCity);
+  set('s-mkt-short',  s.mktShort);
+  set('s-mkt-medium', s.mktMedium);
+  set('s-mkt-long',   s.mktLong);
+  const luEl = document.getElementById('fuel-last-updated');
+  if (luEl) {
+    if (s.fuelLastUpdated) {
+      const d = new Date(s.fuelLastUpdated);
+      const stale = d < lastMondayMidnight();
+      luEl.textContent = `Last updated: ${d.toLocaleDateString()} ${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}${stale ? ' — ⚠ stale, will auto-update on next bid' : ''}`;
+      luEl.style.color = stale ? 'var(--warning)' : 'var(--muted)';
+    } else {
+      luEl.textContent = s.eiaApiKey ? 'Never updated — will auto-fetch on first bid.' : '';
+    }
+  }
 }
 
-// ===========================
-// FUEL PRICE FETCH (EIA API)
-// ===========================
-// EIA series:
-//   Diesel national avg  → product EPD2D,  duoarea NUS
-//   Regular gas national → product EPM0R,  duoarea NUS
-async function fetchFuelPrice() {
-  const btn    = document.getElementById('fuel-fetch-btn');
-  const status = document.getElementById('fuel-status');
-  const key    = document.getElementById('s-eia-key').value.trim();
-  const type   = document.getElementById('s-fuel-type').value;
+// ═══════════════════════════════════════════
+// FUEL AUTO-UPDATE
+// ═══════════════════════════════════════════
+function lastMondayMidnight() {
+  const now = new Date();
+  const d = (now.getDay() === 0) ? 6 : now.getDay() - 1;
+  const mon = new Date(now);
+  mon.setDate(now.getDate() - d);
+  mon.setHours(0,0,0,0);
+  return mon;
+}
 
-  if (!key) {
-    status.className = 'fuel-status err';
-    status.textContent = '⚠ Enter your EIA API key first.';
-    return;
-  }
-
-  btn.disabled = true;
-  status.className = 'fuel-status';
-  status.textContent = 'Fetching…';
-
-  const product = type === 'diesel' ? 'EPD2D' : 'EPM0R';
-  const url = `https://api.eia.gov/v2/petroleum/pri/gnd/data/`
-    + `?api_key=${encodeURIComponent(key)}`
-    + `&frequency=weekly`
-    + `&data[0]=value`
-    + `&facets[product][]=${product}`
-    + `&facets[duoarea][]=NUS`
-    + `&sort[0][column]=period`
-    + `&sort[0][direction]=desc`
-    + `&length=1`;
-
+async function autoUpdateFuelIfStale(s) {
+  if (!s.eiaApiKey) return { s, autoUpdated: false };
+  const last = s.fuelLastUpdated ? new Date(s.fuelLastUpdated) : null;
+  if (last && last >= lastMondayMidnight()) return { s, autoUpdated: false };
   try {
-    const res  = await fetch(url);
-    const json = await res.json();
+    const product = s.fuelType === 'diesel' ? 'EPD2D' : 'EPM0R';
+    const url = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${encodeURIComponent(s.eiaApiKey)}&frequency=weekly&data[0]=value&facets[product][]=${product}&facets[duoarea][]=NUS&sort[0][column]=period&sort[0][direction]=desc&length=1`;
+    const json = await fetch(url).then(r => r.json());
+    const row  = json?.response?.data?.[0];
+    if (row?.value != null) {
+      s.fuelPrice = parseFloat(row.value);
+      s.fuelLastUpdated = new Date().toISOString();
+      s.fuelLastPeriod  = row.period;
+      const stored = JSON.parse(localStorage.getItem('rs_settings') || '{}');
+      Object.assign(stored, { fuelPrice: s.fuelPrice, fuelLastUpdated: s.fuelLastUpdated, fuelLastPeriod: s.fuelLastPeriod });
+      localStorage.setItem('rs_settings', JSON.stringify(stored));
+      const el = document.getElementById('s-fuel-price');
+      if (el) el.value = s.fuelPrice.toFixed(3);
+      return { s, autoUpdated: true, period: row.period, price: s.fuelPrice };
+    }
+  } catch { /* fallback */ }
+  return { s, autoUpdated: false };
+}
 
+async function fetchFuelPrice() {
+  const btn = document.getElementById('fuel-fetch-btn');
+  const status = document.getElementById('fuel-status');
+  const key  = document.getElementById('s-eia-key').value.trim();
+  const type = document.getElementById('s-fuel-type').value;
+  if (!key) { status.className = 'fuel-status err'; status.textContent = '⚠ Enter your EIA API key first.'; return; }
+  btn.disabled = true; status.className = 'fuel-status'; status.textContent = 'Fetching…';
+  const product = type === 'diesel' ? 'EPD2D' : 'EPM0R';
+  const url = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${encodeURIComponent(key)}&frequency=weekly&data[0]=value&facets[product][]=${product}&facets[duoarea][]=NUS&sort[0][column]=period&sort[0][direction]=desc&length=1`;
+  try {
+    const json = await fetch(url).then(r => r.json());
     if (json.error) throw new Error(json.error);
-
     const row = json?.response?.data?.[0];
     if (!row || row.value == null) throw new Error('No data returned — check your API key.');
-
-    const price  = parseFloat(row.value).toFixed(3);
-    const period = row.period; // e.g. "2026-05-26"
-
+    const price = parseFloat(row.value).toFixed(3);
     document.getElementById('s-fuel-price').value = price;
+    const stored = JSON.parse(localStorage.getItem('rs_settings') || '{}');
+    stored.fuelPrice = parseFloat(price);
+    stored.fuelLastUpdated = new Date().toISOString();
+    stored.fuelLastPeriod  = row.period;
+    localStorage.setItem('rs_settings', JSON.stringify(stored));
     status.className = 'fuel-status ok';
-    status.textContent = `✓ Updated to $${price}/gal (${type}, week of ${period})`;
+    status.textContent = `✓ $${price}/gal (${type}, week of ${row.period})`;
   } catch (err) {
-    status.className = 'fuel-status err';
-    status.textContent = `⚠ ${err.message}`;
-  } finally {
-    btn.disabled = false;
-  }
+    status.className = 'fuel-status err'; status.textContent = `⚠ ${err.message}`;
+  } finally { btn.disabled = false; }
 }
 
-// ===========================
+// ═══════════════════════════════════════════
 // MARKET RATE (interpolated)
-// ===========================
+// ═══════════════════════════════════════════
 // Anchors: mktShort @ 50mi, mktMedium @ 400mi, mktLong @ 1000mi
-// Linear interpolation between anchors; flat outside the range.
 function marketRateForMiles(miles, s) {
   if (miles <= 50) return s.mktShort;
-  if (miles <= 400) {
-    const t = (miles - 50) / (400 - 50);
-    return s.mktShort + t * (s.mktMedium - s.mktShort);
-  }
-  if (miles <= 1000) {
-    const t = (miles - 400) / (1000 - 400);
-    return s.mktMedium + t * (s.mktLong - s.mktMedium);
-  }
+  if (miles <= 400) { const t = (miles-50)/350; return s.mktShort + t*(s.mktMedium-s.mktShort); }
+  if (miles <= 1000) { const t = (miles-400)/600; return s.mktMedium + t*(s.mktLong-s.mktMedium); }
   return s.mktLong;
 }
 
-// ===========================
+// ═══════════════════════════════════════════
 // RATE CARD
-// ===========================
+// ═══════════════════════════════════════════
 const RATE_CARD_DISTANCES = [100, 250, 500, 1000, 1500, 2000, 3000];
 
-// Given an 8 AM pickup and a 2-hour delivery buffer, compute billing days.
-// Assumes no differentials — baseline rate card only.
 function rateCardBillingDays(driveHours, sleepHours) {
-  const pickupHour = 8;
-  const totalTripHours = driveHours + sleepHours;
-  const deliveryDecimal = pickupHour + totalTripHours + 2; // +2h reasonable buffer
-  const calendarDaysElapsed = Math.floor(deliveryDecimal / 24);
-  const deliveryHourOfDay   = deliveryDecimal % 24;
-
-  const pickupFraction   = pickupHour > 12 ? 0.5 : 1.0;   // 8 AM → full day
-  const deliveryFraction = deliveryHourOfDay < 12 ? 0.5 : 1.0;
-
-  if (calendarDaysElapsed === 0) return Math.min(pickupFraction, deliveryFraction);
-  return pickupFraction + Math.max(0, calendarDaysElapsed - 1) + deliveryFraction;
+  const totalTrip = driveHours + sleepHours;
+  const delDec    = 8 + totalTrip + 2;
+  const calDays   = Math.floor(delDec / 24);
+  const delHour   = delDec % 24;
+  const pFrac     = 1.0; // 8am
+  const dFrac     = delHour < 12 ? 0.5 : 1.0;
+  if (calDays === 0) return Math.min(pFrac, dFrac);
+  return pFrac + Math.max(0, calDays-1) + dFrac;
 }
 
 function calcRateCardRow(miles, s) {
-  const driveHours  = miles / s.speed;
-  const sleepHours  = driveHours >= 15 ? Math.floor(driveHours / 3) : 0;
-  const billingDays = rateCardBillingDays(driveHours, sleepHours);
-
-  const fuelCost    = (miles / s.mpg) * s.fuelPrice;
-  const maintCost   = miles * s.maint;
-  const profitTarget= billingDays * s.dailyTarget;
-
-  let floorBid = fuelCost + maintCost + profitTarget;
-  const baseApplied = floorBid < s.baseTripCost;
-  if (baseApplied) floorBid = s.baseTripCost;
-
-  let recBid = floorBid;
-  const minByRate    = s.minRatePerMile * miles;
-  const minRateApplied = recBid < minByRate;
-  if (minRateApplied) recBid = minByRate;
-
-  const dollarsPerMile = recBid / miles;
-  const centsPerMile   = dollarsPerMile * 100;
-  const netProfit      = recBid - fuelCost - maintCost;
-  const profitPerDay   = billingDays > 0 ? netProfit / billingDays : 0;
-
-  return { recBid, billingDays, dollarsPerMile, centsPerMile, profitPerDay, baseApplied, minRateApplied, driveHours, sleepHours };
+  const driveH = miles / s.speed;
+  const sleepH = driveH >= 15 ? Math.floor(driveH/3) : 0;
+  const bDays  = rateCardBillingDays(driveH, sleepH);
+  const fuel   = (miles / s.mpg) * s.fuelPrice;
+  const maint  = miles * s.maint;
+  let floor    = fuel + maint + bDays * s.dailyTarget;
+  const baseA  = floor < s.baseTripCost;
+  if (baseA) floor = s.baseTripCost;
+  let rec = floor;
+  const minByR = s.minRatePerMile * miles;
+  const minRA  = rec < minByR;
+  if (minRA) rec = minByR;
+  const dpm    = rec / miles;
+  const profit = bDays > 0 ? (rec - fuel - maint) / bDays : 0;
+  return { recBid: rec, billingDays: bDays, dollarsPerMile: dpm, profitPerDay: profit, baseApplied: baseA, minRateApplied: minRA, driveHours: driveH, sleepHours: sleepH };
 }
 
 function updateRateCard() {
-  const s    = loadSettings();
-  const tbody= document.getElementById('rate-card-body');
-  const note = document.getElementById('rate-card-note');
+  const s = loadSettings();
+  const tbody = document.getElementById('rate-card-body');
+  const note  = document.getElementById('rate-card-note');
   if (!tbody) return;
-
-  let anyBase = false;
-  let rows = '';
-
+  let anyBase = false, anyMin = false, rows = '';
   for (const miles of RATE_CARD_DISTANCES) {
     const r = calcRateCardRow(miles, s);
     if (r.baseApplied) anyBase = true;
-    const sleepNote = r.sleepHours > 0 ? ` +${r.sleepHours}h sleep` : '';
-    const floorNote = r.minRateApplied ? ' 📐' : r.baseApplied ? ' 📋' : '';
-    rows += `
-      <tr>
-        <td class="dist-label">${miles.toLocaleString()} mi</td>
-        <td class="days-val">${r.billingDays.toFixed(1)}d${sleepNote}</td>
-        <td class="bid-val ${r.baseApplied || r.minRateApplied ? 'base-applied' : ''}">${fmt$(r.recBid)}${floorNote}</td>
-        <td class="cpm-val">$${r.dollarsPerMile.toFixed(3)}</td>
-        <td class="bid-val">${fmt$(r.profitPerDay)}</td>
-      </tr>`;
+    if (r.minRateApplied) anyMin = true;
+    const sl = r.sleepHours > 0 ? ` +${r.sleepHours}h` : '';
+    const fl = r.minRateApplied ? ' 📐' : r.baseApplied ? ' 📋' : '';
+    rows += `<tr>
+      <td class="dist-label">${miles.toLocaleString()} mi</td>
+      <td style="color:var(--muted);font-size:11px">${r.billingDays.toFixed(1)}d${sl}</td>
+      <td class="bid-val ${r.baseApplied||r.minRateApplied?'base-applied':''}">${fmt$(r.recBid)}${fl}</td>
+      <td style="color:var(--text)">$${r.dollarsPerMile.toFixed(3)}</td>
+      <td class="bid-val">${fmt$(r.profitPerDay)}</td>
+    </tr>`;
   }
-
   tbody.innerHTML = rows;
-  const anyMinRate = RATE_CARD_DISTANCES.some(m => calcRateCardRow(m, s).minRateApplied);
-  note.innerHTML = `Assumes 8 AM pickup · no differentials · ${s.speed} mph · +2h window buffer` +
-    (anyBase    ? ` · <span style="color:var(--warning)">📋 base floor applied</span>` : '') +
-    (anyMinRate ? ` · <span style="color:var(--warning)">📐 min rate floor applied</span>` : '');
+  note.innerHTML = `8 AM pickup · no differentials · ${s.speed} mph · +2h buffer`
+    + (anyBase ? ` · <span style="color:var(--warning)">📋 base floor</span>` : '')
+    + (anyMin  ? ` · <span style="color:var(--warning)">📐 min rate floor</span>` : '');
 }
 
-// ===========================
+// ═══════════════════════════════════════════
 // TABS
-// ===========================
+// ═══════════════════════════════════════════
 function switchTab(el, tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('page-' + tab).classList.add('active');
+  if (tab === 'log') renderBidLog();
 }
 
-// ===========================
+// ═══════════════════════════════════════════
 // TIMEZONE
-// ===========================
+// ═══════════════════════════════════════════
 const tzCache = {};
 
 async function getTimezone(lat, lon) {
   const key = `${lat.toFixed(2)},${lon.toFixed(2)}`;
   if (tzCache[key]) return tzCache[key];
   try {
-    const res  = await fetch(`https://timezonefinder.michelfe.it/api/0?lat=${lat}&lng=${lon}`);
-    const data = await res.json();
+    const data = await fetch(`https://timezonefinder.michelfe.it/api/0?lat=${lat}&lng=${lon}`).then(r => r.json());
     tzCache[key] = data.timezone;
     return data.timezone;
-  } catch {
-    return estimateTzFromLon(lon); // fallback if API unavailable
-  }
+  } catch { return estimateTzFromLon(lon); }
 }
 
 function estimateTzFromLon(lon) {
-  // Rough continental US fallback by longitude
   if (lon > -87.5)  return 'America/New_York';
   if (lon > -102.5) return 'America/Chicago';
   if (lon > -115)   return 'America/Denver';
@@ -917,73 +775,62 @@ function estimateTzFromLon(lon) {
 
 function getUtcOffsetHours(tzName) {
   try {
-    const now    = new Date();
-    const tzMs   = new Date(now.toLocaleString('en-US', { timeZone: tzName })).getTime();
-    const utcMs  = new Date(now.toLocaleString('en-US', { timeZone: 'UTC'   })).getTime();
+    const now = new Date();
+    const tzMs  = new Date(now.toLocaleString('en-US', { timeZone: tzName })).getTime();
+    const utcMs = new Date(now.toLocaleString('en-US', { timeZone: 'UTC'   })).getTime();
     return (tzMs - utcMs) / 3600000;
   } catch { return 0; }
 }
 
 function tzAbbrev(tzName) {
   const map = {
-    'America/New_York':    'ET',  'America/Detroit':     'ET',
-    'America/Chicago':     'CT',  'America/Indiana/Knox':'CT',
-    'America/Denver':      'MT',  'America/Boise':       'MT',
-    'America/Phoenix':     'MT',  'America/Los_Angeles': 'PT',
-    'America/Anchorage':   'AKT', 'Pacific/Honolulu':    'HT',
+    'America/New_York':'ET','America/Detroit':'ET','America/Chicago':'CT',
+    'America/Indiana/Knox':'CT','America/Denver':'MT','America/Boise':'MT',
+    'America/Phoenix':'MT','America/Los_Angeles':'PT','America/Anchorage':'AKT','Pacific/Honolulu':'HT'
   };
-  return map[tzName] || (tzName.split('/')[1] || tzName).replace('_', ' ');
+  return map[tzName] || (tzName.split('/')[1]||tzName).replace('_',' ');
 }
 
-// ===========================
+// ═══════════════════════════════════════════
 // GEOCODING & ROUTING
-// ===========================
+// ═══════════════════════════════════════════
 const geocodeCache = {};
 
 async function geocode(city) {
   if (geocodeCache[city]) return geocodeCache[city];
-  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1&countrycodes=us&addressdetails=1`;
-  const res = await fetch(url, { headers: { 'Accept-Language': 'en-US,en' } });
-  if (!res.ok) throw new Error('Geocoding service unavailable — check your internet connection.');
+  const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1&countrycodes=us&addressdetails=1`, { headers: {'Accept-Language':'en-US,en'} });
+  if (!res.ok) throw new Error('Geocoding service unavailable — check internet connection.');
   const data = await res.json();
   if (!data.length) throw new Error(`Could not find "${city}". Try "City, State" format.`);
   const addr  = data[0].address || {};
   const place = addr.city || addr.town || addr.village || addr.county || data[0].display_name.split(',')[0];
   const state = addr.state || '';
   const label = state ? `${place}, ${state}` : place;
-  // If the user didn't specify a state (no comma), the API had to choose — always clarify.
-  // If they did specify a state, check that it appears in the resolved label.
   const hasState     = city.includes(',');
-  const inputLower   = city.toLowerCase().replace(/[^a-z]/g, '');
-  const resolvedLower= label.toLowerCase().replace(/[^a-z]/g, '');
-  const exact        = hasState && resolvedLower.includes(inputLower.slice(0, 6));
-  const result = {
-    lat: parseFloat(data[0].lat),
-    lon: parseFloat(data[0].lon),
-    label,
-    exact
-  };
+  const inputLower   = city.toLowerCase().replace(/[^a-z]/g,'');
+  const resolvedLower= label.toLowerCase().replace(/[^a-z]/g,'');
+  const exact        = hasState && resolvedLower.includes(inputLower.slice(0,6));
+  const result = { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon), label, exact };
   geocodeCache[city] = result;
   return result;
 }
 
 async function getRouteMiles(from, to) {
-  const url = `https://router.project-osrm.org/route/v1/driving/${from.lon},${from.lat};${to.lon},${to.lat}?overview=false`;
-  const res = await fetch(url);
+  const res = await fetch(`https://router.project-osrm.org/route/v1/driving/${from.lon},${from.lat};${to.lon},${to.lat}?overview=false`);
   if (!res.ok) throw new Error('Routing service unavailable.');
   const data = await res.json();
   if (data.code !== 'Ok') throw new Error('No driving route found between those cities.');
-  return data.routes[0].distance * 0.000621371; // meters → miles
+  return data.routes[0].distance * 0.000621371;
 }
 
-// ===========================
+// ═══════════════════════════════════════════
 // FORMATTERS
-// ===========================
-function fmt$(n)  { return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+// ═══════════════════════════════════════════
+function fmt$(n)  { return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','); }
 function fmtMi(n) { return Math.round(n).toLocaleString() + ' mi'; }
 function fmtHr(n) {
   if (n <= 0) return '0h';
-  const h = Math.floor(n), m = Math.round((n - h) * 60);
+  const h = Math.floor(n), m = Math.round((n-h)*60);
   return m ? `${h}h ${m}m` : `${h}h`;
 }
 const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -992,49 +839,342 @@ function fmtTime(h) {
   return `${String(h).padStart(2,'0')}:00`;
 }
 function fmtTimeDecimal(decH) {
-  const h = Math.floor(decH) % 24;
-  const m = Math.round((decH - Math.floor(decH)) * 60);
+  const h = Math.floor(decH) % 24, m = Math.round((decH - Math.floor(decH))*60);
   return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
 }
 
-// ===========================
-// CALCULATE
-// ===========================
+// ═══════════════════════════════════════════
+// CORE CALCULATION ENGINE (shared)
+// ═══════════════════════════════════════════
+function computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHomeMiles,
+    pickupTz, destTz, homeTz, pickupDay, deliveryDay, pickupHour, deliveryHour, is2359 }, s) {
+
+  const pickupOffset = getUtcOffsetHours(pickupTz);
+  const destOffset   = getUtcOffsetHours(destTz);
+  const homeOffset   = getUtcOffsetHours(homeTz);
+  const tzAdjHours   = pickupOffset - destOffset;
+  const additionalDays = (deliveryDay - pickupDay + 7) % 7;
+
+  let durationHours = is2359
+    ? additionalDays * 24 + (24 - pickupHour)
+    : additionalDays * 24 + (deliveryHour - pickupHour);
+  if (durationHours <= 0) durationHours += 24;
+  durationHours += tzAdjHours;
+
+  const daysByTime = is2359 ? 1 : (additionalDays === 0 && deliveryHour <= pickupHour) ? 1 : 0;
+  const calendarDaysElapsed = additionalDays + daysByTime;
+  const deliveryDayActual   = (pickupDay + calendarDaysElapsed) % 7;
+
+  const driveHours     = loadedMiles / s.speed;
+  const sleepHours     = driveHours >= 15 ? Math.floor(driveHours/3) : 0;
+  const totalTripHours = driveHours + sleepHours;
+  const buffer         = durationHours - totalTripHours;
+  const infeasible     = buffer < 0;
+
+  const marginPer100 = !infeasible && loadedMiles > 0 ? (buffer * 60) / (loadedMiles / 100) : Infinity;
+  const isTight      = !infeasible && marginPer100 < 5;
+
+  const driveHomeHours    = destToHomeMiles / s.speed;
+  const deliveryInHomeTz  = deliveryHour + (homeOffset - destOffset);
+  const homeArrivalHour   = deliveryInHomeTz + driveHomeHours;
+  const homeTimeQualifies = !infeasible && homeArrivalHour <= 20;
+
+  // Weekend
+  const tripDays = new Set();
+  for (let i = 0; i <= calendarDaysElapsed; i++) tripDays.add((pickupDay + i) % 7);
+  const spansFullWeekend = tripDays.has(6) && tripDays.has(0);
+  const weekendQualifies = !infeasible && buffer > 12
+    && pickupDay >= 1 && pickupDay <= 5
+    && deliveryDayActual >= 1 && deliveryDayActual <= 5
+    && spansFullWeekend;
+  const weekendExcessHours = weekendQualifies ? (buffer - 12) : 0;
+  const weekendCost        = weekendExcessHours * s.weekend;
+
+  // Overnight
+  const overnightQualifies = !infeasible && durationHours > 12
+    && calendarDaysElapsed > 0 && pickupFromHomeMiles > 100 && destToHomeMiles > 100;
+  let overnightNights = 0;
+  if (overnightQualifies) {
+    let excl = 0;
+    if (weekendQualifies) {
+      for (let i = 1; i <= calendarDaysElapsed; i++) {
+        const nd = (pickupDay + i - 1) % 7;
+        if (nd === 5 || nd === 6) excl++;
+      }
+    }
+    overnightNights = Math.max(0, calendarDaysElapsed - excl);
+  }
+  const overnightCost = overnightNights * s.overnight;
+
+  // Detention
+  const detentionQualifies = !infeasible && !weekendQualifies && buffer > 4;
+  const detentionCost      = detentionQualifies ? buffer * s.detention : 0;
+
+  // Billing days
+  const pickupFraction   = pickupHour > 12 ? 0.5 : 1.0;
+  const deliveryFraction = deliveryHour < 12 ? 0.5 : 1.0;
+  let billingDays;
+  if (calendarDaysElapsed === 0) {
+    billingDays = Math.min(pickupFraction, deliveryFraction);
+  } else {
+    billingDays = pickupFraction + Math.max(0, calendarDaysElapsed - 1) + deliveryFraction;
+  }
+
+  // Costs
+  const loadedFuelCost    = (loadedMiles / s.mpg) * s.fuelPrice;
+  const maintCost         = loadedMiles * s.maint;
+  const deadheadFuelCost  = (deadheadIn  / s.mpg) * s.fuelPrice;
+  const deadheadMaintCost = deadheadIn * s.maint;
+  const deadheadTimeHours = deadheadIn / s.speed;
+  const deadheadTimeCost  = deadheadTimeHours * s.deadheadRate;
+  const deadheadCost      = deadheadFuelCost + deadheadMaintCost + deadheadTimeCost;
+  const totalDiffs        = overnightCost + weekendCost + detentionCost;
+
+  const profitTarget = billingDays * s.dailyTarget;
+  let targetBid      = loadedFuelCost + maintCost + profitTarget + deadheadCost + totalDiffs;
+  const baseTripApplied = targetBid < s.baseTripCost;
+  if (baseTripApplied) targetBid = s.baseTripCost;
+  let recBid       = homeTimeQualifies ? targetBid * 0.85 : targetBid;
+  const minByRate  = s.minRatePerMile * loadedMiles;
+  const minRateApplied = recBid < minByRate;
+  if (minRateApplied) recBid = minByRate;
+
+  const profitFloor = billingDays * s.floorProfit;
+  let minAcceptable = loadedFuelCost + maintCost + profitFloor + deadheadCost + totalDiffs;
+  if (minAcceptable < s.baseTripCost) minAcceptable = s.baseTripCost;
+  if (homeTimeQualifies) minAcceptable *= 0.85;
+  if (minAcceptable < minByRate) minAcceptable = minByRate;
+
+  const rpmLoaded  = recBid / loadedMiles;
+  const marketRate = marketRateForMiles(loadedMiles, s);
+  const rpmRatio   = rpmLoaded / marketRate;
+  const rpmPct     = Math.min(100, rpmRatio * 100);
+  const rpmColor   = rpmRatio < 0.85 ? '#e74c3c' : rpmRatio < 1.0 ? '#f39c12' : '#2ecc71';
+  const rpmText    = rpmRatio < 0.85 ? 'Below market'
+                   : rpmRatio < 1.0  ? `Near market ($${marketRate.toFixed(2)}/mi)`
+                   : rpmRatio < 1.2  ? `At market ($${marketRate.toFixed(2)}/mi)`
+                   : `Above market ($${marketRate.toFixed(2)}/mi)`;
+
+  // Fuel stops
+  const totalMiles     = loadedMiles + deadheadIn;
+  const effectiveRange = s.tankSize * (1 - s.refuelAt / 100) * s.mpg;
+  const fuelStops      = effectiveRange > 0 && totalMiles > effectiveRange
+    ? Math.ceil(totalMiles / effectiveRange) - 1 : 0;
+
+  return {
+    durationHours, driveHours, sleepHours, totalTripHours, buffer,
+    marginPer100, isTight, infeasible,
+    calendarDaysElapsed, deliveryDayActual, additionalDays,
+    tzAdjHours, pickupOffset, destOffset, homeOffset,
+    driveHomeHours, homeArrivalHour, homeTimeQualifies,
+    weekendQualifies, weekendExcessHours, weekendCost,
+    overnightQualifies, overnightNights, overnightCost,
+    detentionQualifies, detentionCost, totalDiffs,
+    billingDays, pickupFraction, deliveryFraction,
+    loadedFuelCost, maintCost, deadheadFuelCost, deadheadMaintCost,
+    deadheadTimeHours, deadheadTimeCost, deadheadCost,
+    profitTarget, baseTripApplied, recBid, minRateApplied, minAcceptable,
+    rpmLoaded, marketRate, rpmRatio, rpmPct, rpmColor, rpmText,
+    fuelStops, effectiveRange, totalMiles
+  };
+}
+
+// ═══════════════════════════════════════════
+// RATE ADJUSTMENT
+// ═══════════════════════════════════════════
+let adjBaseRecBid = 0, adjBaseMin = 0, adjLocked = true;
+
+function showRateAdjPanel(recBid, minAcceptable) {
+  adjBaseRecBid = recBid;
+  adjBaseMin    = minAcceptable;
+  adjLocked     = true;
+  const slider  = document.getElementById('rate-adj-slider');
+  slider.value  = 0;
+  slider.disabled = true;
+  document.getElementById('rate-lock-btn').textContent = '🔒';
+  document.getElementById('rate-lock-btn').className   = 'lock-btn';
+  updateRateAdjDisplay();
+  document.getElementById('rate-adj-panel').classList.add('visible');
+}
+
+function toggleRateAdj() {
+  adjLocked = !adjLocked;
+  const slider = document.getElementById('rate-adj-slider');
+  const btn    = document.getElementById('rate-lock-btn');
+  if (adjLocked) {
+    slider.value = 0; slider.disabled = true;
+    btn.textContent = '🔒'; btn.className = 'lock-btn';
+  } else {
+    slider.disabled = false;
+    btn.textContent = '🔓'; btn.className = 'lock-btn unlocked';
+  }
+  updateRateAdjDisplay();
+}
+
+function updateRateAdjDisplay() {
+  const pct      = parseInt(document.getElementById('rate-adj-slider').value);
+  const raw      = adjBaseRecBid * (1 + pct / 100);
+  const adjusted = Math.max(adjBaseMin, raw);
+  const pctEl    = document.getElementById('rate-adj-pct');
+  pctEl.textContent = (pct >= 0 ? '+' : '') + pct + '%';
+  pctEl.className   = 'rate-adj-pct ' + (pct > 0 ? 'pos' : pct < 0 ? 'neg' : 'zero');
+  document.getElementById('rate-adj-bid-val').textContent = fmt$(adjusted);
+}
+
+function getAdjustedBid() {
+  const pct = parseInt(document.getElementById('rate-adj-slider').value);
+  return Math.max(adjBaseMin, adjBaseRecBid * (1 + pct / 100));
+}
+
+// ═══════════════════════════════════════════
+// BID LOG
+// ═══════════════════════════════════════════
+const BID_LOG_KEY = 'rs_bid_log';
+let currentBidEntry = null;
+
+function loadBidLog() {
+  try { return JSON.parse(localStorage.getItem(BID_LOG_KEY) || '[]'); }
+  catch { return []; }
+}
+
+function logCurrentBid() {
+  if (!currentBidEntry) return;
+  const finalBid = getAdjustedBid();
+  const pct      = parseInt(document.getElementById('rate-adj-slider').value);
+  const entry    = { ...currentBidEntry, finalBid, adjPct: pct, id: Date.now(), date: new Date().toISOString(), won: null };
+  const log      = loadBidLog();
+  log.unshift(entry);
+  if (log.length > 500) log.splice(500);
+  localStorage.setItem(BID_LOG_KEY, JSON.stringify(log));
+  const btn = document.getElementById('log-bid-btn');
+  btn.textContent = '✓ Bid Logged';
+  btn.className   = 'log-bid-btn logged';
+  btn.disabled    = true;
+  updateLogTabLabel();
+}
+
+function markBidResult(id, won) {
+  const log   = loadBidLog();
+  const entry = log.find(e => e.id === id);
+  if (entry) { entry.won = won; localStorage.setItem(BID_LOG_KEY, JSON.stringify(log)); }
+  renderBidLog();
+  updateLogTabLabel();
+}
+
+function deleteBidEntry(id) {
+  const log = loadBidLog().filter(e => e.id !== id);
+  localStorage.setItem(BID_LOG_KEY, JSON.stringify(log));
+  renderBidLog();
+  updateLogTabLabel();
+}
+
+function updateLogTabLabel() {
+  const pending = loadBidLog().filter(e => e.won === null).length;
+  const el = document.getElementById('tab-log');
+  if (el) el.textContent = pending > 0 ? `Log(${pending})` : 'Log';
+}
+
+function renderBidLog() {
+  const log     = loadBidLog();
+  const statsEl = document.getElementById('log-stats');
+  const listEl  = document.getElementById('log-list');
+  if (!statsEl || !listEl) return;
+
+  const total    = log.length;
+  const decided  = log.filter(e => e.won !== null).length;
+  const won      = log.filter(e => e.won === true).length;
+  const winRate  = decided > 0 ? Math.round((won/decided)*100) : null;
+  const totMi    = log.reduce((sum, e) => sum + (e.loadedMiles||0) + (e.deadheadIn||0), 0);
+
+  statsEl.innerHTML = `
+    <div class="log-stat"><div class="log-stat-val">${total}</div><div class="log-stat-lbl">Bids</div></div>
+    <div class="log-stat"><div class="log-stat-val">${winRate !== null ? winRate+'%' : '—'}</div><div class="log-stat-lbl">Win Rate</div></div>
+    <div class="log-stat"><div class="log-stat-val">${Math.round(totMi).toLocaleString()}</div><div class="log-stat-lbl">Miles</div></div>
+  `;
+
+  if (log.length === 0) {
+    listEl.innerHTML = `<div class="log-empty">No bids logged yet.<br>Calculate a route and tap "Log This Bid."</div>`;
+    return;
+  }
+
+  listEl.innerHTML = log.map(e => {
+    const d   = new Date(e.date);
+    const dStr= d.toLocaleDateString([],{month:'short',day:'numeric',year:'2-digit'});
+    return `<div class="log-entry">
+      <div class="log-entry-header">
+        <div class="log-entry-route">${e.pickup} → ${e.dest}</div>
+        <div class="log-entry-date">${dStr}</div>
+      </div>
+      <div class="log-entry-meta">${fmtMi(e.loadedMiles)} loaded${e.deadheadIn > 0 ? ` · +${fmtMi(e.deadheadIn)} DH` : ''}</div>
+      <div class="log-entry-bid">${fmt$(e.finalBid)}${e.adjPct ? ` <span style="font-size:11px;color:var(--muted)">(${e.adjPct>0?'+':''}${e.adjPct}% adj)</span>` : ''}</div>
+      <div class="log-entry-actions">
+        <button class="log-act ${e.won===true?'won':''}" onclick="markBidResult(${e.id},true)">✓ Won</button>
+        <button class="log-act ${e.won===false?'lost':''}" onclick="markBidResult(${e.id},false)">✗ Lost</button>
+        <button class="log-act" onclick="deleteBidEntry(${e.id})" style="flex:0;padding:7px 11px">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function exportMileageCSV() {
+  const log = loadBidLog();
+  if (log.length === 0) { alert('No bids logged yet.'); return; }
+  const hdr  = 'Date,Pickup,Destination,Loaded Miles,Deadhead Miles,Total Miles,Base Bid,Adjusted Bid,Adj %,Min Acceptable,Result\n';
+  const rows = log.map(e => [
+    new Date(e.date).toLocaleDateString(),
+    `"${e.pickup}"`, `"${e.dest}"`,
+    Math.round(e.loadedMiles||0), Math.round(e.deadheadIn||0),
+    Math.round((e.loadedMiles||0)+(e.deadheadIn||0)),
+    (e.recBid||0).toFixed(2), (e.finalBid||e.recBid||0).toFixed(2),
+    (e.adjPct||0),
+    (e.minAcceptable||0).toFixed(2),
+    e.won===true?'Won':e.won===false?'Lost':'Pending'
+  ].join(',')).join('\n');
+  const blob = new Blob([hdr+rows], {type:'text/csv'});
+  const url  = URL.createObjectURL(blob);
+  const a    = Object.assign(document.createElement('a'), {href:url, download:`ratesetter-log-${new Date().toISOString().slice(0,10)}.csv`});
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ═══════════════════════════════════════════
+// MAIN CALCULATOR
+// ═══════════════════════════════════════════
 async function calculate() {
   const btn = document.getElementById('calc-btn');
   const out = document.getElementById('results');
 
-  const pickupCity    = document.getElementById('pickup-city').value.trim();
-  const destCity      = document.getElementById('dest-city').value.trim();
-  const deadheadIn    = parseFloat(document.getElementById('deadhead-miles').value) || 0;
-  const pickupDay     = parseInt(document.getElementById('pickup-day').value);   // 0=Sun … 6=Sat
-  const pickupHour     = parseInt(document.getElementById('pickup-time').value);
-  const rawDelivery    = parseInt(document.getElementById('delivery-time').value);
-  const is2359         = rawDelivery === 24; // 23:59 sentinel = midnight next day
-  const deliveryHour   = is2359 ? 0 : rawDelivery;
-  const additionalDays = parseInt(document.getElementById('additional-days').value) || 0;
+  const pickupCity  = document.getElementById('pickup-city').value.trim();
+  const destCity    = document.getElementById('dest-city').value.trim();
+  const deadheadIn  = parseFloat(document.getElementById('deadhead-miles').value) || 0;
+  const pickupDay   = parseInt(document.getElementById('pickup-day').value);
+  const deliveryDay = parseInt(document.getElementById('delivery-day').value);
+  const pickupHour  = parseInt(document.getElementById('pickup-time').value);
+  const rawDel      = parseInt(document.getElementById('delivery-time').value);
+  const is2359      = rawDel === 24;
+  const deliveryHour= is2359 ? 0 : rawDel;
+  const additionalDays = (deliveryDay - pickupDay + 7) % 7;
 
   if (!pickupCity || !destCity) {
-    out.innerHTML = `<div class="warn-box">⚠️ Please enter both pickup and destination cities.</div>`;
-    return;
+    out.innerHTML = `<div class="warn-box">⚠️ Please enter both pickup and destination cities.</div>`; return;
+  }
+  if (additionalDays === 0 && !is2359 && deliveryHour <= pickupHour) {
+    out.innerHTML = `<div class="warn-box">⚠️ <strong>Same-day delivery must be after pickup time.</strong><br>Pickup ${fmtTime(pickupHour)} · Delivery ${fmtTime(deliveryHour)} — choose a later delivery time or a different day.</div>`; return;
   }
 
   btn.disabled = true;
+  document.getElementById('rate-adj-panel').classList.remove('visible');
+  document.getElementById('log-bid-btn').style.display = 'none';
   out.innerHTML = `<div class="loading"><div class="spinner"></div>Looking up cities…</div>`;
 
   try {
-    const s = loadSettings();
+    const { s, autoUpdated, period, price } = await autoUpdateFuelIfStale(loadSettings());
+    const fuelNote = autoUpdated ? `<div class="resolve-notice">⛽ Fuel auto-updated to <strong>$${price.toFixed(3)}/gal</strong> (week of ${period})</div>` : '';
 
-    // --- Geocode ---
-    const [pickupCoord, destCoord, homeCoord] = await Promise.all([
-      geocode(pickupCity),
-      geocode(destCity),
-      geocode(s.homeCity)
-    ]);
+    const [pickupCoord, destCoord, homeCoord] = await Promise.all([geocode(pickupCity), geocode(destCity), geocode(s.homeCity)]);
 
     out.innerHTML = `<div class="loading"><div class="spinner"></div>Calculating distances &amp; timezones…</div>`;
 
-    // --- Routes + timezones in parallel ---
     const [loadedMiles, destToHomeMiles, pickupFromHomeMiles, pickupTz, destTz, homeTz] = await Promise.all([
       getRouteMiles(pickupCoord, destCoord),
       getRouteMiles(destCoord, homeCoord),
@@ -1044,207 +1184,69 @@ async function calculate() {
       getTimezone(homeCoord.lat, homeCoord.lon)
     ]);
 
-    const pickupOffset = getUtcOffsetHours(pickupTz);
-    const destOffset   = getUtcOffsetHours(destTz);
-    const homeOffset   = getUtcOffsetHours(homeTz);
-    // Positive = window grows (driving east→west, clocks fall back)
-    // Negative = window shrinks (driving west→east, clocks spring forward)
-    const tzAdjHours   = pickupOffset - destOffset;
+    const d = computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHomeMiles, pickupTz, destTz, homeTz, pickupDay, deliveryDay, pickupHour, deliveryHour, is2359 }, s);
 
-    // Home base is NOT included in mileage costs — only loaded miles + manual deadhead
-    const totalMiles = loadedMiles + deadheadIn;
-
-    // ── DELIVERY WINDOW ────────────────────────────
-    // Pickup time is local to origin; delivery time is local to destination.
-    // tzAdjHours corrects for the clock difference between the two cities.
-    let durationHours = is2359
-      ? additionalDays * 24 + (24 - pickupHour)
-      : additionalDays * 24 + (deliveryHour - pickupHour);
-    if (durationHours <= 0) durationHours += 24;
-    durationHours += tzAdjHours; // apply timezone correction
-
-    // ── CALENDAR DAYS ELAPSED ──────────────────────
-    // 23:59 always rolls into next calendar day regardless of pickup time
-    const daysByTime = is2359
-      ? 1
-      : (additionalDays === 0 && deliveryHour <= pickupHour) ? 1 : 0;
-    const calendarDaysElapsed = additionalDays + daysByTime;
-    const deliveryDayActual = (pickupDay + calendarDaysElapsed) % 7;
-
-    // ── DRIVE TIME & SLEEP ─────────────────────────
-    const driveHours = loadedMiles / s.speed;
-    // Sleep: 1 hr per 3 hrs driven, only if drive time >= 15 hrs
-    const sleepHours = driveHours >= 15 ? Math.floor(driveHours / 3) : 0;
-    const totalTripHours = driveHours + sleepHours;
-
-    // ── BUFFER ────────────────────────────────────
-    const buffer = durationHours - totalTripHours;
-
-    // ── FEASIBILITY: DECLINE ──────────────────────
-    if (buffer < 0) {
-      out.innerHTML = buildDecline(driveHours, sleepHours, totalTripHours, durationHours);
+    if (d.infeasible) {
+      out.innerHTML = buildDecline(d.driveHours, d.sleepHours, d.totalTripHours, d.durationHours);
       return;
     }
 
-    // ── FEASIBILITY: TIGHT WARNING ────────────────
-    // margin = (buffer in minutes) per 100 loaded miles
-    const marginPer100 = loadedMiles > 0 ? (buffer * 60) / (loadedMiles / 100) : Infinity;
-    const isTight = marginPer100 < 5;
+    // Store for logging
+    currentBidEntry = {
+      pickup: pickupCoord.label, dest: destCoord.label,
+      loadedMiles, deadheadIn, totalMiles: d.totalMiles,
+      recBid: d.recBid, minAcceptable: d.minAcceptable,
+      billingDays: d.billingDays, fuelPrice: s.fuelPrice
+    };
 
-    // ── HOME TIME CHECK ────────────────────────────
-    // Delivery time is local to destination; 8 PM target is home local time.
-    // Convert delivery time to home local: deliveryHour + (homeOffset - destOffset)
-    const driveHomeHours     = destToHomeMiles / s.speed;
-    const deliveryInHomeTz   = deliveryHour + (homeOffset - destOffset);
-    const homeArrivalHour    = deliveryInHomeTz + driveHomeHours;
-    const homeTimeQualifies  = homeArrivalHour <= 20;
-    const homeArrivalFmt = fmtTimeDecimal(homeArrivalHour);
+    showRateAdjPanel(d.recBid, d.minAcceptable);
+    const logBtn = document.getElementById('log-bid-btn');
+    logBtn.textContent = '📋 Log This Bid';
+    logBtn.className   = 'log-bid-btn';
+    logBtn.disabled    = false;
+    logBtn.style.display = 'block';
 
-    // ── OVERNIGHT DIFFERENTIAL ─────────────────────
-    // Applies when ALL are true:
-    //   • Trip window > 12 hrs
-    //   • Pickup and delivery on different calendar dates
-    //   • Pickup city > 100 mi from home
-    //   • Delivery city > 100 mi from home
-    // Cost: overnightRate × number of calendar days after pickup
-    const overnightQualifies =
-      durationHours > 12 &&
-      calendarDaysElapsed > 0 &&
-      pickupFromHomeMiles > 100 &&
-      destToHomeMiles > 100;
-    const overnightNights = overnightQualifies ? calendarDaysElapsed : 0;
-    const overnightCost   = overnightNights * s.overnight;
-
-    // ── WEEKEND DIFFERENTIAL (hourly) ─────────────
-    // Applies when ALL are true:
-    //   • buffer > 12 hrs
-    //   • Pickup is Mon–Fri (before midnight Friday = days 1–5)
-    //   • Delivery is Mon–Fri (after midnight Monday = days 1–5)
-    // Cost: (buffer - 12) × weekendRate per hour
-    const weekendQualifies =
-      buffer > 12 &&
-      pickupDay >= 1 && pickupDay <= 5 &&
-      deliveryDayActual >= 1 && deliveryDayActual <= 5;
-    const weekendExcessHours = weekendQualifies ? (buffer - 12) : 0;
-    const weekendCost        = weekendExcessHours * s.weekend;
-
-    // ── DETENTION DIFFERENTIAL (hourly) ───────────
-    // Applies when ALL are true:
-    //   • Does NOT qualify for weekend diff
-    //   • buffer > 4 hrs
-    // Cost: buffer × detentionRate per hour
-    const detentionQualifies = !weekendQualifies && buffer > 4;
-    const detentionCost      = detentionQualifies ? buffer * s.detention : 0;
-
-    // ── BILLING DAYS (fuzzy) ───────────────────────
-    // Pickup after noon  → 0.5 days for pickup day
-    // Delivery before noon → 0.5 days for delivery day
-    // Otherwise full days; middle days are always full
-    const pickupFraction   = pickupHour > 12  ? 0.5 : 1.0;
-    const deliveryFraction = deliveryHour < 12 ? 0.5 : 1.0;
-
-    let billingDays;
-    if (calendarDaysElapsed === 0) {
-      // Same-day: a delivery before noon is a half-day just like a pickup after noon
-      billingDays = Math.min(pickupFraction, deliveryFraction);
-    } else {
-      const middleDays = Math.max(0, calendarDaysElapsed - 1);
-      billingDays = pickupFraction + middleDays + deliveryFraction;
-    }
-
-    // ── BID CALCULATION ───────────────────────────
-    // Loaded miles: fuel + maintenance + profit
-    const loadedFuelCost = (loadedMiles / s.mpg) * s.fuelPrice;
-    const maintCost      = loadedMiles * s.maint;
-
-    // Deadhead miles: fuel at-cost + maintenance + $deadheadRate/hr
-    const deadheadFuelCost  = (deadheadIn / s.mpg) * s.fuelPrice;
-    const deadheadMaintCost = deadheadIn * s.maint;
-    const deadheadTimeHours = deadheadIn / s.speed;
-    const deadheadTimeCost  = deadheadTimeHours * s.deadheadRate;
-    const deadheadCost      = deadheadFuelCost + deadheadMaintCost + deadheadTimeCost;
-
-    const totalDiffs = overnightCost + weekendCost + detentionCost;
-
-    // Target bid (what you submit)
-    const profitTarget = billingDays * s.dailyTarget;
-    let targetBid = loadedFuelCost + maintCost + profitTarget + deadheadCost + totalDiffs;
-    const baseTripApplied = targetBid < s.baseTripCost;
-    if (baseTripApplied) targetBid = s.baseTripCost;
-    let recBid = homeTimeQualifies ? targetBid * 0.85 : targetBid;
-    const minByRate = s.minRatePerMile * loadedMiles;
-    const minRateApplied = recBid < minByRate;
-    if (minRateApplied) recBid = minByRate;
-
-    // Minimum acceptable bid (absolute floor for counter-offers)
-    const profitFloor = billingDays * s.floorProfit;
-    let minAcceptable = loadedFuelCost + maintCost + profitFloor + deadheadCost + totalDiffs;
-    if (minAcceptable < s.baseTripCost) minAcceptable = s.baseTripCost;
-    if (homeTimeQualifies) minAcceptable *= 0.85;
-    if (minAcceptable < minByRate) minAcceptable = minByRate;
-
-    // ── RATE QUALITY ──────────────────────────────
-    const rpmLoaded  = recBid / loadedMiles;
-    const marketRate = marketRateForMiles(loadedMiles, s);
-    const rpmRatio   = rpmLoaded / marketRate; // 1.0 = at market
-    const rpmPct     = Math.min(100, rpmRatio * 100);
-    const rpmColor   = rpmRatio < 0.85 ? '#e74c3c' : rpmRatio < 1.0 ? '#f39c12' : '#2ecc71';
-    const rpmText    = rpmRatio < 0.85 ? 'Below market'
-                     : rpmRatio < 1.0  ? `Near market ($${marketRate.toFixed(2)}/mi)`
-                     : rpmRatio < 1.2  ? `At market ($${marketRate.toFixed(2)}/mi)`
-                     : `Above market ($${marketRate.toFixed(2)}/mi)`;
-
-    // ── BUILD OUTPUT ──────────────────────────────
     let tags = '';
-    if (homeTimeQualifies)  tags += `<span class="tag tag-overnight">🏠 Home time bid (−15%)</span>`;
-    if (overnightQualifies) tags += `<span class="tag tag-overnight">🌙 ${overnightNights} night${overnightNights > 1 ? 's' : ''} = ${fmt$(overnightCost)}</span>`;
-    if (weekendQualifies)   tags += `<span class="tag tag-weekend">📅 Weekend ${weekendExcessHours.toFixed(1)}h = ${fmt$(weekendCost)}</span>`;
-    if (detentionQualifies) tags += `<span class="tag tag-detention">⏳ Detention ${buffer.toFixed(1)}h = ${fmt$(detentionCost)}</span>`;
-    if (baseTripApplied)    tags += `<span class="tag tag-base">📋 Base minimum applied</span>`;
-    if (minRateApplied)     tags += `<span class="tag tag-base">📐 Min rate floor applied ($${s.minRatePerMile}/mi)</span>`;
+    if (d.homeTimeQualifies)  tags += `<span class="tag tag-overnight">🏠 Home time bid (−15%)</span>`;
+    if (d.overnightQualifies) tags += `<span class="tag tag-overnight">🌙 ${d.overnightNights} night${d.overnightNights>1?'s':''} = ${fmt$(d.overnightCost)}</span>`;
+    if (d.weekendQualifies)   tags += `<span class="tag tag-weekend">📅 Weekend ${d.weekendExcessHours.toFixed(1)}h = ${fmt$(d.weekendCost)}</span>`;
+    if (d.detentionQualifies) tags += `<span class="tag tag-detention">⏳ Detention ${d.buffer.toFixed(1)}h = ${fmt$(d.detentionCost)}</span>`;
+    if (d.baseTripApplied)    tags += `<span class="tag tag-base">📋 Base minimum</span>`;
+    if (d.minRateApplied)     tags += `<span class="tag tag-base">📐 Min rate floor</span>`;
 
-    const warnHtml = isTight ? `
-      <div class="warn-box">
-        ⚠️ <strong>Tight Schedule Warning</strong><br>
-        Your margin is only ${marginPer100.toFixed(1)} min per 100 miles — below the 5-minute threshold.
-        Any traffic or delays could make this delivery impossible to complete on time.
-      </div>` : '';
+    const warnHtml = d.isTight ? `<div class="warn-box">⚠️ <strong>Tight Schedule</strong> — only ${d.marginPer100.toFixed(1)} min/100mi margin. Any delay could make this infeasible.</div>` : '';
 
-    out.innerHTML = `
-      ${warnHtml}
-
-      ${(!pickupCoord.exact || !destCoord.exact) ? `
-      <div class="resolve-notice">
-        📍 <strong>Location resolved:</strong><br>
+    const resolveHtml = (!pickupCoord.exact || !destCoord.exact) ? `
+      <div class="resolve-notice">📍 <strong>Location resolved:</strong><br>
         ${!pickupCoord.exact ? `Pickup → <strong>${pickupCoord.label}</strong><br>` : `Pickup → ${pickupCoord.label}<br>`}
         ${!destCoord.exact   ? `Delivery → <strong>${destCoord.label}</strong>` : `Delivery → ${destCoord.label}`}
-      </div>` : ''}
+      </div>` : '';
 
-      ${homeTimeQualifies ? `
-      <div class="home-card">
+    const fuelStopHtml = d.fuelStops > 0
+      ? `<div class="result-row"><span class="lbl">Fuel Stops (~${fmtMi(Math.round(d.effectiveRange))} range)</span><span class="val">${d.fuelStops} stop${d.fuelStops>1?'s':''}</span></div>`
+      : `<div class="result-row"><span class="lbl">Fuel Stops</span><span class="val" style="color:var(--muted)">None needed</span></div>`;
+
+    out.innerHTML = `
+      ${fuelNote}${warnHtml}${resolveHtml}
+
+      ${d.homeTimeQualifies ? `<div class="home-card">
         <div class="home-icon">🏠</div>
         <div class="home-body">
           <div class="home-title">Home Time After Delivery</div>
-          <div class="home-detail">
-            ${fmtMi(destToHomeMiles)} from drop to home — estimated arrival <strong>${homeArrivalFmt}</strong>.
-            Bid reduced 15% to improve chances of winning.
-          </div>
+          <div class="home-detail">${fmtMi(destToHomeMiles)} to home — est. arrival <strong>${fmtTimeDecimal(d.homeArrivalHour)}</strong>. Bid −15% to win.</div>
           <div class="home-badge">Bid to win</div>
         </div>
       </div>` : ''}
 
       <div class="bid-card">
         <div class="bid-label">Recommended Bid</div>
-        <div class="bid-amount">${fmt$(recBid)}</div>
-        <div class="bid-sub">${fmtMi(loadedMiles)} loaded &nbsp;·&nbsp; ${fmt$(rpmLoaded)}/loaded mi</div>
+        <div class="bid-amount">${fmt$(d.recBid)}</div>
+        <div class="bid-sub">${fmtMi(loadedMiles)} loaded &nbsp;·&nbsp; ${fmt$(d.rpmLoaded)}/loaded mi</div>
         ${tags ? `<div class="bid-tags">${tags}</div>` : ''}
-        <div class="floor-label">
-          Do not accept below: <strong>${fmt$(minAcceptable)}</strong>
-          &nbsp;·&nbsp; costs: ${fmt$(loadedFuelCost + maintCost + deadheadCost)}
-        </div>
+        <div class="floor-label">Do not accept below: <strong>${fmt$(d.minAcceptable)}</strong> &nbsp;·&nbsp; costs: ${fmt$(d.loadedFuelCost + d.maintCost + d.deadheadCost)}</div>
         <div class="rpm-bar">
-          <div class="rpm-label">Rate quality: ${rpmText} — ${fmt$(rpmLoaded)}/mi</div>
-          <div class="rpm-track"><div class="rpm-fill" style="width:${rpmPct.toFixed(0)}%;background:${rpmColor}"></div></div>
+          <div class="rpm-label">Rate quality: ${d.rpmText} — ${fmt$(d.rpmLoaded)}/mi</div>
+          <div class="rpm-track"><div class="rpm-fill" style="width:${d.rpmPct.toFixed(0)}%;background:${d.rpmColor}"></div></div>
         </div>
       </div>
 
@@ -1252,45 +1254,37 @@ async function calculate() {
         <h3>📍 Distance</h3>
         <div class="result-row"><span class="lbl">Deadhead to Pickup</span><span class="val">${fmtMi(deadheadIn)}</span></div>
         <div class="result-row"><span class="lbl">Loaded Miles (routed)</span><span class="val">${fmtMi(loadedMiles)}</span></div>
-        <div class="result-row total"><span class="lbl">Total Billable Miles</span><span class="val">${fmtMi(totalMiles)}</span></div>
-        ${homeTimeQualifies
-          ? `<div class="result-row"><span class="lbl" style="color:var(--accent)">+ Drive Home (not billed)</span><span class="val" style="color:var(--accent)">${fmtMi(destToHomeMiles)}</span></div>`
-          : ''
-        }
+        <div class="result-row total"><span class="lbl">Total Billable Miles</span><span class="val">${fmtMi(d.totalMiles)}</span></div>
+        ${d.homeTimeQualifies ? `<div class="result-row"><span class="lbl" style="color:var(--accent)">+ Drive Home (not billed)</span><span class="val" style="color:var(--accent)">${fmtMi(destToHomeMiles)}</span></div>` : ''}
       </div>
 
       <div class="result-card">
         <h3>⏱ Time</h3>
-        <div class="result-row"><span class="lbl">Timezones</span><span class="val">${tzAbbrev(pickupTz)} → ${tzAbbrev(destTz)}${tzAdjHours !== 0 ? ` (${tzAdjHours > 0 ? '+' : ''}${tzAdjHours}h to window)` : ' (same)'}</span></div>
-        <div class="result-row"><span class="lbl">Delivery Window</span><span class="val">${fmtHr(durationHours)}</span></div>
-        <div class="result-row"><span class="lbl">Drive Time @ ${s.speed} mph</span><span class="val">${fmtHr(driveHours)}</span></div>
-        ${sleepHours > 0
-          ? `<div class="result-row"><span class="lbl">Sleep / Downtime (1hr per 3hr driven)</span><span class="val">${fmtHr(sleepHours)}</span></div>`
-          : `<div class="result-row"><span class="lbl">Sleep / Downtime</span><span class="val" style="color:var(--muted)">N/A (under 15hr drive)</span></div>`
-        }
-        <div class="result-row"><span class="lbl">Total Trip Time</span><span class="val">${fmtHr(totalTripHours)}</span></div>
-        <div class="result-row"><span class="lbl">Buffer Remaining</span><span class="val">${fmtHr(buffer)}</span></div>
-        <div class="result-row"><span class="lbl">Schedule Margin</span>
-          <span class="val ${isTight ? 'warn-text' : ''}">${marginPer100.toFixed(1)} min/100mi${isTight ? ' ⚠️' : ''}</span>
-        </div>
+        <div class="result-row"><span class="lbl">Timezones</span><span class="val">${tzAbbrev(pickupTz)} → ${tzAbbrev(destTz)}${d.tzAdjHours !== 0 ? ` (${d.tzAdjHours>0?'+':''}${d.tzAdjHours}h)` : ' (same)'}</span></div>
+        <div class="result-row"><span class="lbl">Delivery Window</span><span class="val">${fmtHr(d.durationHours)}</span></div>
+        <div class="result-row"><span class="lbl">Drive Time @ ${s.speed} mph</span><span class="val">${fmtHr(d.driveHours)}</span></div>
+        ${d.sleepHours > 0 ? `<div class="result-row"><span class="lbl">Sleep / Downtime</span><span class="val">${fmtHr(d.sleepHours)}</span></div>` : `<div class="result-row"><span class="lbl">Sleep / Downtime</span><span class="val" style="color:var(--muted)">N/A (&lt;15hr drive)</span></div>`}
+        <div class="result-row"><span class="lbl">Total Trip Time</span><span class="val">${fmtHr(d.totalTripHours)}</span></div>
+        <div class="result-row"><span class="lbl">Buffer Remaining</span><span class="val">${fmtHr(d.buffer)}</span></div>
+        <div class="result-row"><span class="lbl">Schedule Margin</span><span class="val ${d.isTight?'warn-text':''}">${d.marginPer100.toFixed(1)} min/100mi${d.isTight?' ⚠️':''}</span></div>
+        ${fuelStopHtml}
       </div>
 
       <div class="result-card">
         <h3>💰 Cost &amp; Profit</h3>
-        <div class="result-row"><span class="lbl">Fuel — loaded (${fmtMi(loadedMiles)} ÷ ${s.mpg} mpg × $${s.fuelPrice})</span><span class="val">${fmt$(loadedFuelCost)}</span></div>
-        <div class="result-row"><span class="lbl">Maintenance — loaded ($${s.maint}/mi)</span><span class="val">${fmt$(maintCost)}</span></div>
-        <div class="result-row"><span class="lbl">Target Profit (${billingDays.toFixed(1)} days × $${s.dailyTarget}/day)</span><span class="val">${fmt$(profitTarget)}</span></div>
+        <div class="result-row"><span class="lbl">Fuel — loaded (${fmtMi(loadedMiles)} ÷ ${s.mpg} mpg × $${s.fuelPrice})</span><span class="val">${fmt$(d.loadedFuelCost)}</span></div>
+        <div class="result-row"><span class="lbl">Maintenance — loaded ($${s.maint}/mi)</span><span class="val">${fmt$(d.maintCost)}</span></div>
+        <div class="result-row"><span class="lbl">Target Profit (${d.billingDays.toFixed(1)} days × $${s.dailyTarget}/day)</span><span class="val">${fmt$(d.profitTarget)}</span></div>
         ${deadheadIn > 0 ? `
-        <div class="result-row"><span class="lbl">Deadhead fuel (${fmtMi(deadheadIn)} ÷ ${s.mpg} mpg × $${s.fuelPrice})</span><span class="val">${fmt$(deadheadFuelCost)}</span></div>
-        <div class="result-row"><span class="lbl">Deadhead maintenance ($${s.maint}/mi)</span><span class="val">${fmt$(deadheadMaintCost)}</span></div>
-        <div class="result-row"><span class="lbl">Deadhead time (${fmtHr(deadheadTimeHours)} × $${s.deadheadRate}/hr)</span><span class="val">${fmt$(deadheadTimeCost)}</span></div>
-        ` : ''}
-        ${overnightQualifies ? `<div class="result-row"><span class="lbl">🌙 Overnight (${overnightNights} night${overnightNights > 1 ? 's' : ''} × $${s.overnight})</span><span class="val">${fmt$(overnightCost)}</span></div>` : ''}
-        ${weekendQualifies   ? `<div class="result-row"><span class="lbl">📅 Weekend (${weekendExcessHours.toFixed(1)}h excess × $${s.weekend}/hr)</span><span class="val">${fmt$(weekendCost)}</span></div>` : ''}
-        ${detentionQualifies ? `<div class="result-row"><span class="lbl">⏳ Detention (${buffer.toFixed(1)}h buffer × $${s.detention}/hr)</span><span class="val">${fmt$(detentionCost)}</span></div>` : ''}
-        ${baseTripApplied    ? `<div class="result-row warn-row"><span class="lbl">📋 Base trip minimum</span><span class="val">${fmt$(s.baseTripCost)}</span></div>` : ''}
-        <div class="result-row warn-row"><span class="lbl">Min Acceptable (floor profit $${s.floorProfit}/day)</span><span class="val">${fmt$(minAcceptable)}</span></div>
-        <div class="result-row total accent-row"><span class="lbl">Your Bid${homeTimeQualifies ? ' (home time −15%)' : ''}</span><span class="val">${fmt$(recBid)}</span></div>
+        <div class="result-row"><span class="lbl">Deadhead fuel (${fmtMi(deadheadIn)} ÷ ${s.mpg} mpg)</span><span class="val">${fmt$(d.deadheadFuelCost)}</span></div>
+        <div class="result-row"><span class="lbl">Deadhead maintenance ($${s.maint}/mi)</span><span class="val">${fmt$(d.deadheadMaintCost)}</span></div>
+        <div class="result-row"><span class="lbl">Deadhead time (${fmtHr(d.deadheadTimeHours)} × $${s.deadheadRate}/hr)</span><span class="val">${fmt$(d.deadheadTimeCost)}</span></div>` : ''}
+        ${d.overnightQualifies ? `<div class="result-row"><span class="lbl">🌙 Overnight (${d.overnightNights}× $${s.overnight})</span><span class="val">${fmt$(d.overnightCost)}</span></div>` : ''}
+        ${d.weekendQualifies   ? `<div class="result-row"><span class="lbl">📅 Weekend (${d.weekendExcessHours.toFixed(1)}h × $${s.weekend}/hr)</span><span class="val">${fmt$(d.weekendCost)}</span></div>` : ''}
+        ${d.detentionQualifies ? `<div class="result-row"><span class="lbl">⏳ Detention (${d.buffer.toFixed(1)}h × $${s.detention}/hr)</span><span class="val">${fmt$(d.detentionCost)}</span></div>` : ''}
+        ${d.baseTripApplied    ? `<div class="result-row warn-row"><span class="lbl">📋 Base trip minimum</span><span class="val">${fmt$(s.baseTripCost)}</span></div>` : ''}
+        <div class="result-row warn-row"><span class="lbl">Min Acceptable (floor $${s.floorProfit}/day)</span><span class="val">${fmt$(d.minAcceptable)}</span></div>
+        <div class="result-row total accent-row"><span class="lbl">Your Bid${d.homeTimeQualifies?' (home time −15%)':''}</span><span class="val">${fmt$(d.recBid)}</span></div>
       </div>
 
       <div class="result-card">
@@ -1298,8 +1292,8 @@ async function calculate() {
         <div class="result-row"><span class="lbl">From</span><span class="val small-val">${pickupCoord.label} <span style="color:var(--muted)">${tzAbbrev(pickupTz)}</span></span></div>
         <div class="result-row"><span class="lbl">To</span><span class="val small-val">${destCoord.label} <span style="color:var(--muted)">${tzAbbrev(destTz)}</span></span></div>
         <div class="result-row"><span class="lbl">Pickup</span><span class="val">${DAY_NAMES[pickupDay]}, ${fmtTime(pickupHour)} ${tzAbbrev(pickupTz)}</span></div>
-        <div class="result-row"><span class="lbl">Delivery</span><span class="val">${DAY_NAMES[deliveryDayActual]}, ${fmtTime(is2359 ? 24 : deliveryHour)} ${tzAbbrev(destTz)}</span></div>
-        <div class="result-row"><span class="lbl">Billing Days</span><span class="val">${billingDays.toFixed(1)} days</span></div>
+        <div class="result-row"><span class="lbl">Delivery</span><span class="val">${DAY_NAMES[d.deliveryDayActual]}, ${fmtTime(is2359?24:deliveryHour)} ${tzAbbrev(destTz)}</span></div>
+        <div class="result-row"><span class="lbl">Billing Days</span><span class="val">${d.billingDays.toFixed(1)} days</span></div>
         <div class="result-row"><span class="lbl">Dist. to Home from Drop</span><span class="val">${fmtMi(destToHomeMiles)}</span></div>
       </div>
     `;
@@ -1313,69 +1307,203 @@ async function calculate() {
   }
 }
 
-// ── DECLINE SCREEN ─────────────────────────────
-function buildDecline(driveHours, sleepHours, totalTripHours, durationHours) {
-  const deficit = totalTripHours - durationHours;
-  const sleepNote = sleepHours > 0
-    ? ` + ${fmtHr(sleepHours)} required sleep`
-    : '';
-  return `
-    <div class="decline-card">
-      <div class="decline-icon">🚫</div>
-      <div class="decline-title">Decline This Load</div>
-      <div class="decline-sub">This delivery cannot be completed within the allowed window.</div>
-      <div class="decline-detail">
-        Trip requires <strong>${fmtHr(totalTripHours)}</strong>
-        (${fmtHr(driveHours)} driving${sleepNote})
-        but the delivery window is only <strong>${fmtHr(durationHours)}</strong> —
-        short by <strong>${fmtHr(deficit)}</strong>.
-        Do not bid on this load.
-      </div>
-    </div>`;
+// ═══════════════════════════════════════════
+// COMPARE ROUTES
+// ═══════════════════════════════════════════
+async function compareRoutes() {
+  const btn = document.getElementById('cmp-btn');
+  const out = document.getElementById('compare-results');
+
+  const read = (id, fn) => fn(document.getElementById(id).value);
+  const aPickup = read('cmp-a-pickup', v => v.trim());
+  const aDest   = read('cmp-a-dest',   v => v.trim());
+  const aDH     = read('cmp-a-dh',     v => parseFloat(v)||0);
+  const aPDay   = read('cmp-a-pday',   v => parseInt(v));
+  const aDDay   = read('cmp-a-dday',   v => parseInt(v));
+  const aPTime  = read('cmp-a-ptime',  v => parseInt(v));
+  const aRawD   = read('cmp-a-dtime',  v => parseInt(v));
+  const a2359   = aRawD === 24; const aDTime = a2359 ? 0 : aRawD;
+
+  const bPickup = read('cmp-b-pickup', v => v.trim());
+  const bDest   = read('cmp-b-dest',   v => v.trim());
+  const bDH     = read('cmp-b-dh',     v => parseFloat(v)||0);
+  const bPDay   = read('cmp-b-pday',   v => parseInt(v));
+  const bDDay   = read('cmp-b-dday',   v => parseInt(v));
+  const bPTime  = read('cmp-b-ptime',  v => parseInt(v));
+  const bRawD   = read('cmp-b-dtime',  v => parseInt(v));
+  const b2359   = bRawD === 24; const bDTime = b2359 ? 0 : bRawD;
+
+  if (!aPickup || !aDest || !bPickup || !bDest) {
+    out.innerHTML = `<div class="warn-box">⚠️ Fill in all city fields for both routes.</div>`; return;
+  }
+  const aAddDays = (aDDay - aPDay + 7) % 7;
+  const bAddDays = (bDDay - bPDay + 7) % 7;
+  if (aAddDays === 0 && !a2359 && aDTime <= aPTime) {
+    out.innerHTML = `<div class="warn-box">⚠️ Route A: same-day delivery must be after pickup time.</div>`; return;
+  }
+  if (bAddDays === 0 && !b2359 && bDTime <= bPTime) {
+    out.innerHTML = `<div class="warn-box">⚠️ Route B: same-day delivery must be after pickup time.</div>`; return;
+  }
+
+  btn.disabled = true;
+  out.innerHTML = `<div class="loading"><div class="spinner"></div>Looking up both routes…</div>`;
+
+  try {
+    const s = loadSettings();
+    const [aPC, aDC, bPC, bDC, homeCoord] = await Promise.all([geocode(aPickup), geocode(aDest), geocode(bPickup), geocode(bDest), geocode(s.homeCity)]);
+
+    out.innerHTML = `<div class="loading"><div class="spinner"></div>Calculating distances &amp; timezones…</div>`;
+
+    const [aLM, aDHM, aPHM, aTzP, aTzD, bLM, bDHM, bPHM, bTzP, bTzD, homeTz] = await Promise.all([
+      getRouteMiles(aPC, aDC), getRouteMiles(aDC, homeCoord), getRouteMiles(homeCoord, aPC),
+      getTimezone(aPC.lat, aPC.lon), getTimezone(aDC.lat, aDC.lon),
+      getRouteMiles(bPC, bDC), getRouteMiles(bDC, homeCoord), getRouteMiles(homeCoord, bPC),
+      getTimezone(bPC.lat, bPC.lon), getTimezone(bDC.lat, bDC.lon),
+      getTimezone(homeCoord.lat, homeCoord.lon)
+    ]);
+
+    const a = computeBidData({ loadedMiles: aLM, deadheadIn: aDH, destToHomeMiles: aDHM, pickupFromHomeMiles: aPHM, pickupTz: aTzP, destTz: aTzD, homeTz, pickupDay: aPDay, deliveryDay: aDDay, pickupHour: aPTime, deliveryHour: aDTime, is2359: a2359 }, s);
+    const b = computeBidData({ loadedMiles: bLM, deadheadIn: bDH, destToHomeMiles: bDHM, pickupFromHomeMiles: bPHM, pickupTz: bTzP, destTz: bTzD, homeTz, pickupDay: bPDay, deliveryDay: bDDay, pickupHour: bPTime, deliveryHour: bDTime, is2359: b2359 }, s);
+
+    const hi = (aV, bV) => aV > bV ? ['better','worse'] : aV < bV ? ['worse','better'] : ['',''];
+    const lo = (aV, bV) => aV < bV ? ['better','worse'] : aV > bV ? ['worse','better'] : ['',''];
+
+    const fmtBid = d => d.infeasible ? `<span style="color:var(--danger)">DECLINE</span>` : fmt$(d.recBid);
+    const fmtBuf = d => d.infeasible ? '—' : fmtHr(d.buffer);
+
+    const [ab, bb] = a.infeasible && b.infeasible ? ['',''] : a.infeasible ? ['worse','better'] : b.infeasible ? ['better','worse'] : hi(a.recBid, b.recBid);
+    const [ar, br] = a.infeasible && b.infeasible ? ['',''] : a.infeasible ? ['worse','better'] : b.infeasible ? ['better','worse'] : hi(a.rpmLoaded, b.rpmLoaded);
+    const [au, bu] = a.infeasible && b.infeasible ? ['',''] : a.infeasible ? ['worse','better'] : b.infeasible ? ['better','worse'] : hi(a.buffer, b.buffer);
+    const [ad, bd] = lo(a.destToHomeMiles, b.destToHomeMiles);
+
+    out.innerHTML = `
+      <div class="result-card" style="margin-top:14px">
+        <h3>⚖️ Comparison</h3>
+        <table class="compare-table">
+          <thead><tr><th></th><th>Route A</th><th>Route B</th></tr></thead>
+          <tbody>
+            <tr><td>Route</td>
+              <td style="font-size:11px">${aPC.label}<br>→ ${aDC.label}</td>
+              <td style="font-size:11px">${bPC.label}<br>→ ${bDC.label}</td>
+            </tr>
+            <tr><td>Loaded Miles</td>
+              <td class="${lo(aLM,bLM)[0]}">${fmtMi(aLM)}</td>
+              <td class="${lo(aLM,bLM)[1]}">${fmtMi(bLM)}</td>
+            </tr>
+            <tr><td>Bid</td><td class="${ab}">${fmtBid(a)}</td><td class="${bb}">${fmtBid(b)}</td></tr>
+            <tr><td>Min Acceptable</td>
+              <td>${a.infeasible?'—':fmt$(a.minAcceptable)}</td>
+              <td>${b.infeasible?'—':fmt$(b.minAcceptable)}</td>
+            </tr>
+            <tr><td>$/loaded mi</td>
+              <td class="${ar}">${a.infeasible?'—':'$'+a.rpmLoaded.toFixed(3)}</td>
+              <td class="${br}">${b.infeasible?'—':'$'+b.rpmLoaded.toFixed(3)}</td>
+            </tr>
+            <tr><td>Drive + Sleep</td>
+              <td>${fmtHr(a.driveHours+a.sleepHours)}</td>
+              <td>${fmtHr(b.driveHours+b.sleepHours)}</td>
+            </tr>
+            <tr><td>Billing Days</td>
+              <td class="${lo(a.billingDays,b.billingDays)[0]}">${a.billingDays.toFixed(1)}</td>
+              <td class="${lo(a.billingDays,b.billingDays)[1]}">${b.billingDays.toFixed(1)}</td>
+            </tr>
+            <tr><td>Buffer</td><td class="${au}">${fmtBuf(a)}</td><td class="${bu}">${fmtBuf(b)}</td></tr>
+            <tr><td>Fuel Stops</td>
+              <td>${a.fuelStops>0?a.fuelStops+' stop'+(a.fuelStops>1?'s':''):'None'}</td>
+              <td>${b.fuelStops>0?b.fuelStops+' stop'+(b.fuelStops>1?'s':''):'None'}</td>
+            </tr>
+            <tr><td>Dist. to Home</td>
+              <td class="${ad}">${fmtMi(aDHM)}</td>
+              <td class="${bd}">${fmtMi(bDHM)}</td>
+            </tr>
+            <tr><td>Home Time?</td>
+              <td class="${a.homeTimeQualifies?'home-yes':''}">${a.homeTimeQualifies?'🏠 Yes':'No'}</td>
+              <td class="${b.homeTimeQualifies?'home-yes':''}">${b.homeTimeQualifies?'🏠 Yes':'No'}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="font-size:10px;color:var(--muted);margin-top:10px">Green = better value for that metric</div>
+      </div>`;
+
+  } catch (err) {
+    out.innerHTML = `<div class="warn-box">⚠️ ${err.message}</div>`;
+  } finally {
+    btn.disabled = false;
+  }
 }
 
-// ===========================
-// KEYBOARD + INIT
-// ===========================
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.getElementById('page-calc').classList.contains('active')) {
-    calculate();
+// ═══════════════════════════════════════════
+// DECLINE SCREEN
+// ═══════════════════════════════════════════
+function buildDecline(driveHours, sleepHours, totalTripHours, durationHours) {
+  const deficit   = totalTripHours - durationHours;
+  const sleepNote = sleepHours > 0 ? ` + ${fmtHr(sleepHours)} sleep` : '';
+  return `<div class="decline-card">
+    <div class="decline-icon">🚫</div>
+    <div class="decline-title">Decline This Load</div>
+    <div class="decline-sub">This delivery cannot be completed in time.</div>
+    <div class="decline-detail">
+      Requires <strong>${fmtHr(totalTripHours)}</strong> (${fmtHr(driveHours)} driving${sleepNote})
+      but window is only <strong>${fmtHr(durationHours)}</strong> — short by <strong>${fmtHr(deficit)}</strong>.
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════
+// TIME SELECT BUILDER
+// ═══════════════════════════════════════════
+function buildTimeSelect(id, defaultVal) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let html = '';
+  for (let h = 0; h < 24; h++) {
+    html += `<option value="${h}"${h===defaultVal?' selected':''}>${String(h).padStart(2,'0')}:00</option>`;
   }
+  html += `<option value="24"${defaultVal===24?' selected':''}>23:59</option>`;
+  el.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════
+// KEYBOARD + INIT
+// ═══════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('page-calc').classList.contains('active')) calculate();
+});
+
+// Build all time selects
+['pickup-time','delivery-time','cmp-a-ptime','cmp-a-dtime','cmp-b-ptime','cmp-b-dtime'].forEach(id => {
+  const defaultVal = id.includes('dtime') || id === 'delivery-time' ? 16 : 8;
+  buildTimeSelect(id, defaultVal);
 });
 
 populateSettings();
 updateRateCard();
-document.getElementById('pickup-day').value = new Date().getDay();
+renderBidLog();
+updateLogTabLabel();
 
-// Show install hint on mobile Chrome
+const todayDay = new Date().getDay();
+['pickup-day','delivery-day','cmp-a-pday','cmp-a-dday','cmp-b-pday','cmp-b-dday'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.value = todayDay;
+});
+
 if (/Chrome/.test(navigator.userAgent) && /Android|iPhone|iPad/.test(navigator.userAgent)
     && !window.matchMedia('(display-mode: standalone)').matches) {
   document.getElementById('install-hint').style.display = 'block';
 }
 
-// Register service worker (required for Chrome PWA install prompt)
 if ('serviceWorker' in navigator) {
   const swSrc = `
-    const CACHE = 'ratesetter-v1';
-    self.addEventListener('install', e => self.skipWaiting());
-    self.addEventListener('activate', e => e.waitUntil(clients.claim()));
-    self.addEventListener('fetch', e => {
-      // Cache-first for same-origin, network-first for API calls
-      if (e.request.url.includes('api.eia.gov') ||
-          e.request.url.includes('nominatim') ||
-          e.request.url.includes('osrm')) return;
-      e.respondWith(
-        caches.match(e.request).then(r => r || fetch(e.request).then(res => {
-          const clone = res.clone();
-          caches.open(CACHE).then(c => c.put(e.request, clone));
-          return res;
-        }))
-      );
+    const CACHE='ratesetter-v1';
+    self.addEventListener('install',e=>self.skipWaiting());
+    self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
+    self.addEventListener('fetch',e=>{
+      if(e.request.url.includes('api.eia.gov')||e.request.url.includes('nominatim')||e.request.url.includes('osrm')||e.request.url.includes('timezonefinder'))return;
+      e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{const c=res.clone();caches.open(CACHE).then(ca=>ca.put(e.request,c));return res;})));
     });
   `;
-  const blob = new Blob([swSrc], { type: 'application/javascript' });
-  navigator.serviceWorker.register(URL.createObjectURL(blob))
-    .catch(() => {}); // silently ignore if blocked (local file:// context)
+  const blob = new Blob([swSrc], {type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
 }
 </script>
 </body>
