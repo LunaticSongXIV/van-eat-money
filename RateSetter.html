@@ -293,6 +293,14 @@ body {
 .rate-card-table .base-applied { color: var(--warning); }
 .rate-card-note { font-size: 11px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
 
+/* ===== CITY RESOLUTION NOTICE ===== */
+.resolve-notice {
+  background: rgba(243,156,18,0.08); border: 1px solid rgba(243,156,18,0.3);
+  border-radius: 8px; padding: 10px 14px; margin-bottom: 10px;
+  font-size: 12px; color: #ffd166; line-height: 1.5;
+}
+.resolve-notice strong { color: var(--warning); }
+
 /* ===== INSTALL HINT ===== */
 .install-hint {
   background: rgba(100,255,218,0.06); border: 1px solid rgba(100,255,218,0.15);
@@ -882,21 +890,78 @@ function switchTab(el, tab) {
 }
 
 // ===========================
+// TIMEZONE
+// ===========================
+const tzCache = {};
+
+async function getTimezone(lat, lon) {
+  const key = `${lat.toFixed(2)},${lon.toFixed(2)}`;
+  if (tzCache[key]) return tzCache[key];
+  try {
+    const res  = await fetch(`https://timezonefinder.michelfe.it/api/0?lat=${lat}&lng=${lon}`);
+    const data = await res.json();
+    tzCache[key] = data.timezone;
+    return data.timezone;
+  } catch {
+    return estimateTzFromLon(lon); // fallback if API unavailable
+  }
+}
+
+function estimateTzFromLon(lon) {
+  // Rough continental US fallback by longitude
+  if (lon > -87.5)  return 'America/New_York';
+  if (lon > -102.5) return 'America/Chicago';
+  if (lon > -115)   return 'America/Denver';
+  return 'America/Los_Angeles';
+}
+
+function getUtcOffsetHours(tzName) {
+  try {
+    const now    = new Date();
+    const tzMs   = new Date(now.toLocaleString('en-US', { timeZone: tzName })).getTime();
+    const utcMs  = new Date(now.toLocaleString('en-US', { timeZone: 'UTC'   })).getTime();
+    return (tzMs - utcMs) / 3600000;
+  } catch { return 0; }
+}
+
+function tzAbbrev(tzName) {
+  const map = {
+    'America/New_York':    'ET',  'America/Detroit':     'ET',
+    'America/Chicago':     'CT',  'America/Indiana/Knox':'CT',
+    'America/Denver':      'MT',  'America/Boise':       'MT',
+    'America/Phoenix':     'MT',  'America/Los_Angeles': 'PT',
+    'America/Anchorage':   'AKT', 'Pacific/Honolulu':    'HT',
+  };
+  return map[tzName] || (tzName.split('/')[1] || tzName).replace('_', ' ');
+}
+
+// ===========================
 // GEOCODING & ROUTING
 // ===========================
 const geocodeCache = {};
 
 async function geocode(city) {
   if (geocodeCache[city]) return geocodeCache[city];
-  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1&countrycodes=us&addressdetails=0`;
+  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1&countrycodes=us&addressdetails=1`;
   const res = await fetch(url, { headers: { 'Accept-Language': 'en-US,en' } });
   if (!res.ok) throw new Error('Geocoding service unavailable — check your internet connection.');
   const data = await res.json();
   if (!data.length) throw new Error(`Could not find "${city}". Try "City, State" format.`);
+  const addr  = data[0].address || {};
+  const place = addr.city || addr.town || addr.village || addr.county || data[0].display_name.split(',')[0];
+  const state = addr.state || '';
+  const label = state ? `${place}, ${state}` : place;
+  // If the user didn't specify a state (no comma), the API had to choose — always clarify.
+  // If they did specify a state, check that it appears in the resolved label.
+  const hasState     = city.includes(',');
+  const inputLower   = city.toLowerCase().replace(/[^a-z]/g, '');
+  const resolvedLower= label.toLowerCase().replace(/[^a-z]/g, '');
+  const exact        = hasState && resolvedLower.includes(inputLower.slice(0, 6));
   const result = {
     lat: parseFloat(data[0].lat),
     lon: parseFloat(data[0].lon),
-    label: data[0].display_name.split(',').slice(0, 2).join(',').trim()
+    label,
+    exact
   };
   geocodeCache[city] = result;
   return result;
@@ -967,24 +1032,36 @@ async function calculate() {
       geocode(s.homeCity)
     ]);
 
-    out.innerHTML = `<div class="loading"><div class="spinner"></div>Calculating distances…</div>`;
+    out.innerHTML = `<div class="loading"><div class="spinner"></div>Calculating distances &amp; timezones…</div>`;
 
-    // --- 3 routes in parallel ---
-    const [loadedMiles, destToHomeMiles, pickupFromHomeMiles] = await Promise.all([
-      getRouteMiles(pickupCoord, destCoord),   // loaded leg
-      getRouteMiles(destCoord, homeCoord),      // dest → home (home-time check + overnight check)
-      getRouteMiles(homeCoord, pickupCoord)     // home → pickup (overnight check)
+    // --- Routes + timezones in parallel ---
+    const [loadedMiles, destToHomeMiles, pickupFromHomeMiles, pickupTz, destTz, homeTz] = await Promise.all([
+      getRouteMiles(pickupCoord, destCoord),
+      getRouteMiles(destCoord, homeCoord),
+      getRouteMiles(homeCoord, pickupCoord),
+      getTimezone(pickupCoord.lat, pickupCoord.lon),
+      getTimezone(destCoord.lat, destCoord.lon),
+      getTimezone(homeCoord.lat, homeCoord.lon)
     ]);
+
+    const pickupOffset = getUtcOffsetHours(pickupTz);
+    const destOffset   = getUtcOffsetHours(destTz);
+    const homeOffset   = getUtcOffsetHours(homeTz);
+    // Positive = window grows (driving east→west, clocks fall back)
+    // Negative = window shrinks (driving west→east, clocks spring forward)
+    const tzAdjHours   = pickupOffset - destOffset;
 
     // Home base is NOT included in mileage costs — only loaded miles + manual deadhead
     const totalMiles = loadedMiles + deadheadIn;
 
     // ── DELIVERY WINDOW ────────────────────────────
-    // 23:59 sentinel (rawDelivery=24): treat as full hours to midnight of next day
+    // Pickup time is local to origin; delivery time is local to destination.
+    // tzAdjHours corrects for the clock difference between the two cities.
     let durationHours = is2359
       ? additionalDays * 24 + (24 - pickupHour)
       : additionalDays * 24 + (deliveryHour - pickupHour);
     if (durationHours <= 0) durationHours += 24;
+    durationHours += tzAdjHours; // apply timezone correction
 
     // ── CALENDAR DAYS ELAPSED ──────────────────────
     // 23:59 always rolls into next calendar day regardless of pickup time
@@ -1015,11 +1092,12 @@ async function calculate() {
     const isTight = marginPer100 < 5;
 
     // ── HOME TIME CHECK ────────────────────────────
-    // After delivery, can we drive home and arrive by 8 PM (20:00)?
-    // We use raw drive time from dest to home; no shipper time counted.
-    const driveHomeHours    = destToHomeMiles / s.speed;
-    const homeArrivalHour   = deliveryHour + driveHomeHours; // decimal hours from midnight
-    const homeTimeQualifies = homeArrivalHour <= 20;
+    // Delivery time is local to destination; 8 PM target is home local time.
+    // Convert delivery time to home local: deliveryHour + (homeOffset - destOffset)
+    const driveHomeHours     = destToHomeMiles / s.speed;
+    const deliveryInHomeTz   = deliveryHour + (homeOffset - destOffset);
+    const homeArrivalHour    = deliveryInHomeTz + driveHomeHours;
+    const homeTimeQualifies  = homeArrivalHour <= 20;
     const homeArrivalFmt = fmtTimeDecimal(homeArrivalHour);
 
     // ── OVERNIGHT DIFFERENTIAL ─────────────────────
@@ -1135,6 +1213,13 @@ async function calculate() {
     out.innerHTML = `
       ${warnHtml}
 
+      ${(!pickupCoord.exact || !destCoord.exact) ? `
+      <div class="resolve-notice">
+        📍 <strong>Location resolved:</strong><br>
+        ${!pickupCoord.exact ? `Pickup → <strong>${pickupCoord.label}</strong><br>` : `Pickup → ${pickupCoord.label}<br>`}
+        ${!destCoord.exact   ? `Delivery → <strong>${destCoord.label}</strong>` : `Delivery → ${destCoord.label}`}
+      </div>` : ''}
+
       ${homeTimeQualifies ? `
       <div class="home-card">
         <div class="home-icon">🏠</div>
@@ -1176,6 +1261,7 @@ async function calculate() {
 
       <div class="result-card">
         <h3>⏱ Time</h3>
+        <div class="result-row"><span class="lbl">Timezones</span><span class="val">${tzAbbrev(pickupTz)} → ${tzAbbrev(destTz)}${tzAdjHours !== 0 ? ` (${tzAdjHours > 0 ? '+' : ''}${tzAdjHours}h to window)` : ' (same)'}</span></div>
         <div class="result-row"><span class="lbl">Delivery Window</span><span class="val">${fmtHr(durationHours)}</span></div>
         <div class="result-row"><span class="lbl">Drive Time @ ${s.speed} mph</span><span class="val">${fmtHr(driveHours)}</span></div>
         ${sleepHours > 0
@@ -1209,10 +1295,10 @@ async function calculate() {
 
       <div class="result-card">
         <h3>📌 Trip Summary</h3>
-        <div class="result-row"><span class="lbl">From</span><span class="val small-val">${pickupCoord.label}</span></div>
-        <div class="result-row"><span class="lbl">To</span><span class="val small-val">${destCoord.label}</span></div>
-        <div class="result-row"><span class="lbl">Pickup</span><span class="val">${DAY_NAMES[pickupDay]}, ${fmtTime(pickupHour)}</span></div>
-        <div class="result-row"><span class="lbl">Delivery</span><span class="val">${DAY_NAMES[deliveryDayActual]}, ${fmtTime(deliveryHour)}</span></div>
+        <div class="result-row"><span class="lbl">From</span><span class="val small-val">${pickupCoord.label} <span style="color:var(--muted)">${tzAbbrev(pickupTz)}</span></span></div>
+        <div class="result-row"><span class="lbl">To</span><span class="val small-val">${destCoord.label} <span style="color:var(--muted)">${tzAbbrev(destTz)}</span></span></div>
+        <div class="result-row"><span class="lbl">Pickup</span><span class="val">${DAY_NAMES[pickupDay]}, ${fmtTime(pickupHour)} ${tzAbbrev(pickupTz)}</span></div>
+        <div class="result-row"><span class="lbl">Delivery</span><span class="val">${DAY_NAMES[deliveryDayActual]}, ${fmtTime(is2359 ? 24 : deliveryHour)} ${tzAbbrev(destTz)}</span></div>
         <div class="result-row"><span class="lbl">Billing Days</span><span class="val">${billingDays.toFixed(1)} days</span></div>
         <div class="result-row"><span class="lbl">Dist. to Home from Drop</span><span class="val">${fmtMi(destToHomeMiles)}</span></div>
       </div>
