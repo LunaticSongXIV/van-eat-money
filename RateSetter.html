@@ -357,30 +357,31 @@ body {
       <div class="field">
         <label>Pickup Time</label>
         <select id="pickup-time">
-          <option value="0">Midnight</option>
-          <option value="1">1:00 AM</option>
-          <option value="2">2:00 AM</option>
-          <option value="3">3:00 AM</option>
-          <option value="4">4:00 AM</option>
-          <option value="5">5:00 AM</option>
-          <option value="6">6:00 AM</option>
-          <option value="7">7:00 AM</option>
-          <option value="8" selected>8:00 AM</option>
-          <option value="9">9:00 AM</option>
-          <option value="10">10:00 AM</option>
-          <option value="11">11:00 AM</option>
-          <option value="12">Noon</option>
-          <option value="13">1:00 PM</option>
-          <option value="14">2:00 PM</option>
-          <option value="15">3:00 PM</option>
-          <option value="16">4:00 PM</option>
-          <option value="17">5:00 PM</option>
-          <option value="18">6:00 PM</option>
-          <option value="19">7:00 PM</option>
-          <option value="20">8:00 PM</option>
-          <option value="21">9:00 PM</option>
-          <option value="22">10:00 PM</option>
-          <option value="23">11:00 PM</option>
+          <option value="0">00:00</option>
+          <option value="1">01:00</option>
+          <option value="2">02:00</option>
+          <option value="3">03:00</option>
+          <option value="4">04:00</option>
+          <option value="5">05:00</option>
+          <option value="6">06:00</option>
+          <option value="7">07:00</option>
+          <option value="8" selected>08:00</option>
+          <option value="9">09:00</option>
+          <option value="10">10:00</option>
+          <option value="11">11:00</option>
+          <option value="12">12:00</option>
+          <option value="13">13:00</option>
+          <option value="14">14:00</option>
+          <option value="15">15:00</option>
+          <option value="16">16:00</option>
+          <option value="17">17:00</option>
+          <option value="18">18:00</option>
+          <option value="19">19:00</option>
+          <option value="20">20:00</option>
+          <option value="21">21:00</option>
+          <option value="22">22:00</option>
+          <option value="23">23:00</option>
+          <option value="24">23:59</option>
         </select>
       </div>
     </div>
@@ -388,30 +389,31 @@ body {
       <div class="field">
         <label>Delivery Time</label>
         <select id="delivery-time">
-          <option value="0">Midnight</option>
-          <option value="1">1:00 AM</option>
-          <option value="2">2:00 AM</option>
-          <option value="3">3:00 AM</option>
-          <option value="4">4:00 AM</option>
-          <option value="5">5:00 AM</option>
-          <option value="6">6:00 AM</option>
-          <option value="7">7:00 AM</option>
-          <option value="8">8:00 AM</option>
-          <option value="9">9:00 AM</option>
-          <option value="10">10:00 AM</option>
-          <option value="11">11:00 AM</option>
-          <option value="12">Noon</option>
-          <option value="13">1:00 PM</option>
-          <option value="14">2:00 PM</option>
-          <option value="15">3:00 PM</option>
-          <option value="16" selected>4:00 PM</option>
-          <option value="17">5:00 PM</option>
-          <option value="18">6:00 PM</option>
-          <option value="19">7:00 PM</option>
-          <option value="20">8:00 PM</option>
-          <option value="21">9:00 PM</option>
-          <option value="22">10:00 PM</option>
-          <option value="23">11:00 PM</option>
+          <option value="0">00:00</option>
+          <option value="1">01:00</option>
+          <option value="2">02:00</option>
+          <option value="3">03:00</option>
+          <option value="4">04:00</option>
+          <option value="5">05:00</option>
+          <option value="6">06:00</option>
+          <option value="7">07:00</option>
+          <option value="8">08:00</option>
+          <option value="9">09:00</option>
+          <option value="10">10:00</option>
+          <option value="11">11:00</option>
+          <option value="12">12:00</option>
+          <option value="13">13:00</option>
+          <option value="14">14:00</option>
+          <option value="15">15:00</option>
+          <option value="16" selected>16:00</option>
+          <option value="17">17:00</option>
+          <option value="18">18:00</option>
+          <option value="19">19:00</option>
+          <option value="20">20:00</option>
+          <option value="21">21:00</option>
+          <option value="22">22:00</option>
+          <option value="23">23:00</option>
+          <option value="24">23:59</option>
         </select>
       </div>
       <div class="field">
@@ -921,17 +923,13 @@ function fmtHr(n) {
 }
 const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 function fmtTime(h) {
-  if (h === 0)  return 'Midnight';
-  if (h === 12) return 'Noon';
-  return h < 12 ? `${h}:00 AM` : `${h - 12}:00 PM`;
+  if (h === 24) return '23:59';
+  return `${String(h).padStart(2,'0')}:00`;
 }
 function fmtTimeDecimal(decH) {
   const h = Math.floor(decH) % 24;
   const m = Math.round((decH - Math.floor(decH)) * 60);
-  const base = h === 0 ? 'Midnight' : h === 12 ? 'Noon'
-    : h < 12 ? `${h}:${String(m).padStart(2,'0')} AM`
-    : `${h-12}:${String(m).padStart(2,'0')} PM`;
-  return base;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
 }
 
 // ===========================
@@ -945,8 +943,10 @@ async function calculate() {
   const destCity      = document.getElementById('dest-city').value.trim();
   const deadheadIn    = parseFloat(document.getElementById('deadhead-miles').value) || 0;
   const pickupDay     = parseInt(document.getElementById('pickup-day').value);   // 0=Sun … 6=Sat
-  const pickupHour    = parseInt(document.getElementById('pickup-time').value);  // 0,4,8,12,16,20
-  const deliveryHour  = parseInt(document.getElementById('delivery-time').value);
+  const pickupHour     = parseInt(document.getElementById('pickup-time').value);
+  const rawDelivery    = parseInt(document.getElementById('delivery-time').value);
+  const is2359         = rawDelivery === 24; // 23:59 sentinel = midnight next day
+  const deliveryHour   = is2359 ? 0 : rawDelivery;
   const additionalDays = parseInt(document.getElementById('additional-days').value) || 0;
 
   if (!pickupCity || !destCity) {
@@ -980,14 +980,17 @@ async function calculate() {
     const totalMiles = loadedMiles + deadheadIn;
 
     // ── DELIVERY WINDOW ────────────────────────────
-    // additionalDays = calendar days after pickup day that delivery falls on
-    // e.g. additionalDays=2 means delivery is 2 days after pickup, at deliveryHour
-    let durationHours = additionalDays * 24 + (deliveryHour - pickupHour);
-    if (durationHours <= 0) durationHours += 24; // minimum one cycle if same or reversed time
+    // 23:59 sentinel (rawDelivery=24): treat as full hours to midnight of next day
+    let durationHours = is2359
+      ? additionalDays * 24 + (24 - pickupHour)
+      : additionalDays * 24 + (deliveryHour - pickupHour);
+    if (durationHours <= 0) durationHours += 24;
 
     // ── CALENDAR DAYS ELAPSED ──────────────────────
-    // For additionalDays=0 and deliveryHour < pickupHour, delivery is actually next day
-    const daysByTime = (additionalDays === 0 && deliveryHour <= pickupHour) ? 1 : 0;
+    // 23:59 always rolls into next calendar day regardless of pickup time
+    const daysByTime = is2359
+      ? 1
+      : (additionalDays === 0 && deliveryHour <= pickupHour) ? 1 : 0;
     const calendarDaysElapsed = additionalDays + daysByTime;
     const deliveryDayActual = (pickupDay + calendarDaysElapsed) % 7;
 
