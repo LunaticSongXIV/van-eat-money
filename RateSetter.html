@@ -915,8 +915,11 @@ function fmtTimeDecimal(decH) {
 // ═══════════════════════════════════════════
 // CORE CALCULATION ENGINE (shared)
 // ═══════════════════════════════════════════
+const DIRECT_BUFFER_H = 0.75; // 45-min delivery buffer (loading, paperwork, approvals)
+
 function computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHomeMiles,
-    pickupTz, destTz, homeTz, pickupDay, deliveryDay, pickupHour, deliveryHour, is2359 }, s) {
+    pickupTz, destTz, homeTz, pickupDay, deliveryDay, pickupHour, deliveryHour, is2359,
+    billableBufferHours = 0 }, s) {
 
   const pickupOffset = getUtcOffsetHours(pickupTz);
   const destOffset   = getUtcOffsetHours(destTz);
@@ -945,7 +948,7 @@ function computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHo
 
   // Billing: driveHours / 15  (15-hr day capacity; sleep handled separately for feasibility only)
   // Weekend hours are determined by which calendar days the driving actually falls on.
-  const billingDays    = driveHours / 15;
+  const billingDays    = (driveHours + billableBufferHours) / 15;
   const wkndDailyTarget = s.dailyTargetWknd ?? s.dailyTarget;
   const wkndFloorProfit = s.floorProfitWknd  ?? s.floorProfit;
   let weekendDriveHours = 0;
@@ -1340,13 +1343,14 @@ async function calculate() {
     }
 
     // Direct delivery: compute arrival time from drive speed; decline if >14 h
+    // DIRECT_BUFFER_H (45 min) added for loading, paperwork, and approvals — counts toward billing
     if (isDirect) {
       const driveH = loadedMiles / s.speed;
       if (driveH > 14) {
         out.innerHTML = buildDirectDecline(driveH, s.speed);
         return;
       }
-      const absArrival  = pickupHour + driveH;
+      const absArrival  = pickupHour + driveH + DIRECT_BUFFER_H;
       const extraDays   = Math.floor(absArrival / 24);
       deliveryHour      = absArrival % 24;
       deliveryDay       = (pickupDay + extraDays) % 7;
@@ -1354,7 +1358,7 @@ async function calculate() {
       is2359            = false;
     }
 
-    const d = computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHomeMiles, pickupTz, destTz, homeTz, pickupDay, deliveryDay, pickupHour, deliveryHour, is2359 }, s);
+    const d = computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHomeMiles, pickupTz, destTz, homeTz, pickupDay, deliveryDay, pickupHour, deliveryHour, is2359, billableBufferHours: isDirect ? DIRECT_BUFFER_H : 0 }, s);
 
     // Direct deliveries can't be infeasible — there's no window to violate.
     // Infeasibility for direct loads is already handled by the 14-hr check above.
@@ -1428,7 +1432,7 @@ async function calculate() {
     if (d.baseTripApplied)    tags += `<span class="tag tag-base">📋 Base minimum</span>`;
     if (d.minRateApplied)     tags += `<span class="tag tag-base">📐 Min rate floor</span>`;
 
-    const warnHtml = d.isTight ? `<div class="warn-box">⚠️ <strong>Tight Schedule</strong> — only ${d.marginPer100.toFixed(1)} min/100mi margin. Any delay could make this infeasible.</div>` : '';
+    const warnHtml = (!isDirect && d.isTight) ? `<div class="warn-box">⚠️ <strong>Tight Schedule</strong> — only ${d.marginPer100.toFixed(1)} min/100mi margin. Any delay could make this infeasible.</div>` : '';
 
     const resolveHtml = (!pickupCoord.exact || !destCoord.exact) ? `
       <div class="resolve-notice">📍 <strong>Location resolved:</strong><br>
@@ -1473,6 +1477,7 @@ async function calculate() {
         <div class="bid-label">Recommended Bid</div>
         <div class="bid-amount">${fmt$(d.recBid)}</div>
         <div class="bid-sub">${fmtMi(loadedMiles)} loaded &nbsp;·&nbsp; ${fmt$(d.rpmLoaded)}/loaded mi</div>
+        ${isDirect ? `<div class="bid-sub" style="margin-top:4px;color:#ffe066">📦 Est. delivery: ${DAY_NAMES[d.deliveryDayActual]}, ~${fmtTimeDecimal(deliveryHour)} ${tzAbbrev(destTz)} <span style="color:var(--muted);font-size:11px">(+45 min buffer)</span></div>` : ''}
         ${tags ? `<div class="bid-tags">${tags}</div>` : ''}
         <div class="floor-label">Do not accept below: <strong>${fmt$(d.minAcceptable)}</strong> &nbsp;·&nbsp; costs: ${fmt$(d.loadedFuelCost + d.maintCost + d.deadheadCost)}</div>
         <div class="rpm-bar">
@@ -1497,7 +1502,7 @@ async function calculate() {
         ${d.sleepHours > 0 ? `<div class="result-row"><span class="lbl">Sleep / Downtime</span><span class="val">${fmtHr(d.sleepHours)}</span></div>` : `<div class="result-row"><span class="lbl">Sleep / Downtime</span><span class="val" style="color:var(--muted)">N/A (&lt;15hr drive)</span></div>`}
         <div class="result-row"><span class="lbl">Total Trip Time</span><span class="val">${fmtHr(d.totalTripHours)}</span></div>
         <div class="result-row"><span class="lbl">Buffer Remaining</span><span class="val">${fmtHr(d.buffer)}</span></div>
-        <div class="result-row"><span class="lbl">Schedule Margin</span><span class="val ${d.isTight?'warn-text':''}">${d.marginPer100.toFixed(1)} min/100mi${d.isTight?' ⚠️':''}</span></div>
+        ${isDirect ? '' : `<div class="result-row"><span class="lbl">Schedule Margin</span><span class="val ${d.isTight?'warn-text':''}">${d.marginPer100.toFixed(1)} min/100mi${d.isTight?' ⚠️':''}</span></div>`}
         ${fuelStopHtml}
       </div>
 
@@ -1528,7 +1533,7 @@ async function calculate() {
             ? `${DAY_NAMES[d.deliveryDayActual]}, ~${fmtTimeDecimal(deliveryHour)} ${tzAbbrev(destTz)} 📦`
             : `${DAY_NAMES[d.deliveryDayActual]}, ${fmtTime(is2359?24:deliveryHour)} ${tzAbbrev(destTz)}`
         }</span></div>
-        <div class="result-row"><span class="lbl">Billing Days</span><span class="val">${d.billingDays.toFixed(2)} days (${d.driveHours.toFixed(1)} h ÷ 15)</span></div>
+        <div class="result-row"><span class="lbl">Billing Days</span><span class="val">${d.billingDays.toFixed(2)} days (${isDirect ? `${d.driveHours.toFixed(1)} h + 0.75 h buffer` : `${d.driveHours.toFixed(1)} h`} ÷ 15)</span></div>
         <div class="result-row"><span class="lbl">Dist. to Home from Drop</span><span class="val">${fmtMi(destToHomeMiles)}</span></div>
       </div>
 
@@ -1643,8 +1648,8 @@ async function compareRoutes() {
     if (aDir) { aDDay = aDir.dDay; aDTime = aDir.dTime; a2359 = false; }
     if (bDir) { bDDay = bDir.dDay; bDTime = bDir.dTime; b2359 = false; }
 
-    const a = computeBidData({ loadedMiles: aLM, deadheadIn: aDH, destToHomeMiles: aDHM, pickupFromHomeMiles: aPHM, pickupTz: aTzP, destTz: aTzD, homeTz, pickupDay: aPDay, deliveryDay: aDDay, pickupHour: aPTime, deliveryHour: aDTime, is2359: a2359 }, s);
-    const b = computeBidData({ loadedMiles: bLM, deadheadIn: bDH, destToHomeMiles: bDHM, pickupFromHomeMiles: bPHM, pickupTz: bTzP, destTz: bTzD, homeTz, pickupDay: bPDay, deliveryDay: bDDay, pickupHour: bPTime, deliveryHour: bDTime, is2359: b2359 }, s);
+    const a = computeBidData({ loadedMiles: aLM, deadheadIn: aDH, destToHomeMiles: aDHM, pickupFromHomeMiles: aPHM, pickupTz: aTzP, destTz: aTzD, homeTz, pickupDay: aPDay, deliveryDay: aDDay, pickupHour: aPTime, deliveryHour: aDTime, is2359: a2359, billableBufferHours: aIsDirect ? DIRECT_BUFFER_H : 0 }, s);
+    const b = computeBidData({ loadedMiles: bLM, deadheadIn: bDH, destToHomeMiles: bDHM, pickupFromHomeMiles: bPHM, pickupTz: bTzP, destTz: bTzD, homeTz, pickupDay: bPDay, deliveryDay: bDDay, pickupHour: bPTime, deliveryHour: bDTime, is2359: b2359, billableBufferHours: bIsDirect ? DIRECT_BUFFER_H : 0 }, s);
 
     const hi = (aV, bV) => aV > bV ? ['better','worse'] : aV < bV ? ['worse','better'] : ['',''];
     const lo = (aV, bV) => aV < bV ? ['better','worse'] : aV > bV ? ['worse','better'] : ['',''];
