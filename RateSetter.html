@@ -985,7 +985,7 @@ function computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHo
   if (minRateApplied) recBid = minByRate;
 
   const profitFloor = weekdayBillingDays * s.floorProfit + weekendBillingDays * wkndFloor;
-  let minAcceptable = loadedFuelCost + maintCost + profitFloor + deadheadCost + totalDiffs;
+  let minAcceptable = loadedFuelCost + maintCost + profitFloor;
   if (minAcceptable < s.baseTripCost) minAcceptable = s.baseTripCost;
   if (homeTimeQualifies) minAcceptable *= 0.85;
   if (minAcceptable < minByRate) minAcceptable = minByRate;
