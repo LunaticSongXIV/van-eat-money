@@ -312,6 +312,15 @@ body {
     </div>
   </div>
 
+  <div class="section-label">Offered Rate <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">— optional</span></div>
+  <div class="field">
+    <label>Rate Offered to You</label>
+    <div class="prefix-wrap">
+      <span class="prefix">$</span>
+      <input type="number" id="offered-rate" placeholder="Leave blank to skip" step="10" min="0" inputmode="decimal">
+    </div>
+  </div>
+
   <button class="btn btn-primary" id="calc-btn" onclick="calculate()">Calculate Bid →</button>
   <div id="results"></div>
 
@@ -359,6 +368,7 @@ body {
     <div class="field"><label>Delivery Day</label><select id="cmp-a-dday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
     <div class="field"><label>Delivery Time</label><select id="cmp-a-dtime"></select></div>
   </div>
+  <div class="field"><label>Rate Offered <span style="color:var(--muted);font-weight:400;font-size:11px">— optional</span></label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="cmp-a-offered" placeholder="Leave blank to skip" step="10" min="0" inputmode="decimal"></div></div>
 
   <div class="route-block-label">Route B</div>
   <div class="field"><label>Pickup City</label><input type="text" id="cmp-b-pickup" placeholder="e.g. Nashville, TN" autocomplete="off" autocorrect="off"></div>
@@ -372,6 +382,7 @@ body {
     <div class="field"><label>Delivery Day</label><select id="cmp-b-dday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
     <div class="field"><label>Delivery Time</label><select id="cmp-b-dtime"></select></div>
   </div>
+  <div class="field"><label>Rate Offered <span style="color:var(--muted);font-weight:400;font-size:11px">— optional</span></label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="cmp-b-offered" placeholder="Leave blank to skip" step="10" min="0" inputmode="decimal"></div></div>
 
   <button class="btn btn-primary" id="cmp-btn" onclick="compareRoutes()">Compare Routes →</button>
   <div id="compare-results"></div>
@@ -446,12 +457,22 @@ body {
   <div class="section-label">Profit Target</div>
   <div class="row-2">
     <div class="field">
-      <label>Target Profit</label>
+      <label>Weekday Target</label>
       <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-daily-target" step="10" placeholder="700" inputmode="decimal"><span class="suffix">/day</span></div>
     </div>
     <div class="field">
-      <label>Floor Profit</label>
+      <label>Weekday Floor</label>
       <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-floor-profit" step="10" placeholder="500" inputmode="decimal"><span class="suffix">/day</span></div>
+    </div>
+  </div>
+  <div class="row-2">
+    <div class="field">
+      <label>Weekend Target 📅</label>
+      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-daily-target-wknd" step="10" placeholder="500" inputmode="decimal"><span class="suffix">/day</span></div>
+    </div>
+    <div class="field">
+      <label>Weekend Floor 📅</label>
+      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-floor-profit-wknd" step="10" placeholder="350" inputmode="decimal"><span class="suffix">/day</span></div>
     </div>
   </div>
   <div class="row-2">
@@ -500,6 +521,7 @@ body {
 
   <div class="info-note">
     <strong>Bid formula:</strong> Fuel + Maintenance + (billing days × profit/day) + differentials = bid.<br><br>
+    <strong>Weekend rates 📅</strong> apply when pickup day is Saturday or Sunday, using the lower weekend target and floor instead of weekday values.<br><br>
     <strong>Home base</strong> is used only to flag home-time trips (bid −15%) and overnight distance checks.<br><br>
     <strong>Sleep:</strong> 1 hr per 3 hrs driving, on trips ≥ 15 hrs drive time.<br><br>
     <strong>Billing days:</strong> pickup after noon = ½ day; delivery before noon = ½ day.<br><br>
@@ -522,7 +544,9 @@ const DEFAULTS = {
   fuelLastUpdated: null, fuelLastPeriod: null,
   mpg: 16.5, maint: 0.07, speed: 52,
   tankSize: 40, refuelAt: 25,
-  dailyTarget: 700, floorProfit: 500, baseTripCost: 100, minRatePerMile: 1.80,
+  dailyTarget: 700, floorProfit: 500,
+  dailyTargetWknd: 500, floorProfitWknd: 350,
+  baseTripCost: 100, minRatePerMile: 1.80,
   deadheadRate: 20,
   overnight: 50, weekend: 5, detention: 15,
   homeCity: 'Germantown, TN',
@@ -549,8 +573,10 @@ function saveSettings() {
     speed:          n('s-speed')         || DEFAULTS.speed,
     tankSize:       n('s-tank-size')     || DEFAULTS.tankSize,
     refuelAt:       n('s-refuel-at')     || DEFAULTS.refuelAt,
-    dailyTarget:    n('s-daily-target')  || DEFAULTS.dailyTarget,
-    floorProfit:    n('s-floor-profit')  || DEFAULTS.floorProfit,
+    dailyTarget:     n('s-daily-target')      || DEFAULTS.dailyTarget,
+    floorProfit:     n('s-floor-profit')      || DEFAULTS.floorProfit,
+    dailyTargetWknd: n('s-daily-target-wknd') || DEFAULTS.dailyTargetWknd,
+    floorProfitWknd: n('s-floor-profit-wknd') || DEFAULTS.floorProfitWknd,
     baseTripCost:   n('s-base-trip')     || DEFAULTS.baseTripCost,
     minRatePerMile: n('s-min-rate')      || DEFAULTS.minRatePerMile,
     deadheadRate:   n('s-deadhead-rate') || DEFAULTS.deadheadRate,
@@ -580,8 +606,10 @@ function populateSettings() {
   set('s-speed',      s.speed);
   set('s-tank-size',  s.tankSize);
   set('s-refuel-at',  s.refuelAt);
-  set('s-daily-target', s.dailyTarget);
-  set('s-floor-profit', s.floorProfit);
+  set('s-daily-target',      s.dailyTarget);
+  set('s-floor-profit',      s.floorProfit);
+  set('s-daily-target-wknd', s.dailyTargetWknd);
+  set('s-floor-profit-wknd', s.floorProfitWknd);
   set('s-base-trip',  s.baseTripCost);
   set('s-min-rate',   s.minRatePerMile);
   set('s-deadhead-rate', s.deadheadRate);
@@ -920,6 +948,23 @@ function computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHo
     billingDays = pickupFraction + Math.max(0, calendarDaysElapsed - 1) + deliveryFraction;
   }
 
+  // Split billing days into weekday vs weekend portions
+  let weekdayBillingDays = 0, weekendBillingDays = 0;
+  if (calendarDaysElapsed === 0) {
+    if (pickupDay === 0 || pickupDay === 6) weekendBillingDays = billingDays;
+    else weekdayBillingDays = billingDays;
+  } else {
+    for (let i = 0; i <= calendarDaysElapsed; i++) {
+      const dow = (pickupDay + i) % 7;
+      const frac = i === 0 ? pickupFraction : i === calendarDaysElapsed ? deliveryFraction : 1.0;
+      if (dow === 0 || dow === 6) weekendBillingDays += frac;
+      else weekdayBillingDays += frac;
+    }
+  }
+  const hasWeekendDays = weekendBillingDays > 0;
+  const wkndTarget = s.dailyTargetWknd ?? s.dailyTarget;
+  const wkndFloor  = s.floorProfitWknd  ?? s.floorProfit;
+
   // Costs
   const loadedFuelCost    = (loadedMiles / s.mpg) * s.fuelPrice;
   const maintCost         = loadedMiles * s.maint;
@@ -930,7 +975,7 @@ function computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHo
   const deadheadCost      = deadheadFuelCost + deadheadMaintCost + deadheadTimeCost;
   const totalDiffs        = overnightCost + weekendCost + detentionCost;
 
-  const profitTarget = billingDays * s.dailyTarget;
+  const profitTarget = weekdayBillingDays * s.dailyTarget + weekendBillingDays * wkndTarget;
   let targetBid      = loadedFuelCost + maintCost + profitTarget + deadheadCost + totalDiffs;
   const baseTripApplied = targetBid < s.baseTripCost;
   if (baseTripApplied) targetBid = s.baseTripCost;
@@ -939,7 +984,7 @@ function computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHo
   const minRateApplied = recBid < minByRate;
   if (minRateApplied) recBid = minByRate;
 
-  const profitFloor = billingDays * s.floorProfit;
+  const profitFloor = weekdayBillingDays * s.floorProfit + weekendBillingDays * wkndFloor;
   let minAcceptable = loadedFuelCost + maintCost + profitFloor + deadheadCost + totalDiffs;
   if (minAcceptable < s.baseTripCost) minAcceptable = s.baseTripCost;
   if (homeTimeQualifies) minAcceptable *= 0.85;
@@ -970,6 +1015,7 @@ function computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHo
     weekendQualifies, weekendExcessHours, weekendCost,
     overnightQualifies, overnightNights, overnightCost,
     detentionQualifies, detentionCost, totalDiffs,
+    hasWeekendDays, weekdayBillingDays, weekendBillingDays, wkndTarget, wkndFloor,
     billingDays, pickupFraction, deliveryFraction,
     loadedFuelCost, maintCost, deadheadFuelCost, deadheadMaintCost,
     deadheadTimeHours, deadheadTimeCost, deadheadCost,
@@ -1199,6 +1245,43 @@ async function calculate() {
       billingDays: d.billingDays, fuelPrice: s.fuelPrice
     };
 
+    // ── Rate offer analysis ──────────────────
+    const offeredRate = parseFloat(document.getElementById('offered-rate').value) || 0;
+    let offerHtml = '';
+    if (offeredRate > 0 && loadedMiles > 0) {
+      const oRpm = offeredRate / loadedMiles;
+      let verdict, verdictColor, counterHtml = '';
+      if (offeredRate >= d.recBid) {
+        verdict      = '✅ Accept — at or above your target';
+        verdictColor = 'var(--success)';
+      } else if (offeredRate >= d.minAcceptable) {
+        verdict      = '🤝 Counter — meets your floor, try for more';
+        verdictColor = 'var(--warning)';
+        const counter    = (offeredRate + d.recBid) / 2;
+        const counterRpm = counter / loadedMiles;
+        counterHtml = `<div class="result-row accent-row"><span class="lbl">Suggested Counter</span><span class="val">${fmt$(counter)} · $${counterRpm.toFixed(3)}/mi</span></div>`;
+      } else {
+        verdict      = '❌ Decline — below your floor';
+        verdictColor = 'var(--danger)';
+        const floorRpm = d.minAcceptable / loadedMiles;
+        counterHtml = `<div class="result-row warn-row"><span class="lbl">Counter at Your Floor</span><span class="val">${fmt$(d.minAcceptable)} · $${floorRpm.toFixed(3)}/mi</span></div>`;
+      }
+      const gap = offeredRate - d.recBid;
+      offerHtml = `
+        <div class="result-card" style="border-color:${verdictColor}55;margin-bottom:0">
+          <h3>💬 Rate Analysis</h3>
+          <div class="result-row"><span class="lbl">Offered Rate</span><span class="val">${fmt$(offeredRate)} · $${oRpm.toFixed(3)}/mi</span></div>
+          <div class="result-row"><span class="lbl">Your Target</span><span class="val">${fmt$(d.recBid)}</span></div>
+          <div class="result-row"><span class="lbl">Gap to Target</span><span class="val" style="color:${gap >= 0 ? 'var(--success)' : 'var(--danger)'}">${gap >= 0 ? '+' : ''}${fmt$(gap)}</span></div>
+          <div class="result-row"><span class="lbl">Your Floor</span><span class="val">${fmt$(d.minAcceptable)}</span></div>
+          ${counterHtml}
+          <div class="result-row total" style="margin-top:4px;border-top:1px solid var(--border);padding-top:10px">
+            <span class="lbl">Verdict</span>
+            <span class="val" style="color:${verdictColor}">${verdict}</span>
+          </div>
+        </div>`;
+    }
+
     showRateAdjPanel(d.recBid, d.minAcceptable);
     const logBtn = document.getElementById('log-bid-btn');
     logBtn.textContent = '📋 Log This Bid';
@@ -1222,12 +1305,23 @@ async function calculate() {
         ${!destCoord.exact   ? `Delivery → <strong>${destCoord.label}</strong>` : `Delivery → ${destCoord.label}`}
       </div>` : '';
 
+    const profitTargetLabel = d.weekendBillingDays === 0
+      ? `${d.billingDays.toFixed(1)} days × $${s.dailyTarget}/day`
+      : d.weekdayBillingDays === 0
+        ? `${d.billingDays.toFixed(1)} days × $${d.wkndTarget}/day 📅`
+        : `${d.weekdayBillingDays.toFixed(1)}d wkdy @$${s.dailyTarget} + ${d.weekendBillingDays.toFixed(1)}d wknd @$${d.wkndTarget} 📅`;
+    const profitFloorLabel = d.weekendBillingDays === 0
+      ? `floor $${s.floorProfit}/day`
+      : d.weekdayBillingDays === 0
+        ? `floor $${d.wkndFloor}/day 📅`
+        : `floor $${s.floorProfit} wkdy / $${d.wkndFloor} wknd 📅`;
+
     const fuelStopHtml = d.fuelStops > 0
       ? `<div class="result-row"><span class="lbl">Fuel Stops (~${fmtMi(Math.round(d.effectiveRange))} range)</span><span class="val">${d.fuelStops} stop${d.fuelStops>1?'s':''}</span></div>`
       : `<div class="result-row"><span class="lbl">Fuel Stops</span><span class="val" style="color:var(--muted)">None needed</span></div>`;
 
     out.innerHTML = `
-      ${fuelNote}${warnHtml}${resolveHtml}
+      ${fuelNote}${warnHtml}${resolveHtml}${offerHtml}
 
       ${d.homeTimeQualifies ? `<div class="home-card">
         <div class="home-icon">🏠</div>
@@ -1274,7 +1368,7 @@ async function calculate() {
         <h3>💰 Cost &amp; Profit</h3>
         <div class="result-row"><span class="lbl">Fuel — loaded (${fmtMi(loadedMiles)} ÷ ${s.mpg} mpg × $${s.fuelPrice})</span><span class="val">${fmt$(d.loadedFuelCost)}</span></div>
         <div class="result-row"><span class="lbl">Maintenance — loaded ($${s.maint}/mi)</span><span class="val">${fmt$(d.maintCost)}</span></div>
-        <div class="result-row"><span class="lbl">Target Profit (${d.billingDays.toFixed(1)} days × $${s.dailyTarget}/day)</span><span class="val">${fmt$(d.profitTarget)}</span></div>
+        <div class="result-row"><span class="lbl">Target Profit (${profitTargetLabel})</span><span class="val">${fmt$(d.profitTarget)}</span></div>
         ${deadheadIn > 0 ? `
         <div class="result-row"><span class="lbl">Deadhead fuel (${fmtMi(deadheadIn)} ÷ ${s.mpg} mpg)</span><span class="val">${fmt$(d.deadheadFuelCost)}</span></div>
         <div class="result-row"><span class="lbl">Deadhead maintenance ($${s.maint}/mi)</span><span class="val">${fmt$(d.deadheadMaintCost)}</span></div>
@@ -1283,7 +1377,7 @@ async function calculate() {
         ${d.weekendQualifies   ? `<div class="result-row"><span class="lbl">📅 Weekend (${d.weekendExcessHours.toFixed(1)}h × $${s.weekend}/hr)</span><span class="val">${fmt$(d.weekendCost)}</span></div>` : ''}
         ${d.detentionQualifies ? `<div class="result-row"><span class="lbl">⏳ Detention (${d.buffer.toFixed(1)}h × $${s.detention}/hr)</span><span class="val">${fmt$(d.detentionCost)}</span></div>` : ''}
         ${d.baseTripApplied    ? `<div class="result-row warn-row"><span class="lbl">📋 Base trip minimum</span><span class="val">${fmt$(s.baseTripCost)}</span></div>` : ''}
-        <div class="result-row warn-row"><span class="lbl">Min Acceptable (floor $${s.floorProfit}/day)</span><span class="val">${fmt$(d.minAcceptable)}</span></div>
+        <div class="result-row warn-row"><span class="lbl">Min Acceptable (${profitFloorLabel})</span><span class="val">${fmt$(d.minAcceptable)}</span></div>
         <div class="result-row total accent-row"><span class="lbl">Your Bid${d.homeTimeQualifies?' (home time −15%)':''}</span><span class="val">${fmt$(d.recBid)}</span></div>
       </div>
 
@@ -1315,23 +1409,25 @@ async function compareRoutes() {
   const out = document.getElementById('compare-results');
 
   const read = (id, fn) => fn(document.getElementById(id).value);
-  const aPickup = read('cmp-a-pickup', v => v.trim());
-  const aDest   = read('cmp-a-dest',   v => v.trim());
-  const aDH     = read('cmp-a-dh',     v => parseFloat(v)||0);
-  const aPDay   = read('cmp-a-pday',   v => parseInt(v));
-  const aDDay   = read('cmp-a-dday',   v => parseInt(v));
-  const aPTime  = read('cmp-a-ptime',  v => parseInt(v));
-  const aRawD   = read('cmp-a-dtime',  v => parseInt(v));
-  const a2359   = aRawD === 24; const aDTime = a2359 ? 0 : aRawD;
+  const aPickup   = read('cmp-a-pickup',   v => v.trim());
+  const aDest     = read('cmp-a-dest',     v => v.trim());
+  const aDH       = read('cmp-a-dh',       v => parseFloat(v)||0);
+  const aPDay     = read('cmp-a-pday',     v => parseInt(v));
+  const aDDay     = read('cmp-a-dday',     v => parseInt(v));
+  const aPTime    = read('cmp-a-ptime',    v => parseInt(v));
+  const aRawD     = read('cmp-a-dtime',    v => parseInt(v));
+  const a2359     = aRawD === 24; const aDTime = a2359 ? 0 : aRawD;
+  const aOffered  = read('cmp-a-offered',  v => parseFloat(v)||0);
 
-  const bPickup = read('cmp-b-pickup', v => v.trim());
-  const bDest   = read('cmp-b-dest',   v => v.trim());
-  const bDH     = read('cmp-b-dh',     v => parseFloat(v)||0);
-  const bPDay   = read('cmp-b-pday',   v => parseInt(v));
-  const bDDay   = read('cmp-b-dday',   v => parseInt(v));
-  const bPTime  = read('cmp-b-ptime',  v => parseInt(v));
-  const bRawD   = read('cmp-b-dtime',  v => parseInt(v));
-  const b2359   = bRawD === 24; const bDTime = b2359 ? 0 : bRawD;
+  const bPickup   = read('cmp-b-pickup',   v => v.trim());
+  const bDest     = read('cmp-b-dest',     v => v.trim());
+  const bDH       = read('cmp-b-dh',       v => parseFloat(v)||0);
+  const bPDay     = read('cmp-b-pday',     v => parseInt(v));
+  const bDDay     = read('cmp-b-dday',     v => parseInt(v));
+  const bPTime    = read('cmp-b-ptime',    v => parseInt(v));
+  const bRawD     = read('cmp-b-dtime',    v => parseInt(v));
+  const b2359     = bRawD === 24; const bDTime = b2359 ? 0 : bRawD;
+  const bOffered  = read('cmp-b-offered',  v => parseFloat(v)||0);
 
   if (!aPickup || !aDest || !bPickup || !bDest) {
     out.innerHTML = `<div class="warn-box">⚠️ Fill in all city fields for both routes.</div>`; return;
@@ -1420,6 +1516,20 @@ async function compareRoutes() {
               <td class="${a.homeTimeQualifies?'home-yes':''}">${a.homeTimeQualifies?'🏠 Yes':'No'}</td>
               <td class="${b.homeTimeQualifies?'home-yes':''}">${b.homeTimeQualifies?'🏠 Yes':'No'}</td>
             </tr>
+            ${(aOffered > 0 || bOffered > 0) ? (() => {
+              const offerCell = (offered, d, miles) => {
+                if (!offered || miles <= 0) return '<td style="color:var(--muted)">—</td>';
+                const rpm = offered / miles;
+                if (d.infeasible) return `<td style="color:var(--muted)">${fmt$(offered)}<br><span style="font-size:10px">DECLINE</span></td>`;
+                if (offered >= d.recBid)          return `<td style="color:var(--success)">${fmt$(offered)}<br><span style="font-size:10px">✅ Accept</span></td>`;
+                if (offered >= d.minAcceptable) {
+                  const counter = (offered + d.recBid) / 2;
+                  return `<td style="color:var(--warning)">${fmt$(offered)}<br><span style="font-size:10px">🤝 Counter ${fmt$(counter)}</span></td>`;
+                }
+                return `<td style="color:var(--danger)">${fmt$(offered)}<br><span style="font-size:10px">❌ Below floor</span></td>`;
+              };
+              return `<tr><td>Rate Offered</td>${offerCell(aOffered,a,aLM)}${offerCell(bOffered,b,bLM)}</tr>`;
+            })() : ''}
           </tbody>
         </table>
         <div style="font-size:10px;color:var(--muted);margin-top:10px">Green = better value for that metric</div>
