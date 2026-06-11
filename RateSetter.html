@@ -7,17 +7,6 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="RateSetter">
 <meta name="theme-color" content="#0f1117">
-<link rel="manifest" href="data:application/manifest+json,{
-  %22name%22:%22RateSetter%22,
-  %22short_name%22:%22RateSetter%22,
-  %22description%22:%22Hot-shot freight bid calculator%22,
-  %22display%22:%22standalone%22,
-  %22orientation%22:%22portrait%22,
-  %22background_color%22:%22%230f1117%22,
-  %22theme_color%22:%22%2364ffda%22,
-  %22start_url%22:%22.%22,
-  %22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230f1117'/%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%9A%3C/text%3E%3C/svg%3E%22,%22sizes%22:%22any%22,%22type%22:%22image/svg+xml%22}]
-}">
 <title>RateSetter</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -51,11 +40,11 @@ body {
   text-transform: uppercase;
 }
 .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-
-.content { padding: 14px 14px 48px; }
+.content { padding: 14px 14px 64px; }
 .page { display: none; }
 .page.active { display: block; }
 
+/* ── SECTION LABELS ── */
 .section-label {
   font-size: 10px; font-weight: 800; color: var(--muted);
   text-transform: uppercase; letter-spacing: 1px;
@@ -64,17 +53,13 @@ body {
 .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .section-label:first-of-type { margin-top: 4px; }
 
+/* ── FORM FIELDS ── */
 .field { margin-bottom: 10px; }
 .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
 .field input, .field select {
   width: 100%; background: var(--card); border: 1px solid var(--border);
   border-radius: 9px; padding: 11px 13px; color: var(--text); font-size: 15px;
   -webkit-appearance: none; appearance: none; transition: border-color 0.15s;
-}
-.field select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238892b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 13px center;
-  padding-right: 36px; background-color: var(--card);
 }
 .field input:focus, .field select:focus {
   outline: none; border-color: var(--primary);
@@ -90,6 +75,7 @@ body {
 .suffix { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 12px; pointer-events: none; }
 .suffix-wrap input { padding-right: 38px; }
 
+/* ── BUTTONS ── */
 .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.15s; }
 .btn-primary { background: var(--primary); color: white; }
 .btn-primary:active { background: var(--primary-dark); transform: scale(0.98); }
@@ -97,35 +83,28 @@ body {
 .btn-success { background: var(--success); color: white; margin-top: 10px; }
 .btn-success:active { filter: brightness(0.9); transform: scale(0.98); }
 
+/* ── LOADING ── */
 .loading { text-align: center; padding: 32px 0; color: var(--muted); font-size: 14px; }
 .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.75s linear infinite; margin: 0 auto 12px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.decline-card { background: linear-gradient(145deg,#2a0a0a,#1a0808); border: 1px solid rgba(231,76,60,0.5); border-radius: 16px; padding: 26px 20px; text-align: center; margin-top: 4px; }
-.decline-icon { font-size: 38px; margin-bottom: 8px; }
-.decline-title { font-size: 20px; font-weight: 800; color: #ff6b6b; margin-bottom: 5px; }
-.decline-sub { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
-.decline-detail { background: rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.2); border-radius: 8px; padding: 13px; font-size: 13px; color: #ffb3b3; line-height: 1.6; }
-.decline-detail strong { color: #ff6b6b; }
-
+/* ── ALERTS ── */
 .warn-box { background: rgba(243,156,18,0.1); border: 1px solid rgba(243,156,18,0.35); border-radius: 10px; padding: 13px 15px; margin-bottom: 10px; font-size: 13px; color: #ffd166; line-height: 1.5; }
 .warn-box strong { color: var(--warning); }
-.warn-text { color: var(--warning) !important; }
+.info-note { background: rgba(79,142,247,0.08); border: 1px solid rgba(79,142,247,0.2); border-radius: 8px; padding: 11px 13px; font-size: 12px; color: #8ab4f8; line-height: 1.6; margin-top: 18px; }
+.resolve-notice { background: rgba(243,156,18,0.08); border: 1px solid rgba(243,156,18,0.3); border-radius: 8px; padding: 9px 13px; margin-bottom: 9px; font-size: 12px; color: #ffd166; line-height: 1.5; }
+.wy-warning {
+  background: linear-gradient(145deg,#2a1a00,#1a1200);
+  border: 1px solid rgba(243,156,18,0.6);
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 12px;
+}
+.wy-warning-icon { font-size: 26px; flex-shrink: 0; }
+.wy-warning-body { flex: 1; }
+.wy-warning-title { font-size: 14px; font-weight: 800; color: #ffe066; margin-bottom: 3px; }
+.wy-warning-sub { font-size: 12px; color: #c8a020; line-height: 1.4; }
 
-#results { margin-top: 20px; }
-.bid-card { background: linear-gradient(145deg,#0d2040 0%,#0d3028 100%); border: 1px solid rgba(100,255,218,0.25); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 10px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
-.bid-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-.bid-amount { font-size: 48px; font-weight: 800; color: var(--accent); margin: 5px 0 2px; line-height: 1; letter-spacing: -2px; }
-.bid-sub { font-size: 13px; color: #8892b0; }
-.bid-tags { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
-.tag { display: inline-block; padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 700; }
-.tag-overnight { background: rgba(103,58,183,0.3); color: #ce93d8; border: 1px solid rgba(103,58,183,0.4); }
-.tag-weekend   { background: rgba(245,124,0,0.2);  color: #ffb74d; border: 1px solid rgba(245,124,0,0.35); }
-.tag-detention { background: rgba(79,142,247,0.15); color: #90caf9; border: 1px solid rgba(79,142,247,0.3); }
-.tag-base      { background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid var(--border); }
-.floor-label { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: var(--muted); }
-.floor-label strong { color: var(--warning); }
-
+/* ── RESULT CARDS ── */
 .result-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 9px; }
 .result-card h3 { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 10px; }
 .result-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 13px; border-bottom: 1px solid rgba(46,51,80,0.6); }
@@ -133,48 +112,77 @@ body {
 .result-row .lbl { color: var(--muted); font-size: 12px; flex: 1; padding-right: 8px; }
 .result-row .val { font-weight: 600; text-align: right; white-space: nowrap; }
 .result-row.total .lbl, .result-row.total .val { color: var(--text); font-weight: 700; }
-.result-row.accent-row .lbl, .result-row.accent-row .val { color: var(--accent); }
-.result-row.warn-row .lbl, .result-row.warn-row .val { color: var(--warning); }
-.small-val { font-size: 11px !important; max-width: 55%; text-align: right; }
-.rpm-bar { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
-.rpm-label { font-size: 11px; color: var(--muted); margin-bottom: 5px; }
-.rpm-track { background: var(--border); border-radius: 4px; height: 7px; overflow: hidden; }
-.rpm-fill { height: 100%; border-radius: 4px; }
+.result-row.accent-row .val { color: var(--accent); }
+.result-row.warn-row .val { color: var(--warning); }
+.result-row.success-row .val { color: var(--success); }
+.result-row.danger-row .val { color: var(--danger); }
 
-/* RATE ADJUSTMENT */
-.rate-adj-panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-top: 9px; display: none; }
-.rate-adj-panel.visible { display: block; }
-.rate-adj-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.rate-adj-title { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; flex: 1; }
-.lock-btn { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 5px 9px; font-size: 15px; cursor: pointer; color: var(--text); transition: all 0.15s; }
-.lock-btn.unlocked { border-color: var(--warning); background: rgba(243,156,18,0.1); }
-.rate-adj-slider { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; background: var(--border); border-radius: 3px; outline: none; margin: 8px 0 4px; cursor: pointer; }
-.rate-adj-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: var(--primary); border-radius: 50%; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
-.rate-adj-slider:disabled { opacity: 0.4; cursor: not-allowed; }
-.rate-adj-slider:disabled::-webkit-slider-thumb { background: var(--muted); cursor: not-allowed; }
-.rate-adj-marks { display: flex; justify-content: space-between; font-size: 9px; color: var(--muted); margin-bottom: 10px; }
-.rate-adj-result { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--border); }
-.rate-adj-pct { font-size: 22px; font-weight: 800; }
-.rate-adj-pct.pos { color: var(--success); }
-.rate-adj-pct.neg { color: var(--danger); }
-.rate-adj-pct.zero { color: var(--muted); }
-.rate-adj-bid-val { font-size: 26px; font-weight: 800; color: var(--accent); }
+/* ── EXPENSE GRID ── */
+.expense-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+.expense-cell { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 9px; padding: 10px 11px; }
+.expense-cell-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
+.expense-cell-miles { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.expense-cell-cost { font-size: 18px; font-weight: 800; color: var(--warning); }
+.expense-cell-total { grid-column: 1 / -1; background: rgba(243,156,18,0.08); border-color: rgba(243,156,18,0.3); }
+.expense-cell-total .expense-cell-cost { color: var(--text); font-size: 20px; }
 
-/* LOG BID BUTTON */
-.log-bid-btn { display: block; width: 100%; padding: 11px; border: 1px solid var(--border); border-radius: 9px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 9px; transition: all 0.15s; text-align: center; }
-.log-bid-btn.logged { color: var(--success); border-color: var(--success); background: rgba(46,204,113,0.06); }
-.log-bid-btn:active { background: var(--card); }
+/* ── CPM TABLE ── */
+.cpm-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.cpm-table {
+  width: 100%; border-collapse: collapse; font-size: 12px;
+  min-width: 340px;
+}
+.cpm-table th {
+  padding: 6px 8px; font-size: 9px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--border);
+  text-align: right; background: var(--card);
+  white-space: nowrap;
+}
+.cpm-table th:first-child { text-align: left; }
+.cpm-table td {
+  padding: 8px 8px; border-bottom: 1px solid rgba(46,51,80,0.5);
+  text-align: right; font-weight: 600; vertical-align: middle;
+}
+.cpm-table td:first-child { text-align: left; white-space: nowrap; }
+.cpm-table tr:last-child td { border-bottom: none; }
+.cpm-table .neg { color: var(--danger); }
+.cpm-table .pos { color: var(--success); }
+.cpm-table tr.recommended {
+  background: rgba(46,204,113,0.08);
+  outline: 1px solid rgba(46,204,113,0.35);
+}
+.cpm-table tr.recommended td { color: var(--success); }
+.cpm-table tr.recommended td:first-child { color: var(--success); }
+.rec-badge {
+  display: inline-block; background: var(--success); color: #000;
+  font-size: 8px; font-weight: 900; padding: 1px 5px; border-radius: 3px;
+  text-transform: uppercase; letter-spacing: 0.4px; margin-left: 4px;
+  vertical-align: middle;
+}
 
-/* HOME CARD */
-.home-card { background: linear-gradient(145deg,#0a2a1a,#0d3020); border: 1px solid rgba(100,255,218,0.35); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
-.home-icon { font-size: 28px; flex-shrink: 0; }
-.home-body { flex: 1; }
-.home-title { font-size: 13px; font-weight: 800; color: var(--accent); margin-bottom: 3px; }
-.home-detail { font-size: 12px; color: #8ab4f8; line-height: 1.5; }
-.home-detail strong { color: var(--accent); }
-.home-badge { background: rgba(100,255,218,0.15); border: 1px solid rgba(100,255,218,0.3); color: var(--accent); font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 5px; display: inline-block; }
+/* ── ORV BREAKDOWN ── */
+.orv-card {
+  background: linear-gradient(145deg,#0d2040,#0d3028);
+  border: 1px solid rgba(100,255,218,0.25);
+  border-radius: 14px; padding: 16px; margin-bottom: 9px;
+}
+.orv-card h3 { font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 12px; }
+.orv-total { font-size: 38px; font-weight: 800; color: var(--accent); letter-spacing: -1.5px; line-height: 1; margin: 8px 0 4px; }
+.orv-sub { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.orv-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 12px; border-bottom: 1px solid rgba(46,51,80,0.5); }
+.orv-row:last-child { border-bottom: none; }
+.orv-row .lbl { color: var(--muted); }
+.orv-row .val { font-weight: 600; color: var(--text); }
 
-/* FUEL UPDATE */
+
+/* ── DELIVERY WINDOW HINT ── */
+.dw-hint { font-size: 11px; margin-top: 4px; min-height: 14px; padding-left: 2px; transition: color 0.15s; }
+.dw-hint.ok  { color: var(--success); }
+.dw-hint.err { color: var(--danger); }
+.field input.field-invalid { border-color: var(--danger) !important; box-shadow: 0 0 0 3px rgba(231,76,60,0.15) !important; }
+
+/* ── SETTINGS ── */
+.save-confirm { text-align: center; color: var(--success); font-size: 13px; margin-top: 8px; min-height: 18px; font-weight: 600; }
 .fuel-row { display: flex; gap: 8px; align-items: flex-end; }
 .fuel-row .field { flex: 1; margin-bottom: 0; }
 .btn-fetch { padding: 11px 12px; border: none; border-radius: 9px; background: var(--primary); color: white; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: all 0.15s; flex-shrink: 0; }
@@ -184,60 +192,36 @@ body {
 .fuel-status.ok  { color: var(--success); }
 .fuel-status.err { color: var(--danger); }
 
-/* SETTINGS */
-.save-confirm { text-align: center; color: var(--success); font-size: 13px; margin-top: 8px; min-height: 18px; font-weight: 600; }
-.info-note { background: rgba(79,142,247,0.08); border: 1px solid rgba(79,142,247,0.2); border-radius: 8px; padding: 11px 13px; font-size: 12px; color: #8ab4f8; line-height: 1.6; margin-top: 18px; }
+/* ── HUB LIST (Settings) ── */
+.hub-list { margin-bottom: 12px; }
+.hub-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 9px; padding: 9px 10px; margin-bottom: 6px; }
+.hub-item-row { display: grid; grid-template-columns: 22px 1fr 80px 32px; gap: 7px; align-items: center; }
+.hub-num { font-size: 10px; font-weight: 800; color: var(--muted); text-align: center; }
+.hub-name-input, .hub-zip-input {
+  background: var(--card); border: 1px solid var(--border); border-radius: 7px;
+  padding: 7px 10px; color: var(--text); font-size: 13px;
+  width: 100%; -webkit-appearance: none;
+}
+.hub-name-input:focus, .hub-zip-input:focus { outline: none; border-color: var(--primary); }
+.hub-remove { background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; height: 32px; width: 32px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.hub-remove:active { background: rgba(231,76,60,0.15); border-color: var(--danger); color: var(--danger); }
+.btn-add-hub { width: 100%; padding: 10px; border: 1px dashed var(--border); border-radius: 9px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: 10px; transition: all 0.15s; }
+.btn-add-hub:active { background: var(--card); }
+.btn-add-hub:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-reset-hubs { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 6px; transition: all 0.15s; }
+.btn-reset-hubs:active { background: var(--card); }
 
-/* RATE CARD */
-.rate-card-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.rate-card-table th { text-align: left; padding: 5px 6px; color: var(--muted); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--border); }
-.rate-card-table th:not(:first-child) { text-align: right; }
-.rate-card-table td { padding: 7px 6px; border-bottom: 1px solid rgba(46,51,80,0.5); vertical-align: middle; }
-.rate-card-table tr:last-child td { border-bottom: none; }
-.rate-card-table td:not(:first-child) { text-align: right; font-weight: 600; }
-.rate-card-table .dist-label { color: var(--muted); font-weight: 600; }
-.rate-card-table .bid-val { color: var(--accent); }
-.rate-card-table .base-applied { color: var(--warning); }
-.rate-card-note { font-size: 10px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+/* ── CPM RATE INPUTS (Settings) ── */
+.cpm-inputs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.cpm-rate-field { }
+.cpm-rate-field label { display: block; font-size: 9px; color: var(--muted); margin-bottom: 3px; font-weight: 600; text-align: center; text-transform: uppercase; letter-spacing: 0.4px; }
+.cpm-rate-field input { width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 7px; padding: 8px 4px; color: var(--text); font-size: 13px; text-align: center; -webkit-appearance: none; }
+.cpm-rate-field input:focus { outline: none; border-color: var(--primary); }
 
-/* CITY RESOLUTION */
-.resolve-notice { background: rgba(243,156,18,0.08); border: 1px solid rgba(243,156,18,0.3); border-radius: 8px; padding: 9px 13px; margin-bottom: 9px; font-size: 12px; color: #ffd166; line-height: 1.5; }
-.resolve-notice strong { color: var(--warning); }
-
-/* COMPARE TAB */
-.route-block-label { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; display: inline-block; margin-top: 14px; margin-bottom: 8px; }
-.compare-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.compare-table th { padding: 7px 8px; font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--border); }
-.compare-table th:first-child { text-align: left; }
-.compare-table th:not(:first-child) { text-align: right; }
-.compare-table td { padding: 7px 8px; border-bottom: 1px solid rgba(46,51,80,0.5); text-align: right; font-weight: 600; }
-.compare-table td:first-child { text-align: left; color: var(--muted); font-size: 12px; font-weight: 400; }
-.compare-table tr:last-child td { border-bottom: none; }
-.compare-table .better { color: var(--success); }
-.compare-table .worse  { color: var(--muted); }
-.compare-table .home-yes { color: var(--accent); }
-
-/* LOG TAB */
-.log-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-.log-stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 11px 6px; text-align: center; }
-.log-stat-val { font-size: 19px; font-weight: 800; color: var(--accent); }
-.log-stat-lbl { font-size: 9px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
-.log-entry { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 13px; margin-bottom: 8px; }
-.log-entry-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
-.log-entry-route { font-size: 14px; font-weight: 700; color: var(--text); }
-.log-entry-date { font-size: 11px; color: var(--muted); white-space: nowrap; margin-left: 8px; }
-.log-entry-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
-.log-entry-bid { font-size: 20px; font-weight: 800; color: var(--accent); }
-.log-entry-actions { display: flex; gap: 7px; margin-top: 9px; }
-.log-act { flex: 1; padding: 7px; border-radius: 7px; border: 1px solid var(--border); background: none; color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
-.log-act.won  { background: rgba(46,204,113,0.12); border-color: var(--success); color: var(--success); }
-.log-act.lost { background: rgba(231,76,60,0.10); border-color: var(--danger);  color: #ff8a80; }
-.log-empty { text-align: center; padding: 36px 16px; color: var(--muted); font-size: 14px; line-height: 1.6; }
-.btn-export { width: 100%; padding: 11px; border: 1px solid var(--border); border-radius: 9px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: 14px; transition: all 0.15s; }
-.btn-export:active { background: var(--card); color: var(--text); }
-
-/* INSTALL HINT */
-.install-hint { background: rgba(100,255,218,0.06); border: 1px solid rgba(100,255,218,0.15); border-radius: 10px; padding: 11px 13px; font-size: 12px; color: #64ffda; line-height: 1.6; margin-bottom: 14px; display: none; }
+/* ── GEOCODING STATUS ── */
+.geo-status { font-size: 11px; color: var(--muted); margin-top: 6px; min-height: 15px; font-style: italic; }
+.geo-status.ok { color: var(--success); font-style: normal; }
+.geo-status.err { color: var(--danger); font-style: normal; }
 </style>
 </head>
 <body>
@@ -248,194 +232,59 @@ body {
     <span class="header-sub">Freight Bid Calculator</span>
   </div>
   <div class="tabs">
-    <div class="tab active"  onclick="switchTab(this,'calc')">Calc</div>
-    <div class="tab"         onclick="switchTab(this,'compare')">Compare</div>
-    <div class="tab"         onclick="switchTab(this,'log')" id="tab-log">Log</div>
-    <div class="tab"         onclick="switchTab(this,'settings')">⚙️</div>
+    <div class="tab active" onclick="switchTab(this,'calc')">Calc</div>
+    <div class="tab" onclick="switchTab(this,'settings')">⚙️ Settings</div>
   </div>
 </div>
 
 <div class="content">
 
-<!-- ===== CALCULATOR ===== -->
+<!-- ═══════════════════ CALC PAGE ═══════════════════ -->
 <div class="page active" id="page-calc">
-  <div class="install-hint" id="install-hint">
-    💡 <strong>Tip:</strong> In Chrome, tap ⋮ → <em>Add to Home screen</em> to install as an app.
-  </div>
 
   <div class="section-label">Route</div>
   <div class="field">
     <label>Current Location <span style="color:var(--muted);font-size:11px;font-weight:400">— for deadhead routing</span></label>
-    <input type="text" id="current-city" placeholder="Defaults to home base" autocomplete="off" autocorrect="off">
+    <input type="text" id="current-city" placeholder="Defaults to home ZIP" autocomplete="off" autocorrect="off">
   </div>
   <div class="field">
-    <label>Pickup City, State</label>
-    <input type="text" id="pickup-city" placeholder="e.g. Portland, ME" autocomplete="off" autocorrect="off">
+    <label>Pickup City or ZIP</label>
+    <input type="text" id="pickup-city" placeholder="e.g. Portland, ME or 04101" autocomplete="off" autocorrect="off">
   </div>
   <div class="field">
-    <label>Destination City, State</label>
-    <input type="text" id="dest-city" placeholder="e.g. Los Angeles, CA" autocomplete="off" autocorrect="off">
+    <label>Destination City or ZIP</label>
+    <input type="text" id="dest-city" placeholder="e.g. Los Angeles, CA or 90001" autocomplete="off" autocorrect="off">
   </div>
   <div class="field">
-    <label>Deadhead Miles <span style="color:var(--muted);font-size:11px;font-weight:400">— leave blank to route from current location</span></label>
+    <label>Deadhead Miles <span style="color:var(--muted);font-size:11px;font-weight:400">— leave blank to auto-route</span></label>
     <div class="suffix-wrap">
       <input type="number" id="deadhead-miles" placeholder="auto" min="0" inputmode="decimal">
       <span class="suffix">mi</span>
     </div>
   </div>
 
-  <div class="section-label">Schedule</div>
-  <div class="field" style="margin:4px 0 6px">
-    <label style="display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none">
-      <input type="checkbox" id="immediate-pickup"
-             onchange="document.getElementById('pickup-wrap').style.display=this.checked?'none':'';"
-             style="width:18px;height:18px;flex-shrink:0;accent-color:var(--accent)">
-      <span style="font-size:13px;font-weight:600">⚡ Immediate Pickup
-        <span style="color:var(--muted);font-size:11px;font-weight:400"> — now + deadhead + 15 min prep</span>
-      </span>
-    </label>
-  </div>
-  <div id="pickup-wrap">
-    <div class="row-2">
-      <div class="field">
-        <label>Pickup Day</label>
-        <select id="pickup-day">
-          <option value="1">Monday</option><option value="2">Tuesday</option>
-          <option value="3">Wednesday</option><option value="4">Thursday</option>
-          <option value="5">Friday</option><option value="6">Saturday</option>
-          <option value="0">Sunday</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Pickup Time</label>
-        <select id="pickup-time"></select>
-      </div>
-    </div>
-  </div>
-  <div class="field" style="margin:4px 0 6px">
-    <label style="display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none">
-      <input type="checkbox" id="deliver-direct"
-             onchange="document.getElementById('delivery-wrap').style.display=this.checked?'none':'';"
-             style="width:18px;height:18px;flex-shrink:0;accent-color:var(--accent)">
-      <span style="font-size:13px;font-weight:600">📦 Deliver Direct
-        <span style="color:var(--muted);font-size:11px;font-weight:400"> — arrive ASAP, no fixed window (auto-declines &gt;14 h)</span>
-      </span>
-    </label>
-  </div>
-  <div id="delivery-wrap">
-    <div class="row-2">
-      <div class="field">
-        <label>Delivery Day</label>
-        <select id="delivery-day">
-          <option value="1">Monday</option><option value="2">Tuesday</option>
-          <option value="3">Wednesday</option><option value="4">Thursday</option>
-          <option value="5">Friday</option><option value="6">Saturday</option>
-          <option value="0">Sunday</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Delivery Time</label>
-        <select id="delivery-time"></select>
-      </div>
-    </div>
-  </div>
+  <button class="btn btn-primary" id="calc-btn" onclick="calculate()">Fetch Routes →</button>
 
-  <div class="section-label">Offered Rate <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">— optional</span></div>
+  <div class="section-label" style="margin-top:18px">Load Details</div>
   <div class="field">
-    <label>Rate Offered to You</label>
+    <label>Delivery Window <span style="color:var(--muted);font-size:11px;font-weight:400">— hours, or time range like "7:00 AM to 4:00 PM"</span></label>
+    <input type="text" id="delivery-window" placeholder="e.g.  8  or  7:00 AM to 4:00 PM  or  9:00 Fri to 6:00 Mon" autocomplete="off" autocorrect="off" autocapitalize="off">
+    <div class="dw-hint" id="dw-hint"></div>
+  </div>
+  <div class="field">
+    <label>Winning Bid <span style="color:var(--muted);font-size:11px;font-weight:400">— enter to replace bid range with actual breakdown</span></label>
     <div class="prefix-wrap">
       <span class="prefix">$</span>
-      <input type="number" id="offered-rate" placeholder="Leave blank to skip" step="10" min="0" inputmode="decimal">
+      <input type="number" id="winning-bid" placeholder="leave blank for full bid range" min="0" step="1" inputmode="decimal">
     </div>
   </div>
 
-  <button class="btn btn-primary" id="calc-btn" onclick="calculate()">Calculate Bid →</button>
-  <div id="results"></div>
+  <div id="results" style="margin-top:16px"></div>
 
-  <!-- Rate Adjustment Panel (shown after calculation) -->
-  <div class="rate-adj-panel" id="rate-adj-panel">
-    <div class="rate-adj-header">
-      <span class="rate-adj-title">Rate Adjustment</span>
-      <button class="lock-btn" id="rate-lock-btn" onclick="toggleRateAdj()">🔒</button>
-    </div>
-    <input type="range" class="rate-adj-slider" id="rate-adj-slider"
-           min="-50" max="300" step="5" value="0" disabled
-           oninput="updateRateAdjDisplay()">
-    <div class="rate-adj-marks">
-      <span>−50%</span><span>0%</span><span>+100%</span><span>+200%</span><span>+300%</span>
-    </div>
-    <div class="rate-adj-result">
-      <div>
-        <div style="font-size:10px;color:var(--muted);margin-bottom:2px">ADJUSTMENT</div>
-        <div class="rate-adj-pct zero" id="rate-adj-pct">0%</div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:10px;color:var(--muted);margin-bottom:2px">ADJUSTED BID</div>
-        <div class="rate-adj-bid-val" id="rate-adj-bid-val">—</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Log This Bid -->
-  <button class="log-bid-btn" id="log-bid-btn" onclick="logCurrentBid()" style="display:none">
-    📋 Log This Bid
-  </button>
 </div>
 
-<!-- ===== COMPARE ===== -->
-<div class="page" id="page-compare">
-  <div class="field" style="margin-top:4px">
-    <label>Current Location <span style="color:var(--muted);font-size:11px;font-weight:400">— for deadhead routing (shared for both routes)</span></label>
-    <input type="text" id="cmp-current-city" placeholder="Defaults to home base" autocomplete="off" autocorrect="off">
-  </div>
-  <div class="route-block-label" style="margin-top:10px">Route A</div>
-  <div class="field"><label>Pickup City</label><input type="text" id="cmp-a-pickup" placeholder="e.g. Memphis, TN" autocomplete="off" autocorrect="off"></div>
-  <div class="field"><label>Destination City</label><input type="text" id="cmp-a-dest" placeholder="e.g. Nashville, TN" autocomplete="off" autocorrect="off"></div>
-  <div class="field"><label>Deadhead Miles <span style="color:var(--muted);font-size:11px;font-weight:400">— leave blank to route from current location</span></label><div class="suffix-wrap"><input type="number" id="cmp-a-dh" placeholder="auto" min="0" inputmode="decimal"><span class="suffix">mi</span></div></div>
-  <div class="row-2">
-    <div class="field"><label>Pickup Day</label><select id="cmp-a-pday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
-    <div class="field"><label>Pickup Time</label><select id="cmp-a-ptime"></select></div>
-  </div>
-  <div class="row-2">
-  <div class="field" style="margin:4px 0 2px"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none"><input type="checkbox" id="cmp-a-direct" onchange="document.getElementById('cmp-a-delivery-wrap').style.display=this.checked?'none':'';" style="width:16px;height:16px;flex-shrink:0;accent-color:var(--accent)"><span style="font-size:12px;font-weight:600">📦 Deliver Direct <span style="color:var(--muted);font-weight:400;font-size:11px">(&gt;14 h = decline)</span></span></label></div>
-  <div id="cmp-a-delivery-wrap"><div class="row-2">
-    <div class="field"><label>Delivery Day</label><select id="cmp-a-dday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
-    <div class="field"><label>Delivery Time</label><select id="cmp-a-dtime"></select></div>
-  </div></div>
-  <div class="field"><label>Rate Offered <span style="color:var(--muted);font-weight:400;font-size:11px">— optional</span></label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="cmp-a-offered" placeholder="Leave blank to skip" step="10" min="0" inputmode="decimal"></div></div>
-
-  <div class="route-block-label">Route B</div>
-  <div class="field"><label>Pickup City</label><input type="text" id="cmp-b-pickup" placeholder="e.g. Nashville, TN" autocomplete="off" autocorrect="off"></div>
-  <div class="field"><label>Destination City</label><input type="text" id="cmp-b-dest" placeholder="e.g. Atlanta, GA" autocomplete="off" autocorrect="off"></div>
-  <div class="field"><label>Deadhead Miles <span style="color:var(--muted);font-size:11px;font-weight:400">— leave blank to route from current location</span></label><div class="suffix-wrap"><input type="number" id="cmp-b-dh" placeholder="auto" min="0" inputmode="decimal"><span class="suffix">mi</span></div></div>
-  <div class="row-2">
-    <div class="field"><label>Pickup Day</label><select id="cmp-b-pday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
-    <div class="field"><label>Pickup Time</label><select id="cmp-b-ptime"></select></div>
-  </div>
-  <div class="row-2">
-  <div class="field" style="margin:4px 0 2px"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none"><input type="checkbox" id="cmp-b-direct" onchange="document.getElementById('cmp-b-delivery-wrap').style.display=this.checked?'none':'';" style="width:16px;height:16px;flex-shrink:0;accent-color:var(--accent)"><span style="font-size:12px;font-weight:600">📦 Deliver Direct <span style="color:var(--muted);font-weight:400;font-size:11px">(&gt;14 h = decline)</span></span></label></div>
-  <div id="cmp-b-delivery-wrap"><div class="row-2">
-    <div class="field"><label>Delivery Day</label><select id="cmp-b-dday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
-    <div class="field"><label>Delivery Time</label><select id="cmp-b-dtime"></select></div>
-  </div></div>
-  <div class="field"><label>Rate Offered <span style="color:var(--muted);font-weight:400;font-size:11px">— optional</span></label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="cmp-b-offered" placeholder="Leave blank to skip" step="10" min="0" inputmode="decimal"></div></div>
-
-  <button class="btn btn-primary" id="cmp-btn" onclick="compareRoutes()">Compare Routes →</button>
-  <div id="compare-results"></div>
-</div>
-
-<!-- ===== LOG ===== -->
-<div class="page" id="page-log">
-  <div class="log-stats" id="log-stats">
-    <div class="log-stat"><div class="log-stat-val">—</div><div class="log-stat-lbl">Bids</div></div>
-    <div class="log-stat"><div class="log-stat-val">—</div><div class="log-stat-lbl">Win Rate</div></div>
-    <div class="log-stat"><div class="log-stat-val">—</div><div class="log-stat-lbl">Miles</div></div>
-  </div>
-  <button class="btn-export" onclick="exportMileageCSV()">⬇ Export Mileage Log (CSV)</button>
-  <div id="log-list"><div class="log-empty">No bids logged yet.<br>Use the Calc tab and tap "Log This Bid."</div></div>
-</div>
-
-<!-- ===== SETTINGS ===== -->
+<!-- ═══════════════════ SETTINGS PAGE ═══════════════════ -->
 <div class="page" id="page-settings">
 
   <div class="section-label">Fuel &amp; Vehicle</div>
@@ -446,7 +295,7 @@ body {
   <div class="fuel-row">
     <div class="field">
       <label>Fuel Type</label>
-      <select id="s-fuel-type"><option value="diesel">Diesel</option><option value="regular">Regular</option></select>
+      <select id="s-fuel-type"><option value="regular">Regular (Unleaded)</option><option value="diesel">Diesel</option></select>
     </div>
     <div class="field">
       <label>Fuel Price</label>
@@ -461,110 +310,67 @@ body {
   <div class="fuel-status" id="fuel-status"></div>
   <div class="fuel-status" id="fuel-last-updated" style="color:var(--muted)"></div>
 
-  <div class="row-2" style="margin-top:10px">
+  <div class="row-3" style="margin-top:10px">
     <div class="field">
       <label>Fuel Economy</label>
       <div class="suffix-wrap"><input type="number" id="s-mpg" step="0.1" placeholder="16.5" inputmode="decimal"><span class="suffix">mpg</span></div>
     </div>
     <div class="field">
-      <label>Delivery Speed</label>
-      <div class="suffix-wrap"><input type="number" id="s-speed" step="1" placeholder="52" inputmode="decimal"><span class="suffix">mph</span></div>
-    </div>
-  </div>
-  <div class="row-2">
-    <div class="field">
-      <label>Tank Size</label>
-      <div class="suffix-wrap"><input type="number" id="s-tank-size" step="1" placeholder="40" inputmode="decimal"><span class="suffix">gal</span></div>
+      <label>Maintenance</label>
+      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-maint" step="0.01" placeholder="0.07" inputmode="decimal"><span class="suffix">/mi</span></div>
     </div>
     <div class="field">
-      <label>Refuel At</label>
-      <div class="suffix-wrap"><input type="number" id="s-refuel-at" step="5" placeholder="25" inputmode="decimal"><span class="suffix">%</span></div>
+      <label>Avg Speed</label>
+      <div class="suffix-wrap"><input type="number" id="s-speed" step="1" placeholder="55" inputmode="decimal"><span class="suffix">mph</span></div>
     </div>
-  </div>
-  <div class="field">
-    <label>Maintenance Cost</label>
-    <div class="prefix-wrap suffix-wrap">
-      <span class="prefix">$</span>
-      <input type="number" id="s-maint" step="0.01" placeholder="0.07" inputmode="decimal">
-      <span class="suffix">/mi</span>
-    </div>
-  </div>
-
-  <div class="section-label">Profit Target</div>
-  <div class="row-2">
-    <div class="field">
-      <label>Weekday Target</label>
-      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-daily-target" step="10" placeholder="700" inputmode="decimal"><span class="suffix">/day</span></div>
-    </div>
-    <div class="field">
-      <label>Weekday Floor</label>
-      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-floor-profit" step="10" placeholder="500" inputmode="decimal"><span class="suffix">/day</span></div>
-    </div>
-  </div>
-  <div class="row-2">
-    <div class="field">
-      <label>Weekend Target 📅</label>
-      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-daily-target-wknd" step="10" placeholder="500" inputmode="decimal"><span class="suffix">/day</span></div>
-    </div>
-    <div class="field">
-      <label>Weekend Floor 📅</label>
-      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-floor-profit-wknd" step="10" placeholder="350" inputmode="decimal"><span class="suffix">/day</span></div>
-    </div>
-  </div>
-  <div class="row-2">
-    <div class="field">
-      <label>Base Trip Cost</label>
-      <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-base-trip" step="10" placeholder="100" inputmode="decimal"></div>
-    </div>
-    <div class="field">
-      <label>Min Rate / Loaded Mile</label>
-      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-min-rate" step="0.05" placeholder="1.80" inputmode="decimal"><span class="suffix">/mi</span></div>
-    </div>
-  </div>
-
-  <div class="section-label">Differentials</div>
-  <div class="field">
-    <label>Deadhead Rate (fuel + maintenance at-cost, plus this per hour)</label>
-    <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-deadhead-rate" step="1" placeholder="20" inputmode="decimal"><span class="suffix">/hr</span></div>
-  </div>
-  <div class="row-3">
-    <div class="field"><label>Overnight /night</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-overnight" step="5" placeholder="50" inputmode="decimal"></div></div>
-    <div class="field"><label>Weekend /hr</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-weekend" step="5" placeholder="5" inputmode="decimal"></div></div>
-    <div class="field"><label>Detention /hr</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-detention" step="5" placeholder="15" inputmode="decimal"></div></div>
-  </div>
-
-  <div class="section-label">Hot Shot Market Rates ($/mi)</div>
-  <div class="row-3">
-    <div class="field"><label>Short (0–50mi)</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-mkt-short" step="0.01" placeholder="4.36" inputmode="decimal"></div></div>
-    <div class="field"><label>Medium (400mi)</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-mkt-medium" step="0.01" placeholder="2.56" inputmode="decimal"></div></div>
-    <div class="field"><label>Long (1000mi)</label><div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="s-mkt-long" step="0.01" placeholder="1.77" inputmode="decimal"></div></div>
   </div>
 
   <div class="section-label">Home Base</div>
-  <div class="field"><label>Home City</label><input type="text" id="s-home-city" placeholder="Germantown, TN" autocorrect="off"></div>
+  <div class="field">
+    <label>Home ZIP <span style="color:var(--muted);font-size:11px;font-weight:400">— default destination for post-route home travel</span></label>
+    <input type="text" id="s-home-zip" placeholder="38125" autocomplete="off" autocorrect="off" inputmode="numeric" style="max-width:140px">
+  </div>
+
+  <div class="section-label">Empty-Mile Rates <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">— $/mi added to costs &amp; profit (deadhead, hub &amp; home travel)</span></div>
+  <div class="row-3">
+    <div class="field">
+      <label>Deadhead Rate</label>
+      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-dh-rate" step="0.01" placeholder="0.50" inputmode="decimal"><span class="suffix">/mi</span></div>
+    </div>
+    <div class="field">
+      <label>Hub Travel Rate</label>
+      <div class="prefix-wrap suffix-wrap"><span class="prefix">$</span><input type="number" id="s-hub-rate" step="0.01" placeholder="0.50" inputmode="decimal"><span class="suffix">/mi</span></div>
+    </div>
+  </div>
+
+  <div class="section-label">CPM Rate Tiers <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">— $/loaded mile</span></div>
+  <div class="cpm-inputs">
+    <div class="cpm-rate-field"><label>Rate 1</label><input type="number" id="s-cpm-1" step="0.01" placeholder="0.70" inputmode="decimal"></div>
+    <div class="cpm-rate-field"><label>Rate 2</label><input type="number" id="s-cpm-2" step="0.01" placeholder="0.85" inputmode="decimal"></div>
+    <div class="cpm-rate-field"><label>Rate 3</label><input type="number" id="s-cpm-3" step="0.01" placeholder="1.00" inputmode="decimal"></div>
+    <div class="cpm-rate-field"><label>Rate 4</label><input type="number" id="s-cpm-4" step="0.01" placeholder="1.15" inputmode="decimal"></div>
+    <div class="cpm-rate-field"><label>Rate 5</label><input type="number" id="s-cpm-5" step="0.01" placeholder="1.30" inputmode="decimal"></div>
+  </div>
+
+  <div class="section-label">Freight Hubs <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">— up to 20 hubs checked for nearest</span></div>
+  <button class="btn-reset-hubs" onclick="resetHubsToDefault()">↺ Reset to Default Hubs</button>
+  <div class="hub-list" id="hub-list"></div>
+  <button class="btn-add-hub" id="btn-add-hub" onclick="addHubRow()">+ Add Hub</button>
+  <div class="geo-status" id="hub-geo-status"></div>
 
   <button class="btn btn-success" onclick="saveSettings()">Save Settings ✓</button>
   <div class="save-confirm" id="save-confirm"></div>
 
-  <div class="section-label">Expected Bid Rate Card</div>
-  <div class="result-card" style="padding:10px 6px">
-    <table class="rate-card-table">
-      <thead><tr><th>Distance</th><th>Days</th><th>Bid</th><th>$/mi</th><th>$/day</th></tr></thead>
-      <tbody id="rate-card-body"><tr><td colspan="5" style="text-align:center;color:var(--muted);padding:12px">Save settings to generate</td></tr></tbody>
-    </table>
-    <div class="rate-card-note" id="rate-card-note"></div>
+  <div class="info-note">
+    <strong>Segment Expenses</strong> = fuel cost + maintenance cost (per-mile operating cost).<br><br>
+    <strong>Empty-Mile Rates</strong> are an additional $/mile charge for non-revenue segments (deadhead, hub travel, home travel). These represent opportunity cost and are shown separately from operating expenses, but included in profit calculations.<br><br>
+    <strong>Base Rate</strong> = $150 − ($10 × full drive hours) for route only. Decreases on longer hauls.<br><br>
+    <strong>Optimum Route Value (ORV)</strong> = base rate + all segment expenses + $35/hr route drive time. The CPM tier closest to ORV is highlighted green.<br><br>
+    <strong>Profit</strong> = (CPM × loaded miles) − (segment expenses + applicable mileage rates).<br><br>
+    <strong>HOS Warning</strong>: shown if drive time exceeds 15h AND available buffer per 24h period is less than 9h. Enter Delivery Window on the Calc tab to enable this check.<br><br>
+    <strong>Hub geocoding:</strong> Default hub coordinates are built in. If you change a hub ZIP, tap Save Settings — new ZIPs are geocoded at &lt;1 req/sec to respect Nominatim limits.
   </div>
 
-  <div class="info-note">
-    <strong>Bid formula:</strong> Fuel + Maintenance + (billing days × profit/day) + differentials = bid.<br><br>
-    <strong>Weekend rates 📅</strong> apply when pickup day is Saturday or Sunday, using the lower weekend target and floor instead of weekday values.<br><br>
-    <strong>Home base</strong> is used only to flag home-time trips (bid −15%) and overnight distance checks.<br><br>
-    <strong>Sleep:</strong> 1 hr per 3 hrs driving, on trips ≥ 15 hrs drive time.<br><br>
-    <strong>Billing days:</strong> <code>driveHours ÷ 15</code> — 15 hrs driving = one full day (15 drive + 9 rest = 24 hr cycle). Sleep is counted for feasibility only, not billing.<br><br>
-    <strong>Dropoff modifier:</strong> −15% at 8 AM → +15% at 5 PM (linear). Home time bonus takes priority and skips this modifier. Negative modifier cannot push bid below your minimum floor.<br><br>
-    <strong>Deliver Direct:</strong> auto-computes arrival as pickup time + drive time. Auto-declines loads requiring &gt;14 hrs of driving.<br><br>
-    <strong>Rate adjustment</strong> is locked by default — tap 🔒 in the Calc tab after calculating to unlock.
-  </div>
 </div>
 
 </div><!-- /content -->
@@ -574,26 +380,53 @@ window.RS_CONFIG = { eiaApiKey: '' };
 </script>
 <script src="ratesetter-config.js" onerror=""></script>
 <script>
-// ═══════════════════════════════════════════
+'use strict';
+
+// ════════════════════════════════════════════════════════
+// DEFAULT FREIGHT HUBS  (hardcoded lat/lon — no geocoding
+// needed during route calculation for the built-in list)
+// ════════════════════════════════════════════════════════
+const DEFAULT_HUBS = [
+  { name: 'Chicago / Joliet, IL',           zip: '60436', lat: 41.526, lon: -88.082 },
+  { name: 'Dallas-Fort Worth, TX',           zip: '75261', lat: 32.889, lon: -97.020 },
+  { name: 'Atlanta, GA',                     zip: '30336', lat: 33.733, lon: -84.560 },
+  { name: 'Los Angeles / Inland Empire, CA', zip: '91761', lat: 34.065, lon: -117.647 },
+  { name: 'Houston, TX',                     zip: '77029', lat: 29.760, lon: -95.283 },
+  { name: 'Laredo, TX',                      zip: '78045', lat: 27.561, lon: -99.487 },
+  { name: 'Memphis, TN',                     zip: '38118', lat: 35.052, lon: -89.902 },
+  { name: 'Indianapolis, IN',                zip: '46241', lat: 39.760, lon: -86.285 },
+  { name: 'Columbus, OH',                    zip: '43217', lat: 39.896, lon: -82.938 },
+  { name: 'Kansas City, MO/KS',              zip: '64161', lat: 39.154, lon: -94.476 },
+  { name: 'Louisville, KY',                  zip: '40219', lat: 38.148, lon: -85.717 },
+  { name: 'Nashville, TN',                   zip: '37210', lat: 36.153, lon: -86.782 },
+  { name: 'Cincinnati / Northern Kentucky',  zip: '41018', lat: 39.035, lon: -84.545 },
+  { name: 'Newark / Elizabeth, NJ',          zip: '07114', lat: 40.670, lon: -74.195 },
+  { name: 'Charlotte, NC',                   zip: '28214', lat: 35.228, lon: -80.972 },
+  { name: 'Phoenix, AZ',                     zip: '85043', lat: 33.355, lon: -112.109 },
+  { name: 'Reno / Sparks, NV',               zip: '89434', lat: 39.535, lon: -119.723 },
+  { name: 'Savannah, GA',                    zip: '31408', lat: 32.136, lon: -81.258 },
+  { name: 'Harrisburg / Carlisle, PA',       zip: '17013', lat: 40.190, lon: -77.202 },
+  { name: 'Jacksonville, FL',                zip: '32218', lat: 30.368, lon: -81.702 },
+];
+
+// ════════════════════════════════════════════════════════
 // SETTINGS
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════════════════
 const DEFAULTS = {
-  fuelPrice: 3.75, fuelType: 'diesel', eiaApiKey: '',
+  fuelPrice: 3.75, fuelType: 'regular', eiaApiKey: '',
   fuelLastUpdated: null, fuelLastPeriod: null,
-  mpg: 16.5, maint: 0.07, speed: 52,
-  tankSize: 40, refuelAt: 25,
-  dailyTarget: 700, floorProfit: 500,
-  dailyTargetWknd: 500, floorProfitWknd: 350,
-  baseTripCost: 100, minRatePerMile: 1.80,
-  deadheadRate: 20,
-  overnight: 50, weekend: 5, detention: 15,
-  homeCity: 'Germantown, TN',
-  mktShort: 4.36, mktMedium: 2.56, mktLong: 1.77
+  mpg: 16.5, maint: 0.07, speed: 55,
+  homeZip: '38125',
+  cpmRates: [0.70, 0.85, 1.00, 1.15, 1.30],
+  // Mileage rates for empty/non-revenue miles — added to costs & profit calcs
+  deadheadRate: 0.03,  // $/mi opportunity cost for deadhead travel
+  hubRate:      0.07,  // $/mi opportunity cost for hub travel
+  freightHubs: null   // null = use DEFAULT_HUBS
 };
 
 function loadSettings() {
   try {
-    const s = JSON.parse(localStorage.getItem('rs_settings') || '{}');
+    const s = JSON.parse(localStorage.getItem('rs_settings_v2') || '{}');
     if (!s.eiaApiKey && window.RS_CONFIG?.eiaApiKey) s.eiaApiKey = window.RS_CONFIG.eiaApiKey;
     return { ...DEFAULTS, ...s };
   } catch { return { ...DEFAULTS }; }
@@ -602,32 +435,75 @@ function loadSettings() {
 function saveSettings() {
   const n = id => parseFloat(document.getElementById(id).value);
   const t = id => document.getElementById(id).value.trim();
-  const s = {
-    fuelPrice:      n('s-fuel-price')    || DEFAULTS.fuelPrice,
-    fuelType:       document.getElementById('s-fuel-type').value || DEFAULTS.fuelType,
-    eiaApiKey:      document.getElementById('s-eia-key').value.trim(),
-    mpg:            n('s-mpg')           || DEFAULTS.mpg,
-    maint:          n('s-maint')         || DEFAULTS.maint,
-    speed:          n('s-speed')         || DEFAULTS.speed,
-    tankSize:       n('s-tank-size')     || DEFAULTS.tankSize,
-    refuelAt:       n('s-refuel-at')     || DEFAULTS.refuelAt,
-    dailyTarget:     n('s-daily-target')      || DEFAULTS.dailyTarget,
-    floorProfit:     n('s-floor-profit')      || DEFAULTS.floorProfit,
-    dailyTargetWknd: n('s-daily-target-wknd') || DEFAULTS.dailyTargetWknd,
-    floorProfitWknd: n('s-floor-profit-wknd') || DEFAULTS.floorProfitWknd,
-    baseTripCost:   n('s-base-trip')     || DEFAULTS.baseTripCost,
-    minRatePerMile: n('s-min-rate')      || DEFAULTS.minRatePerMile,
-    deadheadRate:   n('s-deadhead-rate') || DEFAULTS.deadheadRate,
-    overnight:      n('s-overnight')     || DEFAULTS.overnight,
-    weekend:        n('s-weekend')       || DEFAULTS.weekend,
-    detention:      n('s-detention')     || DEFAULTS.detention,
-    homeCity:       t('s-home-city')     || DEFAULTS.homeCity,
-    mktShort:       n('s-mkt-short')     || DEFAULTS.mktShort,
-    mktMedium:      n('s-mkt-medium')    || DEFAULTS.mktMedium,
-    mktLong:        n('s-mkt-long')      || DEFAULTS.mktLong
-  };
-  localStorage.setItem('rs_settings', JSON.stringify(s));
-  updateRateCard();
+  const s = loadSettings();
+
+  s.fuelPrice     = n('s-fuel-price')  || DEFAULTS.fuelPrice;
+  s.fuelType      = document.getElementById('s-fuel-type').value || DEFAULTS.fuelType;
+  s.eiaApiKey     = document.getElementById('s-eia-key').value.trim();
+  s.mpg           = n('s-mpg')        || DEFAULTS.mpg;
+  s.maint         = n('s-maint')      || DEFAULTS.maint;
+  s.speed         = n('s-speed')      || DEFAULTS.speed;
+  s.homeZip       = t('s-home-zip')   || DEFAULTS.homeZip;
+  s.deadheadRate  = isNaN(n('s-dh-rate'))   ? DEFAULTS.deadheadRate : Math.max(0, n('s-dh-rate'));
+  s.hubRate       = isNaN(n('s-hub-rate'))  ? DEFAULTS.hubRate      : Math.max(0, n('s-hub-rate'));
+  s.cpmRates = [1,2,3,4,5].map(i => {
+    const v = parseFloat(document.getElementById(`s-cpm-${i}`).value);
+    return isNaN(v) ? DEFAULTS.cpmRates[i-1] : v;
+  }).sort((a,b) => a - b);
+
+  // Collect hubs from DOM
+  const hubItems = document.querySelectorAll('.hub-item');
+  const hubs = [];
+  hubItems.forEach(item => {
+    const nameEl = item.querySelector('.hub-name-input');
+    const zipEl  = item.querySelector('.hub-zip-input');
+    if (!nameEl || !zipEl) return;
+    const name = nameEl.value.trim();
+    const zip  = zipEl.value.trim();
+    if (name || zip) hubs.push({ name, zip, lat: null, lon: null });
+  });
+
+  // Merge existing coords for unchanged zips
+  const prevHubs = s.freightHubs || DEFAULT_HUBS;
+  const prevByZip = {};
+  prevHubs.forEach(h => { if (h.lat && h.lon) prevByZip[h.zip] = { lat: h.lat, lon: h.lon }; });
+  DEFAULT_HUBS.forEach(h => { prevByZip[h.zip] = { lat: h.lat, lon: h.lon }; });
+  hubs.forEach(h => {
+    if (prevByZip[h.zip]) { h.lat = prevByZip[h.zip].lat; h.lon = prevByZip[h.zip].lon; }
+  });
+
+  s.freightHubs = hubs;
+  localStorage.setItem('rs_settings_v2', JSON.stringify(s));
+
+  // Geocode hubs that have no coords (new/changed ZIPs) — sequential to respect Nominatim rate limit
+  const toGeocode = hubs.filter(h => !h.lat || !h.lon);
+  if (toGeocode.length > 0) {
+    const geoStatus = document.getElementById('hub-geo-status');
+    geoStatus.className = 'geo-status'; geoStatus.textContent = `Geocoding ${toGeocode.length} new hub ZIP(s)…`;
+    (async () => {
+      let ok = 0, fail = 0;
+      for (const h of toGeocode) {
+        try {
+          const coord = await geocode(h.zip);
+          h.lat = coord.lat; h.lon = coord.lon; ok++;
+        } catch { fail++; }
+        if (toGeocode.indexOf(h) < toGeocode.length - 1) {
+          await new Promise(r => setTimeout(r, 1100)); // ≥1 s between Nominatim requests
+        }
+      }
+      // Re-save with coords
+      const s2 = loadSettings();
+      s2.freightHubs = s2.freightHubs.map(hub => {
+        const found = toGeocode.find(h => h.zip === hub.zip && h.lat);
+        return found ? { ...hub, lat: found.lat, lon: found.lon } : hub;
+      });
+      localStorage.setItem('rs_settings_v2', JSON.stringify(s2));
+      geoStatus.className = 'geo-status ok';
+      geoStatus.textContent = `✓ Geocoded ${ok} hub${ok!==1?'s':''}${fail?` · ${fail} failed (check ZIP)`:''}`;
+      setTimeout(() => { geoStatus.textContent = ''; }, 4000);
+    })();
+  }
+
   const el = document.getElementById('save-confirm');
   el.textContent = '✓ Saved!';
   setTimeout(() => el.textContent = '', 2500);
@@ -635,80 +511,141 @@ function saveSettings() {
 
 function populateSettings() {
   const s = loadSettings();
-  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v ?? ''; };
+  set('s-eia-key',    s.eiaApiKey);
   set('s-fuel-price', s.fuelPrice);
   set('s-fuel-type',  s.fuelType);
-  set('s-eia-key',    s.eiaApiKey);
   set('s-mpg',        s.mpg);
   set('s-maint',      s.maint);
   set('s-speed',      s.speed);
-  set('s-tank-size',  s.tankSize);
-  set('s-refuel-at',  s.refuelAt);
-  set('s-daily-target',      s.dailyTarget);
-  set('s-floor-profit',      s.floorProfit);
-  set('s-daily-target-wknd', s.dailyTargetWknd);
-  set('s-floor-profit-wknd', s.floorProfitWknd);
-  set('s-base-trip',  s.baseTripCost);
-  set('s-min-rate',   s.minRatePerMile);
-  set('s-deadhead-rate', s.deadheadRate);
-  set('s-overnight',  s.overnight);
-  set('s-weekend',    s.weekend);
-  set('s-detention',  s.detention);
-  set('s-home-city',  s.homeCity);
-  set('s-mkt-short',  s.mktShort);
-  set('s-mkt-medium', s.mktMedium);
-  set('s-mkt-long',   s.mktLong);
-  // Seed current-location fields with home city (only on first load, not on settings save)
-  ['current-city','cmp-current-city'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el && !el.value) el.value = s.homeCity;
-  });
+  set('s-home-zip',   s.homeZip);
+  set('s-dh-rate',    s.deadheadRate ?? DEFAULTS.deadheadRate);
+  set('s-hub-rate',   s.hubRate      ?? DEFAULTS.hubRate);
+
+  const rates = s.cpmRates && s.cpmRates.length === 5 ? s.cpmRates : DEFAULTS.cpmRates;
+  rates.forEach((r, i) => set(`s-cpm-${i+1}`, r));
+
+  // Build hub list
+  const hubs = s.freightHubs || DEFAULT_HUBS;
+  renderHubList(hubs);
+
+  // Default current-city
+  const ccEl = document.getElementById('current-city');
+  if (ccEl && !ccEl.value) ccEl.value = s.homeZip;
+
+  // Fuel last updated
   const luEl = document.getElementById('fuel-last-updated');
-  if (luEl) {
-    if (s.fuelLastUpdated) {
-      const d = new Date(s.fuelLastUpdated);
-      const stale = d < lastMondayMidnight();
-      luEl.textContent = `Last updated: ${d.toLocaleDateString()} ${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}${stale ? ' — ⚠ stale, will auto-update on next bid' : ''}`;
-      luEl.style.color = stale ? 'var(--warning)' : 'var(--muted)';
-    } else {
-      luEl.textContent = s.eiaApiKey ? 'Never updated — will auto-fetch on first bid.' : '';
-    }
+  if (luEl && s.fuelLastUpdated) {
+    const d = new Date(s.fuelLastUpdated);
+    const stale = d < lastMondayNoon();
+    luEl.textContent = `Last updated: ${d.toLocaleDateString()} ${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}${stale?' — ⚠ stale':''}`;
+    luEl.style.color = stale ? 'var(--warning)' : 'var(--muted)';
   }
 }
 
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════════════════
+// HUB LIST UI
+// ════════════════════════════════════════════════════════
+function renderHubList(hubs) {
+  const container = document.getElementById('hub-list');
+  if (!container) return;
+  container.innerHTML = '';
+  hubs.forEach((hub, i) => {
+    const div = document.createElement('div');
+    div.className = 'hub-item';
+    div.innerHTML = `
+      <div class="hub-item-row">
+        <span class="hub-num">${i+1}</span>
+        <input type="text" class="hub-name-input" value="${escHtml(hub.name)}" placeholder="Hub name" autocomplete="off">
+        <input type="text" class="hub-zip-input" value="${escHtml(hub.zip)}" placeholder="ZIP" inputmode="numeric" autocomplete="off">
+        <button class="hub-remove" onclick="removeHubRow(this)" title="Remove">×</button>
+      </div>`;
+    container.appendChild(div);
+  });
+  updateAddHubBtn();
+}
+
+function addHubRow() {
+  const container = document.getElementById('hub-list');
+  const count = container.querySelectorAll('.hub-item').length;
+  if (count >= 20) return;
+  const div = document.createElement('div');
+  div.className = 'hub-item';
+  div.innerHTML = `
+    <div class="hub-item-row">
+      <span class="hub-num">${count+1}</span>
+      <input type="text" class="hub-name-input" value="" placeholder="Hub name" autocomplete="off">
+      <input type="text" class="hub-zip-input" value="" placeholder="ZIP" inputmode="numeric" autocomplete="off">
+      <button class="hub-remove" onclick="removeHubRow(this)" title="Remove">×</button>
+    </div>`;
+  container.appendChild(div);
+  updateAddHubBtn();
+  renumberHubs();
+}
+
+function removeHubRow(btn) {
+  btn.closest('.hub-item').remove();
+  updateAddHubBtn();
+  renumberHubs();
+}
+
+function renumberHubs() {
+  document.querySelectorAll('#hub-list .hub-item').forEach((item, i) => {
+    const num = item.querySelector('.hub-num');
+    if (num) num.textContent = i + 1;
+  });
+}
+
+function updateAddHubBtn() {
+  const btn = document.getElementById('btn-add-hub');
+  if (!btn) return;
+  const count = document.querySelectorAll('#hub-list .hub-item').length;
+  btn.disabled = count >= 20;
+  btn.textContent = count >= 20 ? '+ Add Hub (max 20)' : '+ Add Hub';
+}
+
+function resetHubsToDefault() {
+  if (!confirm('Reset all freight hubs to the 20 default hubs?')) return;
+  renderHubList(DEFAULT_HUBS);
+}
+
+function escHtml(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ════════════════════════════════════════════════════════
 // FUEL AUTO-UPDATE
-// ═══════════════════════════════════════════
-function lastMondayMidnight() {
+// ════════════════════════════════════════════════════════
+function lastMondayNoon() {
   const now = new Date();
   const d = (now.getDay() === 0) ? 6 : now.getDay() - 1;
   const mon = new Date(now);
   mon.setDate(now.getDate() - d);
-  mon.setHours(0,0,0,0);
+  mon.setHours(12, 0, 0, 0); // noon
   return mon;
 }
 
 async function autoUpdateFuelIfStale(s) {
   if (!s.eiaApiKey) return { s, autoUpdated: false };
   const last = s.fuelLastUpdated ? new Date(s.fuelLastUpdated) : null;
-  if (last && last >= lastMondayMidnight()) return { s, autoUpdated: false };
+  if (last && last >= lastMondayNoon()) return { s, autoUpdated: false };
   try {
     const product = s.fuelType === 'diesel' ? 'EPD2D' : 'EPM0R';
     const url = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${encodeURIComponent(s.eiaApiKey)}&frequency=weekly&data[0]=value&facets[product][]=${product}&facets[duoarea][]=NUS&sort[0][column]=period&sort[0][direction]=desc&length=1`;
     const json = await fetch(url).then(r => r.json());
-    const row  = json?.response?.data?.[0];
+    const row = json?.response?.data?.[0];
     if (row?.value != null) {
       s.fuelPrice = parseFloat(row.value);
       s.fuelLastUpdated = new Date().toISOString();
       s.fuelLastPeriod  = row.period;
-      const stored = JSON.parse(localStorage.getItem('rs_settings') || '{}');
+      const stored = JSON.parse(localStorage.getItem('rs_settings_v2') || '{}');
       Object.assign(stored, { fuelPrice: s.fuelPrice, fuelLastUpdated: s.fuelLastUpdated, fuelLastPeriod: s.fuelLastPeriod });
-      localStorage.setItem('rs_settings', JSON.stringify(stored));
+      localStorage.setItem('rs_settings_v2', JSON.stringify(stored));
       const el = document.getElementById('s-fuel-price');
       if (el) el.value = s.fuelPrice.toFixed(3);
       return { s, autoUpdated: true, period: row.period, price: s.fuelPrice };
     }
-  } catch { /* fallback */ }
+  } catch { /* fallback to stored price */ }
   return { s, autoUpdated: false };
 }
 
@@ -728,11 +665,11 @@ async function fetchFuelPrice() {
     if (!row || row.value == null) throw new Error('No data returned — check your API key.');
     const price = parseFloat(row.value).toFixed(3);
     document.getElementById('s-fuel-price').value = price;
-    const stored = JSON.parse(localStorage.getItem('rs_settings') || '{}');
+    const stored = JSON.parse(localStorage.getItem('rs_settings_v2') || '{}');
     stored.fuelPrice = parseFloat(price);
     stored.fuelLastUpdated = new Date().toISOString();
     stored.fuelLastPeriod  = row.period;
-    localStorage.setItem('rs_settings', JSON.stringify(stored));
+    localStorage.setItem('rs_settings_v2', JSON.stringify(stored));
     status.className = 'fuel-status ok';
     status.textContent = `✓ $${price}/gal (${type}, week of ${row.period})`;
   } catch (err) {
@@ -740,806 +677,543 @@ async function fetchFuelPrice() {
   } finally { btn.disabled = false; }
 }
 
-// ═══════════════════════════════════════════
-// MARKET RATE (interpolated)
-// ═══════════════════════════════════════════
-// Anchors: mktShort @ 50mi, mktMedium @ 400mi, mktLong @ 1000mi
-function marketRateForMiles(miles, s) {
-  if (miles <= 50) return s.mktShort;
-  if (miles <= 400) { const t = (miles-50)/350; return s.mktShort + t*(s.mktMedium-s.mktShort); }
-  if (miles <= 1000) { const t = (miles-400)/600; return s.mktMedium + t*(s.mktLong-s.mktMedium); }
-  return s.mktLong;
-}
-
-// ═══════════════════════════════════════════
-// RATE CARD
-// ═══════════════════════════════════════════
-const RATE_CARD_DISTANCES = [100, 250, 500, 1000, 1500, 2000, 3000];
-
-// ═══════════════════════════════════════════
-// BILLING DAYS  —  driveHours / 15
-// 15 hrs driving = one full day at max capacity (15 drive + 9 rest = 24 hr cycle).
-// Sleep is computed separately for feasibility only; it does not inflate billing.
-// ═══════════════════════════════════════════
-function rateCardBillingDays(driveHours) {
-  return driveHours / 15;
-}
-
-function calcRateCardRow(miles, s) {
-  const driveH = miles / s.speed;
-  const sleepH = driveH >= 15 ? Math.floor(driveH/3) : 0;
-  const bDays  = rateCardBillingDays(driveH);
-  const fuel   = (miles / s.mpg) * s.fuelPrice;
-  const maint  = miles * s.maint;
-  let floor    = fuel + maint + bDays * s.dailyTarget;
-  const baseA  = floor < s.baseTripCost;
-  if (baseA) floor = s.baseTripCost;
-  let rec = floor;
-  const minByR = s.minRatePerMile * miles;
-  const minRA  = rec < minByR;
-  if (minRA) rec = minByR;
-  const dpm    = rec / miles;
-  const profit = bDays > 0 ? (rec - fuel - maint) / bDays : 0;
-  return { recBid: rec, billingDays: bDays, dollarsPerMile: dpm, profitPerDay: profit, baseApplied: baseA, minRateApplied: minRA, driveHours: driveH, sleepHours: sleepH };
-}
-
-function updateRateCard() {
-  const s = loadSettings();
-  const tbody = document.getElementById('rate-card-body');
-  const note  = document.getElementById('rate-card-note');
-  if (!tbody) return;
-  let anyBase = false, anyMin = false, rows = '';
-  for (const miles of RATE_CARD_DISTANCES) {
-    const r = calcRateCardRow(miles, s);
-    if (r.baseApplied) anyBase = true;
-    if (r.minRateApplied) anyMin = true;
-    const sl = r.sleepHours > 0 ? ` +${r.sleepHours}h` : '';
-    const fl = r.minRateApplied ? ' 📐' : r.baseApplied ? ' 📋' : '';
-    rows += `<tr>
-      <td class="dist-label">${miles.toLocaleString()} mi</td>
-      <td style="color:var(--muted);font-size:11px">${r.billingDays.toFixed(1)}d${sl}</td>
-      <td class="bid-val ${r.baseApplied||r.minRateApplied?'base-applied':''}">${fmt$(r.recBid)}${fl}</td>
-      <td style="color:var(--text)">$${r.dollarsPerMile.toFixed(3)}</td>
-      <td class="bid-val">${fmt$(r.profitPerDay)}</td>
-    </tr>`;
-  }
-  tbody.innerHTML = rows;
-  note.innerHTML = `8 AM pickup · no differentials · ${s.speed} mph · +2h buffer`
-    + (anyBase ? ` · <span style="color:var(--warning)">📋 base floor</span>` : '')
-    + (anyMin  ? ` · <span style="color:var(--warning)">📐 min rate floor</span>` : '');
-}
-
-// ═══════════════════════════════════════════
-// TABS
-// ═══════════════════════════════════════════
-function switchTab(el, tab) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('page-' + tab).classList.add('active');
-  if (tab === 'log') renderBidLog();
-}
-
-// ═══════════════════════════════════════════
-// TIMEZONE
-// ═══════════════════════════════════════════
-const tzCache = {};
-
-async function getTimezone(lat, lon) {
-  const key = `${lat.toFixed(2)},${lon.toFixed(2)}`;
-  if (tzCache[key]) return tzCache[key];
-  try {
-    const data = await fetch(`https://timezonefinder.michelfe.it/api/0?lat=${lat}&lng=${lon}`).then(r => r.json());
-    tzCache[key] = data.timezone;
-    return data.timezone;
-  } catch { return estimateTzFromLon(lon); }
-}
-
-function estimateTzFromLon(lon) {
-  if (lon > -87.5)  return 'America/New_York';
-  if (lon > -102.5) return 'America/Chicago';
-  if (lon > -115)   return 'America/Denver';
-  return 'America/Los_Angeles';
-}
-
-function getUtcOffsetHours(tzName) {
-  try {
-    const now = new Date();
-    const tzMs  = new Date(now.toLocaleString('en-US', { timeZone: tzName })).getTime();
-    const utcMs = new Date(now.toLocaleString('en-US', { timeZone: 'UTC'   })).getTime();
-    return (tzMs - utcMs) / 3600000;
-  } catch { return 0; }
-}
-
-function tzAbbrev(tzName) {
-  const map = {
-    'America/New_York':'ET','America/Detroit':'ET','America/Chicago':'CT',
-    'America/Indiana/Knox':'CT','America/Denver':'MT','America/Boise':'MT',
-    'America/Phoenix':'MT','America/Los_Angeles':'PT','America/Anchorage':'AKT','Pacific/Honolulu':'HT'
-  };
-  return map[tzName] || (tzName.split('/')[1]||tzName).replace('_',' ');
-}
-
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════════════════
 // GEOCODING & ROUTING
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════════════════
 const geocodeCache = {};
+const routeCache   = {};  // session-only; keyed by "lon1,lat1|lon2,lat2"
+function routeKey(from, to) { return `${from.lon},${from.lat}|${to.lon},${to.lat}`; }
+
+const timezoneCache = {};
+async function getTimezone(coord) {
+  const key = `${coord.lat.toFixed(2)},${coord.lon.toFixed(2)}`;
+  if (timezoneCache[key] !== undefined) return timezoneCache[key];
+  try {
+    const res = await fetch(
+      `https://timezonefinder.michelfe.it/api/0?lng=${coord.lon}&lat=${coord.lat}`,
+      { signal: AbortSignal.timeout(4000) }
+    );
+    const data = await res.json();
+    timezoneCache[key] = data.timezone || null;
+  } catch { timezoneCache[key] = null; }
+  return timezoneCache[key];
+}
+
+function isZipInput(value) { return /^\d{5}$/.test(value.trim()); }
+
+function postcodeMatches(addr, zip) {
+  const pc = String(addr.postcode || '').trim();
+  return pc === zip || pc.startsWith(zip + '-');
+}
+
+const STATE_ABBR = {
+  Alabama:'AL',Alaska:'AK',Arizona:'AZ',Arkansas:'AR',California:'CA',Colorado:'CO',
+  Connecticut:'CT',Delaware:'DE',Florida:'FL',Georgia:'GA',Hawaii:'HI',Idaho:'ID',
+  Illinois:'IL',Indiana:'IN',Iowa:'IA',Kansas:'KS',Kentucky:'KY',Louisiana:'LA',
+  Maine:'ME',Maryland:'MD',Massachusetts:'MA',Michigan:'MI',Minnesota:'MN',
+  Mississippi:'MS',Missouri:'MO',Montana:'MT',Nebraska:'NE',Nevada:'NV',
+  'New Hampshire':'NH','New Jersey':'NJ','New Mexico':'NM','New York':'NY',
+  'North Carolina':'NC','North Dakota':'ND',Ohio:'OH',Oklahoma:'OK',Oregon:'OR',
+  Pennsylvania:'PA','Rhode Island':'RI','South Carolina':'SC','South Dakota':'SD',
+  Tennessee:'TN',Texas:'TX',Utah:'UT',Vermont:'VT',Virginia:'VA',Washington:'WA',
+  'West Virginia':'WV',Wisconsin:'WI',Wyoming:'WY','District of Columbia':'DC'
+};
+
+function geocodeLabel(item, zip='') {
+  const addr  = item.address || {};
+  const place = addr.city || addr.town || addr.village || addr.county || item.display_name.split(',')[0];
+  const state = addr.state || '';
+  const stateAbbr = STATE_ABBR[state] || state;
+  return zip
+    ? `${zip}${place ? ` (${place}${stateAbbr ? `, ${stateAbbr}` : ''})` : ''}`
+    : stateAbbr ? `${place}, ${stateAbbr}` : place;
+}
 
 async function geocode(city) {
-  if (geocodeCache[city]) return geocodeCache[city];
-  const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1&countrycodes=us&addressdetails=1`, { headers: {'Accept-Language':'en-US,en'} });
+  const key = city.trim().toLowerCase();
+  if (geocodeCache[key]) return geocodeCache[key];
+
+  if (isZipInput(city)) {
+    const zip = city.trim();
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?postalcode=${encodeURIComponent(zip)}&countrycodes=us&format=json&limit=5&addressdetails=1`,
+      { headers: { 'Accept-Language': 'en-US,en', 'User-Agent': 'RateSetter/2.0 (freight-bid-calculator)' } }
+    );
+    if (!res.ok) throw new Error('Geocoding service unavailable — check internet connection.');
+    const data = await res.json();
+    const item = data.find(d => postcodeMatches(d.address || {}, zip)) || data[0];
+    if (!item) throw new Error(`Could not find ZIP "${zip}". Try "City, State" format.`);
+    const result = { lat: parseFloat(item.lat), lon: parseFloat(item.lon), label: geocodeLabel(item, zip), exact: true };
+    geocodeCache[key] = result;
+    return result;
+  }
+
+  const res = await fetch(
+    `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1&countrycodes=us&addressdetails=1`,
+    { headers: { 'Accept-Language': 'en-US,en', 'User-Agent': 'RateSetter/2.0 (freight-bid-calculator)' } }
+  );
   if (!res.ok) throw new Error('Geocoding service unavailable — check internet connection.');
   const data = await res.json();
-  if (!data.length) throw new Error(`Could not find "${city}". Try "City, State" format.`);
-  const addr  = data[0].address || {};
-  const place = addr.city || addr.town || addr.village || addr.county || data[0].display_name.split(',')[0];
-  const state = addr.state || '';
-  const label = state ? `${place}, ${state}` : place;
-  const hasState     = city.includes(',');
-  const inputLower   = city.toLowerCase().replace(/[^a-z]/g,'');
-  const resolvedLower= label.toLowerCase().replace(/[^a-z]/g,'');
-  const exact        = hasState && resolvedLower.includes(inputLower.slice(0,6));
-  const result = { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon), label, exact };
-  geocodeCache[city] = result;
+  if (!data.length) throw new Error(`Could not find "${city}". Try "City, State" or ZIP format.`);
+  const result = {
+    lat: parseFloat(data[0].lat),
+    lon: parseFloat(data[0].lon),
+    label: geocodeLabel(data[0]),
+    exact: city.includes(',')
+  };
+  geocodeCache[key] = result;
   return result;
 }
 
+// Standard routing — returns miles only
 async function getRouteMiles(from, to) {
-  const res = await fetch(`https://router.project-osrm.org/route/v1/driving/${from.lon},${from.lat};${to.lon},${to.lat}?overview=false`);
+  const key = routeKey(from, to);
+  if (routeCache[key]?.miles != null) return routeCache[key].miles;
+  const res = await fetch(
+    `https://router.project-osrm.org/route/v1/driving/${from.lon},${from.lat};${to.lon},${to.lat}?overview=false`
+  );
   if (!res.ok) throw new Error('Routing service unavailable.');
   const data = await res.json();
   if (data.code !== 'Ok') throw new Error('No driving route found between those cities.');
-  return data.routes[0].distance * 0.000621371;
+  const miles = data.routes[0].distance * 0.000621371;
+  routeCache[key] = { ...(routeCache[key] || {}), miles };
+  return miles;
 }
 
-// ═══════════════════════════════════════════
+// Routing WITH full geometry — used for route + Wyoming check
+async function getRouteWithGeometry(from, to) {
+  const key = routeKey(from, to);
+  if (routeCache[key]?.geometry != null) return { miles: routeCache[key].miles, geometry: routeCache[key].geometry };
+  const res = await fetch(
+    `https://router.project-osrm.org/route/v1/driving/${from.lon},${from.lat};${to.lon},${to.lat}?overview=full&geometries=geojson`
+  );
+  if (!res.ok) throw new Error('Routing service unavailable.');
+  const data = await res.json();
+  if (data.code !== 'Ok') throw new Error('No driving route found between those cities.');
+  const route = data.routes[0];
+  const result = { miles: route.distance * 0.000621371, geometry: route.geometry };
+  routeCache[key] = { ...(routeCache[key] || {}), ...result };
+  return result;
+}
+
+// ════════════════════════════════════════════════════════
+// WYOMING CHECK
+// Wyoming state bounds (conservative): lat 40.99–45.01, lon -111.06 to -104.05
+// ════════════════════════════════════════════════════════
+function checkRoutePassesWyoming(geometry) {
+  if (!geometry?.coordinates?.length) return false;
+  const WY_LAT_MIN = 40.99, WY_LAT_MAX = 45.01;
+  const WY_LON_MIN = -111.06, WY_LON_MAX = -104.05;
+  for (const [lon, lat] of geometry.coordinates) {
+    if (lat >= WY_LAT_MIN && lat <= WY_LAT_MAX && lon >= WY_LON_MIN && lon <= WY_LON_MAX) return true;
+  }
+  return false;
+}
+
+// ════════════════════════════════════════════════════════
+// HAVERSINE  (straight-line distance in miles)
+// ════════════════════════════════════════════════════════
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 3958.8;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+// ════════════════════════════════════════════════════════
+// NEAREST HUB
+// Uses haversine pre-filter → routes top 3 by driving distance
+// ════════════════════════════════════════════════════════
+async function findNearestHub(destCoord, hubs) {
+  // Filter to hubs that have coordinates
+  const validHubs = hubs.filter(h => h.lat != null && h.lon != null);
+  if (!validHubs.length) throw new Error('No freight hub coordinates available — check hub ZIPs in Settings.');
+
+  // Pre-sort by straight-line distance, take top 3
+  const withStraight = validHubs.map(h => ({
+    ...h, straightMiles: haversine(destCoord.lat, destCoord.lon, h.lat, h.lon)
+  }));
+  withStraight.sort((a, b) => a.straightMiles - b.straightMiles);
+  const candidates = withStraight.slice(0, Math.min(3, withStraight.length));
+
+  // Route to each candidate in parallel
+  const routed = await Promise.all(candidates.map(async hub => {
+    try {
+      const miles = await getRouteMiles(destCoord, { lat: hub.lat, lon: hub.lon });
+      return { ...hub, drivingMiles: miles };
+    } catch {
+      return { ...hub, drivingMiles: hub.straightMiles * 1.35 }; // fallback estimate
+    }
+  }));
+
+  routed.sort((a, b) => a.drivingMiles - b.drivingMiles);
+  return routed[0];
+}
+
+// ════════════════════════════════════════════════════════
 // FORMATTERS
-// ═══════════════════════════════════════════
-function fmt$(n)  { return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','); }
+// ════════════════════════════════════════════════════════
+function fmt$(n)  { return '$' + Math.abs(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','); }
+function fmtSigned$(n) {
+  const abs = Math.abs(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  return (n < 0 ? '−$' : '+$') + abs;
+}
 function fmtMi(n) { return Math.round(n).toLocaleString() + ' mi'; }
 function fmtHr(n) {
   if (n <= 0) return '0h';
-  const h = Math.floor(n), m = Math.round((n-h)*60);
+  const h = Math.floor(n), m = Math.round((n - h) * 60);
   return m ? `${h}h ${m}m` : `${h}h`;
 }
-const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-function fmtTime(h) {
-  if (h === 24) return '23:59';
-  return `${String(h).padStart(2,'0')}:00`;
-}
-function fmtTimeDecimal(decH) {
-  const h = Math.floor(decH) % 24, m = Math.round((decH - Math.floor(decH))*60);
-  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+
+// ════════════════════════════════════════════════════════
+// CORE CALCULATION ENGINE
+// ════════════════════════════════════════════════════════
+function calcExpense(miles, s) {
+  return miles * (s.fuelPrice / s.mpg + s.maint);
 }
 
-// ═══════════════════════════════════════════
-// CORE CALCULATION ENGINE (shared)
-// ═══════════════════════════════════════════
-const DIRECT_BUFFER_H = 0.75; // 45-min delivery buffer (loading, paperwork, approvals)
+function calcBaseRate(driveHours) {
+  // $150 base, −$10 per full hour driven. Minimum $0.
+  return Math.max(0, 150 - Math.floor(driveHours) * 10);
+}
 
-function computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHomeMiles,
-    pickupTz, destTz, homeTz, pickupDay, deliveryDay, pickupHour, deliveryHour, is2359,
-    billableBufferHours = 0 }, s) {
+function calcORV(baseRate, deadheadExpense, routeExpense, hubExpense, driveHours) {
+  // Optimum Route Value = base rate + hub travel cost + deadhead cost + route cost + $35/hr
+  return baseRate + hubExpense + deadheadExpense + routeExpense + (35 * driveHours);
+}
 
-  const pickupOffset = getUtcOffsetHours(pickupTz);
-  const destOffset   = getUtcOffsetHours(destTz);
-  const homeOffset   = getUtcOffsetHours(homeTz);
-  const tzAdjHours   = pickupOffset - destOffset;
-  const additionalDays = (deliveryDay - pickupDay + 7) % 7;
+function findRecommendedCPM(cpmRates, loadedMiles, orv) {
+  // Find the CPM tier whose revenue (rate × miles) is closest to ORV
+  let bestIdx = 0, bestDiff = Infinity;
+  cpmRates.forEach((rate, i) => {
+    const revenue = loadedMiles * rate;
+    const diff = Math.abs(revenue - orv);
+    if (diff < bestDiff) { bestDiff = diff; bestIdx = i; }
+  });
+  return bestIdx;
+}
 
-  let durationHours = is2359
-    ? additionalDays * 24 + (24 - pickupHour)
-    : additionalDays * 24 + (deliveryHour - pickupHour);
-  if (durationHours <= 0) durationHours += 24;
-  durationHours += tzAdjHours;
+// ════════════════════════════════════════════════════════
+// DELIVERY WINDOW PARSER
+// ════════════════════════════════════════════════════════
 
-  const daysByTime = is2359 ? 1 : (additionalDays === 0 && deliveryHour <= pickupHour) ? 1 : 0;
-  const calendarDaysElapsed = additionalDays + daysByTime;
-  const deliveryDayActual   = (pickupDay + calendarDaysElapsed) % 7;
+// Get current date parts in a given IANA timezone (falls back to local)
+function tzNow(tzName) {
+  const fmt = new Intl.DateTimeFormat('en-US', {
+    timeZone: tzName || undefined,
+    year:'numeric', month:'2-digit', day:'2-digit',
+    hour:'2-digit', minute:'2-digit', hour12: false
+  });
+  const p = Object.fromEntries(fmt.formatToParts(new Date()).map(x => [x.type, x.value]));
+  return { y: +p.year, mo: +p.month - 1, d: +p.day, h: +p.hour % 24, mi: +p.minute };
+}
 
-  const driveHours     = loadedMiles / s.speed;
-  const sleepHours     = driveHours >= 15 ? Math.floor(driveHours/3) : 0;
-  const totalTripHours = driveHours + sleepHours;
-  const buffer         = durationHours - totalTripHours;
-  const infeasible     = buffer < 0;
+// Build a nominal UTC timestamp for duration arithmetic (both endpoints use same tz, so offsets cancel)
+function nomTs(y, mo, d, h, mi) { return Date.UTC(y, mo, d, h, mi); }
 
-  const marginPer100 = !infeasible && loadedMiles > 0 ? (buffer * 60) / (loadedMiles / 100) : Infinity;
-  const isTight      = !infeasible && marginPer100 < 5;
+const MONTH_IDX = {
+  jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11,
+  january:0,february:1,march:2,april:3,june:5,july:6,august:7,
+  september:8,october:9,november:10,december:11
+};
+const DOW_IDX = {
+  sun:0,mon:1,tue:2,wed:3,thu:4,fri:5,sat:6,
+  sunday:0,monday:1,tuesday:2,wednesday:3,thursday:4,friday:5,saturday:6
+};
 
-  // Billing: driveHours / 15  (15-hr day capacity; sleep handled separately for feasibility only)
-  // Weekend hours are determined by which calendar days the driving actually falls on.
-  const billingDays    = (driveHours + billableBufferHours) / 15;
-  const wkndDailyTarget = s.dailyTargetWknd ?? s.dailyTarget;
-  const wkndFloorProfit = s.floorProfitWknd  ?? s.floorProfit;
-  let weekendDriveHours = 0;
-  for (let d = 0; d <= Math.ceil(driveHours / 24) + 1; d++) {
-    const overlapStart = Math.max(pickupHour, d * 24);
-    const overlapEnd   = Math.min(pickupHour + driveHours, (d + 1) * 24);
-    if (overlapEnd > overlapStart) {
-      const dow = (pickupDay + d) % 7;
-      if (dow === 0 || dow === 6) weekendDriveHours += overlapEnd - overlapStart;
-    }
+// Parse a time token: "7", "7:30", "7:00", "15:00", with optional am/pm already stripped
+// Returns { h, mi } or null
+function parseTimeTok(tok) {
+  const m = tok.match(/^(\d{1,2})(?::(\d{2}))?$/);
+  if (!m) return null;
+  return { h: +m[1], mi: m[2] ? +m[2] : 0 };
+}
+
+// Parse a date qualifier token (may be multi-word). Returns { y, mo, d } or null.
+// refNow: { y, mo, d } of today in dest tz
+function parseDateTok(tok, refNow) {
+  tok = tok.trim();
+  if (!tok) return null;
+  if (/^today$/i.test(tok)) return { y: refNow.y, mo: refNow.mo, d: refNow.d };
+  if (/^tomorrow$/i.test(tok)) {
+    const tm = new Date(Date.UTC(refNow.y, refNow.mo, refNow.d + 1));
+    return { y: tm.getUTCFullYear(), mo: tm.getUTCMonth(), d: tm.getUTCDate() };
   }
-  const weekdayDriveHours  = driveHours - weekendDriveHours;
-  const weekdayBillingDays = weekdayDriveHours / 15;
-  const weekendBillingDays = weekendDriveHours / 15;
-  const isWkndPickup       = pickupDay === 0 || pickupDay === 6; // used for display only
+  // Day of week: "Mon", "Friday", etc.
+  const dk = tok.toLowerCase().replace(/[^a-z]/g, '');
+  if (DOW_IDX[dk] !== undefined) {
+    const target = DOW_IDX[dk];
+    const curDow = new Date(Date.UTC(refNow.y, refNow.mo, refNow.d)).getUTCDay();
+    let ahead = target - curDow;
+    if (ahead <= 0) ahead += 7;
+    const tm = new Date(Date.UTC(refNow.y, refNow.mo, refNow.d + ahead));
+    return { y: tm.getUTCFullYear(), mo: tm.getUTCMonth(), d: tm.getUTCDate() };
+  }
+  // MM/DD[/YY[YY]]  — slashes only, no hyphens
+  const slash = tok.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?$/);
+  if (slash) {
+    let yr = slash[3] ? +slash[3] : refNow.y;
+    if (yr < 100) yr += 2000;
+    return { y: yr, mo: +slash[1] - 1, d: +slash[2] };
+  }
+  // Month name + day or day + month name: "Sept 9", "9 Sep", "September 9", etc.
+  const words = tok.split(/\s+/);
+  if (words.length >= 2) {
+    let mIdx, dayNum, yr = refNow.y;
+    const w0key = words[0].toLowerCase().replace(/[^a-z]/g, '').slice(0,3);
+    const w1key = words[1].toLowerCase().replace(/[^a-z]/g, '').slice(0,3);
+    if (MONTH_IDX[w0key] !== undefined && /^\d+$/.test(words[1])) {
+      mIdx = MONTH_IDX[w0key]; dayNum = +words[1];
+      if (words[2] && /^\d+$/.test(words[2])) { yr = +words[2]; if (yr < 100) yr += 2000; }
+    } else if (MONTH_IDX[w1key] !== undefined && /^\d+$/.test(words[0])) {
+      mIdx = MONTH_IDX[w1key]; dayNum = +words[0];
+      if (words[2] && /^\d+$/.test(words[2])) { yr = +words[2]; if (yr < 100) yr += 2000; }
+    }
+    if (mIdx !== undefined) return { y: yr, mo: mIdx, d: dayNum };
+  }
+  return null;
+}
 
-  const driveHomeHours    = destToHomeMiles / s.speed;
-  const deliveryInHomeTz  = deliveryHour + (homeOffset - destOffset);
-  const homeArrivalHour   = deliveryInHomeTz + driveHomeHours;
-  const homeTimeQualifies = !infeasible && homeArrivalHour <= 20;
+// Parse a single time+date specification like "7:00 AM Sept 9" or "Sept 9 7:00 AM"
+// Returns nominal UTC timestamp or null
+function parseTimeSpec(raw, refNow, refTs) {
+  raw = raw.trim();
+  // Extract am/pm
+  let isPM = false, isAM = false;
+  raw = raw.replace(/\b(am|pm)\b/gi, m => { isPM = /pm/i.test(m); isAM = /am/i.test(m); return ''; }).trim();
 
-  // Weekend
-  const tripDays = new Set();
-  for (let i = 0; i <= calendarDaysElapsed; i++) tripDays.add((pickupDay + i) % 7);
-  const spansFullWeekend = tripDays.has(6) && tripDays.has(0);
-  const weekendQualifies = !infeasible && buffer > 12
-    && pickupDay >= 1 && pickupDay <= 5
-    && deliveryDayActual >= 1 && deliveryDayActual <= 5
-    && spansFullWeekend;
-  const weekendExcessHours = weekendQualifies ? (buffer - 12) : 0;
-  const weekendCost        = weekendExcessHours * s.weekend;
+  // Extract time token — prefer H:MM colon format to avoid grabbing date numbers (e.g. "10" in "10/3 4:00")
+  let timeM = raw.match(/\b(\d{1,2}:\d{2})\b/);
+  if (!timeM) {
+    // Fall back: standalone number not preceded or followed by / (which signals a date component)
+    timeM = raw.match(/(?<![\/\d])(\d{1,2})(?![\/\d:])/);
+  }
+  if (!timeM) return null;
+  const timeTok = parseTimeTok(timeM[1]);
+  if (!timeTok || timeTok.h > 23 || timeTok.mi > 59) return null;
+  let remaining = raw.replace(timeM[0], '').trim().replace(/^[,\s]+|[,\s]+$/g, '');
 
-  // Overnight
-  const overnightQualifies = !infeasible && durationHours > 12
-    && calendarDaysElapsed > 0 && pickupFromHomeMiles > 100 && destToHomeMiles > 100;
-  let overnightNights = 0;
-  if (overnightQualifies) {
-    let excl = 0;
-    if (weekendQualifies) {
-      for (let i = 1; i <= calendarDaysElapsed; i++) {
-        const nd = (pickupDay + i - 1) % 7;
-        if (nd === 5 || nd === 6) excl++;
+  let { h, mi } = timeTok;
+  if (isPM && h !== 12) h += 12;
+  if (isAM && h === 12) h = 0;
+
+  // Parse date qualifier from remaining text
+  let date = remaining ? parseDateTok(remaining, refNow) : null;
+
+  if (!date) {
+    // No date qualifier — use today, or next day if end time <= start
+    let { y, mo, d } = refNow;
+    if (refTs !== undefined) {
+      const sameDay = nomTs(y, mo, d, h, mi);
+      if (sameDay <= refTs) {
+        const tm = new Date(Date.UTC(y, mo, d + 1));
+        y = tm.getUTCFullYear(); mo = tm.getUTCMonth(); d = tm.getUTCDate();
       }
     }
-    overnightNights = Math.max(0, calendarDaysElapsed - excl);
+    date = { y, mo, d };
   }
-  const overnightCost = overnightNights * s.overnight;
 
-  // Detention
-  const detentionQualifies = !infeasible && !weekendQualifies && buffer > 4;
-  const detentionCost      = detentionQualifies ? buffer * s.detention : 0;
+  return nomTs(date.y, date.mo, date.d, h, mi);
+}
 
-  // Costs
-  const loadedFuelCost    = (loadedMiles / s.mpg) * s.fuelPrice;
-  const maintCost         = loadedMiles * s.maint;
-  const deadheadFuelCost  = (deadheadIn  / s.mpg) * s.fuelPrice;
-  const deadheadMaintCost = deadheadIn * s.maint;
-  const deadheadTimeHours = deadheadIn / s.speed;
-  const deadheadTimeCost  = deadheadTimeHours * s.deadheadRate;
-  const deadheadCost      = deadheadFuelCost + deadheadMaintCost + deadheadTimeCost;
-  const totalDiffs        = overnightCost + weekendCost + detentionCost;
+// Main entry point — returns { hours: number|null, display: string, error: bool, note: string }
+function parseDeliveryWindow(raw, destTzName) {
+  raw = (raw || '').trim();
+  if (!raw) return { hours: null, display: '', error: false, note: '' };
 
-  const profitTarget = weekdayBillingDays * s.dailyTarget + weekendBillingDays * wkndDailyTarget;
-  let targetBid      = loadedFuelCost + maintCost + profitTarget + deadheadCost + totalDiffs;
-  const baseTripApplied = targetBid < s.baseTripCost;
-  if (baseTripApplied) targetBid = s.baseTripCost;
+  const note = destTzName
+    ? (destTzName.split('/')[1] || destTzName).replace(/_/g, ' ') + ' time'
+    : '';
 
-  // Dropoff time modifier:
-  //   1. Home time bonus (-15%) takes full priority.
-  //   2. Overnight run without a sleep break (-15%): drove through the night, can't
-  //      capitalize on the morning even with an early delivery.
-  //   3. Otherwise: sliding -15% (8 AM) → +15% (5 PM).
-  const overnightNoSleep = calendarDaysElapsed > 0 && sleepHours === 0;
-  let bidModifier;
-  if (homeTimeQualifies) {
-    bidModifier = 0.85;
-  } else if (overnightNoSleep) {
-    bidModifier = 1.15;
-  } else {
-    const clampedHour = Math.max(8, Math.min(deliveryHour, 17));
-    bidModifier = 1 + (-0.15 + (clampedHour - 8) / 9 * 0.30);
+  // ── Simple decimal hours ──
+  if (/^\d+(\.\d+)?$/.test(raw)) {
+    const h = parseFloat(raw);
+    return { hours: h, display: fmtHr(h), error: false, note: '' };
   }
-  let recBid = targetBid * bidModifier;
-  const minByRate = s.minRatePerMile * loadedMiles;
 
-  const profitFloor = weekdayBillingDays * s.floorProfit + weekendBillingDays * wkndFloorProfit;
-  let minAcceptable = loadedFuelCost + maintCost + profitFloor;
-  if (minAcceptable < s.baseTripCost) minAcceptable = s.baseTripCost;
-  if (homeTimeQualifies) minAcceptable *= 0.85;
-  if (minAcceptable < minByRate) minAcceptable = minByRate;
-
-  // Dropoff modifier may not push bid below minimum; home time may.
-  if (!homeTimeQualifies && recBid < minAcceptable) recBid = minAcceptable;
-  const minRateApplied = recBid < minByRate;
-  if (minRateApplied) recBid = minByRate;
-
-  const rpmLoaded  = recBid / loadedMiles;
-  const marketRate = marketRateForMiles(loadedMiles, s);
-  const rpmRatio   = rpmLoaded / marketRate;
-  const rpmPct     = Math.min(100, rpmRatio * 100);
-  const rpmColor   = rpmRatio < 0.85 ? '#e74c3c' : rpmRatio < 1.0 ? '#f39c12' : '#2ecc71';
-  const rpmText    = rpmRatio < 0.85 ? 'Below market'
-                   : rpmRatio < 1.0  ? `Near market ($${marketRate.toFixed(2)}/mi)`
-                   : rpmRatio < 1.2  ? `At market ($${marketRate.toFixed(2)}/mi)`
-                   : `Above market ($${marketRate.toFixed(2)}/mi)`;
-
-  // Fuel stops
-  const totalMiles     = loadedMiles + deadheadIn;
-  const effectiveRange = s.tankSize * (1 - s.refuelAt / 100) * s.mpg;
-  const fuelStops      = effectiveRange > 0 && totalMiles > effectiveRange
-    ? Math.ceil(totalMiles / effectiveRange) - 1 : 0;
-
-  return {
-    durationHours, driveHours, sleepHours, totalTripHours, buffer,
-    marginPer100, isTight, infeasible,
-    calendarDaysElapsed, deliveryDayActual, additionalDays,
-    tzAdjHours, pickupOffset, destOffset, homeOffset,
-    driveHomeHours, homeArrivalHour, homeTimeQualifies,
-    weekendQualifies, weekendExcessHours, weekendCost,
-    overnightQualifies, overnightNights, overnightCost,
-    detentionQualifies, detentionCost, totalDiffs,
-    isWkndPickup, weekdayBillingDays, weekendBillingDays, wkndDailyTarget, wkndFloorProfit,
-    overnightNoSleep, bidModifier, billingDays,
-    loadedFuelCost, maintCost, deadheadFuelCost, deadheadMaintCost,
-    deadheadTimeHours, deadheadTimeCost, deadheadCost,
-    profitTarget, baseTripApplied, recBid, minRateApplied, minAcceptable,
-    rpmLoaded, marketRate, rpmRatio, rpmPct, rpmColor, rpmText,
-    fuelStops, effectiveRange, totalMiles
-  };
-}
-
-// ═══════════════════════════════════════════
-// RATE ADJUSTMENT
-// ═══════════════════════════════════════════
-let adjBaseRecBid = 0, adjBaseMin = 0, adjLocked = true;
-
-function showRateAdjPanel(recBid, minAcceptable) {
-  adjBaseRecBid = recBid;
-  adjBaseMin    = minAcceptable;
-  adjLocked     = true;
-  const slider  = document.getElementById('rate-adj-slider');
-  slider.value  = 0;
-  slider.disabled = true;
-  document.getElementById('rate-lock-btn').textContent = '🔒';
-  document.getElementById('rate-lock-btn').className   = 'lock-btn';
-  updateRateAdjDisplay();
-  document.getElementById('rate-adj-panel').classList.add('visible');
-}
-
-function toggleRateAdj() {
-  adjLocked = !adjLocked;
-  const slider = document.getElementById('rate-adj-slider');
-  const btn    = document.getElementById('rate-lock-btn');
-  if (adjLocked) {
-    slider.value = 0; slider.disabled = true;
-    btn.textContent = '🔒'; btn.className = 'lock-btn';
-  } else {
-    slider.disabled = false;
-    btn.textContent = '🔓'; btn.className = 'lock-btn unlocked';
+  // ── H:MM interpreted as duration (e.g. "2:30" = 2h 30m) ──
+  if (/^\d+:\d{2}$/.test(raw)) {
+    const [hh, mm] = raw.split(':').map(Number);
+    const h = hh + mm / 60;
+    return { hours: h, display: fmtHr(h), error: false, note: 'as H:MM duration' };
   }
-  updateRateAdjDisplay();
+
+  // ── Named duration patterns ──
+  let m;
+  // "5h 30m", "5h30m", "5 hours 30 minutes", "5h 30 min"
+  m = raw.match(/^(\d+)\s*h(?:rs?|ours?)?\s*(\d+)\s*m(?:in(?:utes?)?)?$/i);
+  if (m) { const h = +m[1] + +m[2]/60; return { hours: h, display: fmtHr(h), error: false, note: '' }; }
+
+  // "5h" or "5 hours" or "5 hrs"
+  m = raw.match(/^(\d+(?:\.\d+)?)\s*h(?:rs?|ours?)?$/i);
+  if (m) { const h = parseFloat(m[1]); return { hours: h, display: fmtHr(h), error: false, note: '' }; }
+
+  // "90 min" or "90m" or "90 minutes"
+  m = raw.match(/^(\d+(?:\.\d+)?)\s*m(?:in(?:utes?)?)?$/i);
+  if (m) { const h = parseFloat(m[1])/60; return { hours: h, display: fmtHr(h), error: false, note: '' }; }
+
+  // "1 day" or "2 days"
+  m = raw.match(/^(\d+(?:\.\d+)?)\s*days?$/i);
+  if (m) { const h = parseFloat(m[1])*24; return { hours: h, display: fmtHr(h), error: false, note: '' }; }
+
+  // "1 day 6 hours"
+  m = raw.match(/^(\d+)\s*days?\s+(\d+(?:\.\d+)?)\s*h(?:rs?|ours?)?$/i);
+  if (m) { const h = +m[1]*24 + parseFloat(m[2]); return { hours: h, display: fmtHr(h), error: false, note: '' }; }
+
+  // "5 hours 30 minutes" (already caught above? double-check with looser pattern)
+  m = raw.match(/^(\d+)\s*h(?:rs?|ours?)?\s+(\d+)\s*min(?:utes?)?$/i);
+  if (m) { const h = +m[1] + +m[2]/60; return { hours: h, display: fmtHr(h), error: false, note: '' }; }
+
+  // ── Time range: split on " to ", " TO ", or " - " ──
+  // Must have spaces around the separator to distinguish from date hyphens
+  const sepRx = /\s+(?:to|-)\s+/i;
+  const sepM = raw.match(sepRx);
+  if (sepM) {
+    const sepIdx = sepM.index;
+    const startStr = raw.slice(0, sepIdx).trim();
+    const endStr   = raw.slice(sepIdx + sepM[0].length).trim();
+    if (!startStr || !endStr) return { hours: null, display: '', error: true, note: '' };
+
+    const refNow = tzNow(destTzName);
+    const startTs = parseTimeSpec(startStr, refNow);
+    if (startTs === null) return { hours: null, display: '', error: true, note: '' };
+    const endTs = parseTimeSpec(endStr, refNow, startTs);
+    if (endTs === null) return { hours: null, display: '', error: true, note: '' };
+
+    const diffMs = endTs - startTs;
+    if (diffMs <= 0) return { hours: null, display: '', error: true, note: 'end must be after start' };
+
+    const h = diffMs / 3600000;
+    return { hours: h, display: fmtHr(h), error: false, note };
+  }
+
+  return { hours: null, display: '', error: true, note: '' };
 }
 
-function updateRateAdjDisplay() {
-  const pct      = parseInt(document.getElementById('rate-adj-slider').value);
-  const raw      = adjBaseRecBid * (1 + pct / 100);
-  const adjusted = Math.max(adjBaseMin, raw);
-  const pctEl    = document.getElementById('rate-adj-pct');
-  pctEl.textContent = (pct >= 0 ? '+' : '') + pct + '%';
-  pctEl.className   = 'rate-adj-pct ' + (pct > 0 ? 'pos' : pct < 0 ? 'neg' : 'zero');
-  document.getElementById('rate-adj-bid-val').textContent = fmt$(adjusted);
-}
+// ════════════════════════════════════════════════════════
+// MAIN CALCULATE
+// ════════════════════════════════════════════════════════
+let lastRouteData = null;
 
-function getAdjustedBid() {
-  const pct = parseInt(document.getElementById('rate-adj-slider').value);
-  return Math.max(adjBaseMin, adjBaseRecBid * (1 + pct / 100));
-}
+async function calculate() {
+  const btn    = document.getElementById('calc-btn');
+  const out    = document.getElementById('results');
 
-// ═══════════════════════════════════════════
-// BID LOG
-// ═══════════════════════════════════════════
-const BID_LOG_KEY = 'rs_bid_log';
-let currentBidEntry = null;
+  const pickupCity      = document.getElementById('pickup-city').value.trim();
+  const destCity        = document.getElementById('dest-city').value.trim();
+  const currentIn       = document.getElementById('current-city').value.trim();
+  const dhRaw           = document.getElementById('deadhead-miles').value.trim();
+  const hasManualDH     = dhRaw !== '' && !isNaN(parseFloat(dhRaw));
+  const manualDH        = hasManualDH ? parseFloat(dhRaw) : 0;
 
-function loadBidLog() {
-  try { return JSON.parse(localStorage.getItem(BID_LOG_KEY) || '[]'); }
-  catch { return []; }
-}
-
-function logCurrentBid() {
-  if (!currentBidEntry) return;
-  const finalBid = getAdjustedBid();
-  const pct      = parseInt(document.getElementById('rate-adj-slider').value);
-  const entry    = { ...currentBidEntry, finalBid, adjPct: pct, id: Date.now(), date: new Date().toISOString(), won: null };
-  const log      = loadBidLog();
-  log.unshift(entry);
-  if (log.length > 500) log.splice(500);
-  localStorage.setItem(BID_LOG_KEY, JSON.stringify(log));
-  const btn = document.getElementById('log-bid-btn');
-  btn.textContent = '✓ Bid Logged';
-  btn.className   = 'log-bid-btn logged';
-  btn.disabled    = true;
-  updateLogTabLabel();
-}
-
-function markBidResult(id, won) {
-  const log   = loadBidLog();
-  const entry = log.find(e => e.id === id);
-  if (entry) { entry.won = won; localStorage.setItem(BID_LOG_KEY, JSON.stringify(log)); }
-  renderBidLog();
-  updateLogTabLabel();
-}
-
-function deleteBidEntry(id) {
-  const log = loadBidLog().filter(e => e.id !== id);
-  localStorage.setItem(BID_LOG_KEY, JSON.stringify(log));
-  renderBidLog();
-  updateLogTabLabel();
-}
-
-function updateLogTabLabel() {
-  const pending = loadBidLog().filter(e => e.won === null).length;
-  const el = document.getElementById('tab-log');
-  if (el) el.textContent = pending > 0 ? `Log(${pending})` : 'Log';
-}
-
-function renderBidLog() {
-  const log     = loadBidLog();
-  const statsEl = document.getElementById('log-stats');
-  const listEl  = document.getElementById('log-list');
-  if (!statsEl || !listEl) return;
-
-  const total    = log.length;
-  const decided  = log.filter(e => e.won !== null).length;
-  const won      = log.filter(e => e.won === true).length;
-  const winRate  = decided > 0 ? Math.round((won/decided)*100) : null;
-  const totMi    = log.reduce((sum, e) => sum + (e.loadedMiles||0) + (e.deadheadIn||0), 0);
-
-  statsEl.innerHTML = `
-    <div class="log-stat"><div class="log-stat-val">${total}</div><div class="log-stat-lbl">Bids</div></div>
-    <div class="log-stat"><div class="log-stat-val">${winRate !== null ? winRate+'%' : '—'}</div><div class="log-stat-lbl">Win Rate</div></div>
-    <div class="log-stat"><div class="log-stat-val">${Math.round(totMi).toLocaleString()}</div><div class="log-stat-lbl">Miles</div></div>
-  `;
-
-  if (log.length === 0) {
-    listEl.innerHTML = `<div class="log-empty">No bids logged yet.<br>Calculate a route and tap "Log This Bid."</div>`;
+  if (!pickupCity || !destCity) {
+    out.innerHTML = `<div class="warn-box">⚠️ Please enter both pickup and destination.</div>`;
     return;
   }
 
-  listEl.innerHTML = log.map(e => {
-    const d   = new Date(e.date);
-    const dStr= d.toLocaleDateString([],{month:'short',day:'numeric',year:'2-digit'});
-    return `<div class="log-entry">
-      <div class="log-entry-header">
-        <div class="log-entry-route">${e.pickup} → ${e.dest}</div>
-        <div class="log-entry-date">${dStr}</div>
-      </div>
-      <div class="log-entry-meta">${fmtMi(e.loadedMiles)} loaded${e.deadheadIn > 0 ? ` · +${fmtMi(e.deadheadIn)} DH` : ''}</div>
-      <div class="log-entry-bid">${fmt$(e.finalBid)}${e.adjPct ? ` <span style="font-size:11px;color:var(--muted)">(${e.adjPct>0?'+':''}${e.adjPct}% adj)</span>` : ''}</div>
-      <div class="log-entry-actions">
-        <button class="log-act ${e.won===true?'won':''}" onclick="markBidResult(${e.id},true)">✓ Won</button>
-        <button class="log-act ${e.won===false?'lost':''}" onclick="markBidResult(${e.id},false)">✗ Lost</button>
-        <button class="log-act" onclick="deleteBidEntry(${e.id})" style="flex:0;padding:7px 11px">🗑</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function exportMileageCSV() {
-  const log = loadBidLog();
-  if (log.length === 0) { alert('No bids logged yet.'); return; }
-  const hdr  = 'Date,Pickup,Destination,Loaded Miles,Deadhead Miles,Total Miles,Base Bid,Adjusted Bid,Adj %,Min Acceptable,Result\n';
-  const rows = log.map(e => [
-    new Date(e.date).toLocaleDateString(),
-    `"${e.pickup}"`, `"${e.dest}"`,
-    Math.round(e.loadedMiles||0), Math.round(e.deadheadIn||0),
-    Math.round((e.loadedMiles||0)+(e.deadheadIn||0)),
-    (e.recBid||0).toFixed(2), (e.finalBid||e.recBid||0).toFixed(2),
-    (e.adjPct||0),
-    (e.minAcceptable||0).toFixed(2),
-    e.won===true?'Won':e.won===false?'Lost':'Pending'
-  ].join(',')).join('\n');
-  const blob = new Blob([hdr+rows], {type:'text/csv'});
-  const url  = URL.createObjectURL(blob);
-  const a    = Object.assign(document.createElement('a'), {href:url, download:`ratesetter-log-${new Date().toISOString().slice(0,10)}.csv`});
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-function buildDirectDecline(driveHours, speed) {
-  return `<div class="decline-card">
-    <div class="decline-icon">📦</div>
-    <div class="decline-title">Too Far for Direct Delivery</div>
-    <div class="decline-sub">This load exceeds the 14-hour direct delivery limit.</div>
-    <div class="decline-detail">
-      At <strong>${speed} mph</strong>, this route requires <strong>${fmtHr(driveHours)}</strong> of driving —
-      <strong>${fmtHr(driveHours - 14)}</strong> over the limit. Get a firm window or decline.
-    </div>
-  </div>`;
-}
-
-// ═══════════════════════════════════════════
-// MAIN CALCULATOR
-// ═══════════════════════════════════════════
-async function calculate() {
-  const btn = document.getElementById('calc-btn');
-  const out = document.getElementById('results');
-
-  const pickupCity     = document.getElementById('pickup-city').value.trim();
-  const destCity       = document.getElementById('dest-city').value.trim();
-  const currentCityIn  = document.getElementById('current-city').value.trim();
-  const isImmediate    = document.getElementById('immediate-pickup').checked;
-  const isDirect       = document.getElementById('deliver-direct').checked;
-  const dhRaw          = document.getElementById('deadhead-miles').value.trim();
-  const hasManualDH    = dhRaw !== '' && !isNaN(parseFloat(dhRaw));
-  const manualDH       = hasManualDH ? parseFloat(dhRaw) : 0;
-
-  // Pickup time: for non-immediate, read from form now
-  let pickupDay  = isImmediate ? 0 : parseInt(document.getElementById('pickup-day').value);
-  let pickupHour = isImmediate ? 0 : parseInt(document.getElementById('pickup-time').value);
-
-  // Delivery time: for non-direct, read from form
-  let deliveryDay, deliveryHour, is2359, additionalDays;
-  if (!isDirect) {
-    deliveryDay    = parseInt(document.getElementById('delivery-day').value);
-    const rawDel   = parseInt(document.getElementById('delivery-time').value);
-    is2359         = rawDel === 24;
-    deliveryHour   = is2359 ? 0 : rawDel;
-    additionalDays = isImmediate ? 0 : (deliveryDay - pickupDay + 7) % 7;
-  }
-
-  if (!pickupCity || !destCity) {
-    out.innerHTML = `<div class="warn-box">⚠️ Please enter both pickup and destination cities.</div>`; return;
-  }
-  if (!isImmediate && !isDirect && additionalDays === 0 && !is2359 && deliveryHour <= pickupHour) {
-    out.innerHTML = `<div class="warn-box">⚠️ <strong>Same-day delivery must be after pickup time.</strong><br>Pickup ${fmtTime(pickupHour)} · Delivery ${fmtTime(deliveryHour)} — choose a later delivery time or a different day.</div>`; return;
-  }
-
   btn.disabled = true;
-  document.getElementById('rate-adj-panel').classList.remove('visible');
-  document.getElementById('log-bid-btn').style.display = 'none';
   out.innerHTML = `<div class="loading"><div class="spinner"></div>Looking up cities…</div>`;
 
   try {
     const { s, autoUpdated, period, price } = await autoUpdateFuelIfStale(loadSettings());
-    const fuelNote = autoUpdated ? `<div class="resolve-notice">⛽ Fuel auto-updated to <strong>$${price.toFixed(3)}/gal</strong> (week of ${period})</div>` : '';
+    const fuelNote = autoUpdated
+      ? `<div class="resolve-notice">⛽ Fuel auto-updated to <strong>$${price.toFixed(3)}/gal</strong> (week of ${period})</div>`
+      : '';
 
-    const currentCityStr = currentCityIn || s.homeCity;
-    const geocodeArr = [geocode(pickupCity), geocode(destCity), geocode(s.homeCity)];
-    if (!hasManualDH) geocodeArr.push(geocode(currentCityStr));
-    const geoResults = await Promise.all(geocodeArr);
+    const currentStr = currentIn || s.homeZip;
+
+    // ── Step 1: Geocode ──
+    const geoPromises = [geocode(pickupCity), geocode(destCity), geocode(s.homeZip)];
+    if (!hasManualDH) geoPromises.push(geocode(currentStr));
+    const geoResults = await Promise.all(geoPromises);
     const [pickupCoord, destCoord, homeCoord] = geoResults;
     const currentCoord = !hasManualDH ? geoResults[3] : null;
 
-    out.innerHTML = `<div class="loading"><div class="spinner"></div>Calculating distances &amp; timezones…</div>`;
+    out.innerHTML = `<div class="loading"><div class="spinner"></div>Calculating routes…</div>`;
 
-    const routeArr = [
-      getRouteMiles(pickupCoord, destCoord),
+    // ── Step 2: Route distances ──
+    const routePromises = [
+      getRouteWithGeometry(pickupCoord, destCoord),
       getRouteMiles(destCoord, homeCoord),
-      getRouteMiles(homeCoord, pickupCoord),
-      getTimezone(pickupCoord.lat, pickupCoord.lon),
-      getTimezone(destCoord.lat, destCoord.lon),
-      getTimezone(homeCoord.lat, homeCoord.lon)
     ];
-    if (!hasManualDH) routeArr.push(getRouteMiles(currentCoord, pickupCoord));
-    const routeResults = await Promise.all(routeArr);
-    const [loadedMiles, destToHomeMiles, pickupFromHomeMiles, pickupTz, destTz, homeTz] = routeResults;
-    const deadheadIn      = hasManualDH ? manualDH : routeResults[6];
-    const deadheadSource  = hasManualDH ? 'manual' : (currentCoord?.label || currentCityStr);
+    if (!hasManualDH) routePromises.push(getRouteMiles(currentCoord, pickupCoord));
 
-    const mapsUrl = `https://www.google.com/maps/dir/${pickupCoord.lat},${pickupCoord.lon}/${destCoord.lat},${destCoord.lon}`;
+    const routeResults = await Promise.all(routePromises);
+    const { miles: loadedMiles, geometry: routeGeometry } = routeResults[0];
+    const destToHomeMiles = routeResults[1];
+    const deadheadMiles   = hasManualDH ? manualDH : routeResults[2];
+    const deadheadSource  = hasManualDH ? 'manual' : (currentCoord?.label || currentStr);
 
-    // Immediate pickup: compute shipper arrival from now + deadhead travel + 15 min prep
-    let shipperArrivalCard = '';
-    if (isImmediate) {
-      const now         = new Date();
-      const dhMinutes   = (deadheadIn / s.speed) * 60;
-      const arr         = new Date(now.getTime() + (dhMinutes + 15) * 60000);
-      pickupDay         = arr.getDay();
-      pickupHour        = arr.getHours() + arr.getMinutes() / 60;
-      if (!isDirect) additionalDays = (deliveryDay - pickupDay + 7) % 7;
-      const dhLabel     = hasManualDH ? `${fmtMi(deadheadIn)} manual` : `${fmtMi(deadheadIn)} from ${deadheadSource}`;
-      shipperArrivalCard = `
-        <div class="home-card" style="border-color:rgba(255,213,79,0.5);background:linear-gradient(145deg,#2a2200,#1a1500)">
-          <div class="home-icon">⚡</div>
-          <div class="home-body">
-            <div class="home-title" style="color:#ffe066">Shipper Arrival Estimate</div>
-            <div class="home-detail">Tell your broker: <strong>${DAY_NAMES[pickupDay]}, ${fmtTimeDecimal(pickupHour)} ${tzAbbrev(pickupTz)}</strong></div>
-            <div style="font-size:11px;color:var(--muted);margin-top:3px">Deadhead ${dhLabel} · +15 min prep</div>
+    out.innerHTML = `<div class="loading"><div class="spinner"></div>Finding nearest freight hub…</div>`;
+
+    // ── Step 3: Hub detection + timezone lookup (parallel) ──
+    const hubs = s.freightHubs || DEFAULT_HUBS;
+    const [nearestHub, destTzName, pickupTzName] = await Promise.all([
+      findNearestHub(destCoord, hubs),
+      getTimezone(destCoord),
+      getTimezone(pickupCoord),
+    ]);
+    const hubMiles = nearestHub.drivingMiles;
+
+    // ── Step 4: Wyoming check ──
+    const passesWyoming = checkRoutePassesWyoming(routeGeometry);
+
+    // ── Step 5: Core calculations ──
+    const cpm  = s.cpmRates && s.cpmRates.length === 5 ? s.cpmRates : DEFAULTS.cpmRates;
+    const dhRate   = s.deadheadRate ?? DEFAULTS.deadheadRate;
+    const hubRate  = s.hubRate      ?? DEFAULTS.hubRate;
+
+
+    const driveHours     = loadedMiles / s.speed;
+    const costPerMile    = s.fuelPrice / s.mpg + s.maint;
+
+    // Operating expenses (fuel + maintenance)
+    const deadheadOpEx   = calcExpense(deadheadMiles, s);
+    const routeOpEx      = calcExpense(loadedMiles, s);
+    const homeOpEx       = calcExpense(destToHomeMiles, s);
+    const hubOpEx        = calcExpense(hubMiles, s);
+
+    // Mileage rate costs (opportunity/empty-mile costs) — separate from operating expense
+    const deadheadMRCost = deadheadMiles * dhRate;
+    const hubMRCost      = hubMiles      * hubRate;
+
+    // Combined costs per scenario (operating + mileage rate)
+    const deadheadTotal  = deadheadOpEx + deadheadMRCost;
+    const homeTotal      = homeOpEx;
+    const hubTotal       = hubOpEx      + hubMRCost;
+
+    const baseRate = calcBaseRate(driveHours);
+    const orv      = calcORV(baseRate, deadheadTotal, routeOpEx, hubTotal, driveHours);
+    const recIdx   = findRecommendedCPM(cpm, loadedMiles, orv);
+
+    // ── Step 6: Store route state and render ──
+    lastRouteData = {
+      s, fuelNote, pickupCoord, destCoord, homeCoord, nearestHub,
+      destTzName, pickupTzName,
+      loadedMiles, deadheadMiles, destToHomeMiles, hubMiles,
+      driveHours, deadheadSource, hasManualDH, passesWyoming,
+      deadheadOpEx, routeOpEx, homeOpEx, hubOpEx,
+      deadheadMRCost, hubMRCost,
+      deadheadTotal, homeTotal, hubTotal,
+      baseRate, orv, recIdx, cpm, dhRate, hubRate, costPerMile,
+      resolveHtml: (!pickupCoord.exact || !destCoord.exact) ? `
+        <div class="resolve-notice">📍 <strong>Location resolved:</strong>
+          ${!pickupCoord.exact ? `<br>Pickup → <strong>${pickupCoord.label}</strong>` : `<br>Pickup → ${pickupCoord.label}`}
+          ${!destCoord.exact   ? `<br>Delivery → <strong>${destCoord.label}</strong>` : `<br>Delivery → ${destCoord.label}`}
+        </div>` : '',
+      wyHtml: passesWyoming ? `
+        <div class="wy-warning">
+          <div class="wy-warning-icon">⚠️</div>
+          <div class="wy-warning-body">
+            <div class="wy-warning-title">Route Passes Through Wyoming</div>
+            <div class="wy-warning-sub">Mountain grades, potential adverse weather. Verify load securement and road conditions before accepting.</div>
           </div>
-        </div>`;
-    }
-
-    // Direct delivery: compute arrival time from drive speed; decline if >14 h
-    // DIRECT_BUFFER_H (45 min) added for loading, paperwork, and approvals — counts toward billing
-    if (isDirect) {
-      const driveH = loadedMiles / s.speed;
-      if (driveH > 14) {
-        out.innerHTML = buildDirectDecline(driveH, s.speed);
-        return;
-      }
-      const absArrival  = pickupHour + driveH + DIRECT_BUFFER_H;
-      const extraDays   = Math.floor(absArrival / 24);
-      deliveryHour      = absArrival % 24;
-      deliveryDay       = (pickupDay + extraDays) % 7;
-      additionalDays    = extraDays;
-      is2359            = false;
-    }
-
-    const d = computeBidData({ loadedMiles, deadheadIn, destToHomeMiles, pickupFromHomeMiles, pickupTz, destTz, homeTz, pickupDay, deliveryDay, pickupHour, deliveryHour, is2359, billableBufferHours: isDirect ? DIRECT_BUFFER_H : 0 }, s);
-
-    // Direct deliveries can't be infeasible — there's no window to violate.
-    // Infeasibility for direct loads is already handled by the 14-hr check above.
-    if (d.infeasible && !isDirect) {
-      out.innerHTML = buildDecline(d.driveHours, d.sleepHours, d.totalTripHours, d.durationHours);
-      return;
-    }
-
-    // Store for logging
-    currentBidEntry = {
-      pickup: pickupCoord.label, dest: destCoord.label,
-      loadedMiles, deadheadIn, totalMiles: d.totalMiles,
-      recBid: d.recBid, minAcceptable: d.minAcceptable,
-      billingDays: d.billingDays, fuelPrice: s.fuelPrice
+        </div>` : '',
+      mapsUrl: `https://www.google.com/maps/dir/${pickupCoord.lat},${pickupCoord.lon}/${destCoord.lat},${destCoord.lon}`,
     };
 
-    // ── Rate offer analysis ──────────────────
-    const offeredRate = parseFloat(document.getElementById('offered-rate').value) || 0;
-    let offerHtml = '';
-    if (offeredRate > 0 && loadedMiles > 0) {
-      const oRpm = offeredRate / loadedMiles;
-      let verdict, verdictColor, counterHtml = '';
-      if (offeredRate >= d.recBid) {
-        verdict      = '✅ Accept — at or above your target';
-        verdictColor = 'var(--success)';
-      } else if (offeredRate >= d.minAcceptable) {
-        verdict      = '🤝 Counter — meets your floor, try for more';
-        verdictColor = 'var(--warning)';
-        const counter    = (offeredRate + d.recBid) / 2;
-        const counterRpm = counter / loadedMiles;
-        counterHtml = `<div class="result-row accent-row"><span class="lbl">Suggested Counter</span><span class="val">${fmt$(counter)} · $${counterRpm.toFixed(3)}/mi</span></div>`;
-      } else {
-        verdict      = '❌ Decline — below your floor';
-        verdictColor = 'var(--danger)';
-        const floorRpm = d.minAcceptable / loadedMiles;
-        counterHtml = `<div class="result-row warn-row"><span class="lbl">Counter at Your Floor</span><span class="val">${fmt$(d.minAcceptable)} · $${floorRpm.toFixed(3)}/mi</span></div>`;
-      }
-      const gap = offeredRate - d.recBid;
-      offerHtml = `
-        <div class="result-card" style="border-color:${verdictColor}55;margin-bottom:0">
-          <h3>💬 Rate Analysis</h3>
-          <div class="result-row"><span class="lbl">Offered Rate</span><span class="val">${fmt$(offeredRate)} · $${oRpm.toFixed(3)}/mi</span></div>
-          <div class="result-row"><span class="lbl">Your Target</span><span class="val">${fmt$(d.recBid)}</span></div>
-          <div class="result-row"><span class="lbl">Gap to Target</span><span class="val" style="color:${gap >= 0 ? 'var(--success)' : 'var(--danger)'}">${gap >= 0 ? '+' : ''}${fmt$(gap)}</span></div>
-          <div class="result-row"><span class="lbl">Your Floor</span><span class="val">${fmt$(d.minAcceptable)}</span></div>
-          ${counterHtml}
-          <div class="result-row total" style="margin-top:4px;border-top:1px solid var(--border);padding-top:10px">
-            <span class="lbl">Verdict</span>
-            <span class="val" style="color:${verdictColor}">${verdict}</span>
-          </div>
-        </div>`;
-    }
-
-    showRateAdjPanel(d.recBid, d.minAcceptable);
-    const logBtn = document.getElementById('log-bid-btn');
-    logBtn.textContent = '📋 Log This Bid';
-    logBtn.className   = 'log-bid-btn';
-    logBtn.disabled    = false;
-    logBtn.style.display = 'block';
-
-    const dropoffModPct = Math.round((d.bidModifier - 1) * 100);
-    let tags = '';
-    if (isDirect)                   tags += `<span class="tag tag-base">📦 Deliver Direct</span>`;
-    if (d.homeTimeQualifies)        tags += `<span class="tag tag-overnight">🏠 Home time bid (−15%)</span>`;
-    else if (d.overnightNoSleep)    tags += `<span class="tag tag-detention">🌙 Overnight no-rest (+15%)</span>`;
-    else if (dropoffModPct > 0)     tags += `<span class="tag tag-detention">📈 Dropoff +${dropoffModPct}%</span>`;
-    else if (dropoffModPct < 0)     tags += `<span class="tag tag-base">📉 Dropoff ${dropoffModPct}%</span>`;
-    if (d.overnightQualifies) tags += `<span class="tag tag-overnight">🌙 ${d.overnightNights} night${d.overnightNights>1?'s':''} = ${fmt$(d.overnightCost)}</span>`;
-    if (d.weekendQualifies)   tags += `<span class="tag tag-weekend">📅 Weekend ${d.weekendExcessHours.toFixed(1)}h = ${fmt$(d.weekendCost)}</span>`;
-    if (d.detentionQualifies) tags += `<span class="tag tag-detention">⏳ Detention ${d.buffer.toFixed(1)}h = ${fmt$(d.detentionCost)}</span>`;
-    if (d.baseTripApplied)    tags += `<span class="tag tag-base">📋 Base minimum</span>`;
-    if (d.minRateApplied)     tags += `<span class="tag tag-base">📐 Min rate floor</span>`;
-
-    const warnHtml = (!isDirect && d.isTight) ? `<div class="warn-box">⚠️ <strong>Tight Schedule</strong> — only ${d.marginPer100.toFixed(1)} min/100mi margin. Any delay could make this infeasible.</div>` : '';
-
-    const resolveHtml = (!pickupCoord.exact || !destCoord.exact) ? `
-      <div class="resolve-notice">📍 <strong>Location resolved:</strong><br>
-        ${!pickupCoord.exact ? `Pickup → <strong>${pickupCoord.label}</strong><br>` : `Pickup → ${pickupCoord.label}<br>`}
-        ${!destCoord.exact   ? `Delivery → <strong>${destCoord.label}</strong>` : `Delivery → ${destCoord.label}`}
-      </div>` : '';
-
-    const hasWknd = d.weekendBillingDays > 0;
-    const hasWkdy = d.weekdayBillingDays > 0;
-    const profitTargetLabel = !hasWknd
-      ? `${d.billingDays.toFixed(2)} days × $${s.dailyTarget}/day`
-      : !hasWkdy
-        ? `${d.billingDays.toFixed(2)} days × $${s.dailyTargetWknd || s.dailyTarget}/day 📅`
-        : `${d.weekdayBillingDays.toFixed(2)}d × $${s.dailyTarget} + ${d.weekendBillingDays.toFixed(2)}d × $${s.dailyTargetWknd || s.dailyTarget} 📅`;
-    const profitFloorLabel = !hasWknd
-      ? `floor $${s.floorProfit}/day`
-      : !hasWkdy
-        ? `floor $${s.floorProfitWknd || s.floorProfit}/day 📅`
-        : `floor $${s.floorProfit} wkdy / $${s.floorProfitWknd || s.floorProfit} wknd 📅`;
-    const bidRowLabel = d.homeTimeQualifies ? 'Your Bid (home time −15%)'
-      : d.overnightNoSleep ? 'Your Bid (overnight no-rest +15%)'
-      : dropoffModPct === 0 ? 'Your Bid'
-      : `Your Bid (dropoff ${dropoffModPct > 0 ? '+' : ''}${dropoffModPct}%)`;
-
-    const fuelStopHtml = d.fuelStops > 0
-      ? `<div class="result-row"><span class="lbl">Fuel Stops (~${fmtMi(Math.round(d.effectiveRange))} range)</span><span class="val">${d.fuelStops} stop${d.fuelStops>1?'s':''}</span></div>`
-      : `<div class="result-row"><span class="lbl">Fuel Stops</span><span class="val" style="color:var(--muted)">None needed</span></div>`;
-
-    out.innerHTML = `
-      ${fuelNote}${shipperArrivalCard}${warnHtml}${resolveHtml}${offerHtml}
-
-      ${d.homeTimeQualifies ? `<div class="home-card">
-        <div class="home-icon">🏠</div>
-        <div class="home-body">
-          <div class="home-title">Home Time After Delivery</div>
-          <div class="home-detail">${fmtMi(destToHomeMiles)} to home — est. arrival <strong>${fmtTimeDecimal(d.homeArrivalHour)}</strong>. Bid −15% to win.</div>
-          <div class="home-badge">Bid to win</div>
-        </div>
-      </div>` : ''}
-
-      <div class="bid-card">
-        <div class="bid-label">Recommended Bid</div>
-        <div class="bid-amount">${fmt$(d.recBid)}</div>
-        <div class="bid-sub">${fmtMi(loadedMiles)} loaded &nbsp;·&nbsp; ${fmt$(d.rpmLoaded)}/loaded mi</div>
-        ${isDirect ? `<div class="bid-sub" style="margin-top:4px;color:#ffe066">📦 Est. delivery: ${DAY_NAMES[d.deliveryDayActual]}, ~${fmtTimeDecimal(deliveryHour)} ${tzAbbrev(destTz)} <span style="color:var(--muted);font-size:11px">(+45 min buffer)</span></div>` : ''}
-        ${tags ? `<div class="bid-tags">${tags}</div>` : ''}
-        <div class="floor-label">Do not accept below: <strong>${fmt$(d.minAcceptable)}</strong> &nbsp;·&nbsp; costs: ${fmt$(d.loadedFuelCost + d.maintCost + d.deadheadCost)}</div>
-        <div class="rpm-bar">
-          <div class="rpm-label">Rate quality: ${d.rpmText} — ${fmt$(d.rpmLoaded)}/mi</div>
-          <div class="rpm-track"><div class="rpm-fill" style="width:${d.rpmPct.toFixed(0)}%;background:${d.rpmColor}"></div></div>
-        </div>
-      </div>
-
-      <div class="result-card">
-        <h3>📍 Distance</h3>
-        <div class="result-row"><span class="lbl">Deadhead to Pickup${hasManualDH ? '' : ` (routed from ${deadheadSource})`}</span><span class="val">${fmtMi(deadheadIn)}</span></div>
-        <div class="result-row"><span class="lbl">Loaded Miles (routed)</span><span class="val">${fmtMi(loadedMiles)}</span></div>
-        <div class="result-row total"><span class="lbl">Total Billable Miles</span><span class="val">${fmtMi(d.totalMiles)}</span></div>
-        ${d.homeTimeQualifies ? `<div class="result-row"><span class="lbl" style="color:var(--accent)">+ Drive Home (not billed)</span><span class="val" style="color:var(--accent)">${fmtMi(destToHomeMiles)}</span></div>` : ''}
-      </div>
-
-      <div class="result-card">
-        <h3>⏱ Time</h3>
-        <div class="result-row"><span class="lbl">Timezones</span><span class="val">${tzAbbrev(pickupTz)} → ${tzAbbrev(destTz)}${d.tzAdjHours !== 0 ? ` (${d.tzAdjHours>0?'+':''}${d.tzAdjHours}h)` : ' (same)'}</span></div>
-        <div class="result-row"><span class="lbl">Delivery Window</span><span class="val">${fmtHr(d.durationHours)}</span></div>
-        <div class="result-row"><span class="lbl">Drive Time @ ${s.speed} mph</span><span class="val">${fmtHr(d.driveHours)}</span></div>
-        ${d.sleepHours > 0 ? `<div class="result-row"><span class="lbl">Sleep / Downtime</span><span class="val">${fmtHr(d.sleepHours)}</span></div>` : `<div class="result-row"><span class="lbl">Sleep / Downtime</span><span class="val" style="color:var(--muted)">N/A (&lt;15hr drive)</span></div>`}
-        <div class="result-row"><span class="lbl">Total Trip Time</span><span class="val">${fmtHr(d.totalTripHours)}</span></div>
-        <div class="result-row"><span class="lbl">Buffer Remaining</span><span class="val">${fmtHr(d.buffer)}</span></div>
-        ${isDirect ? '' : `<div class="result-row"><span class="lbl">Schedule Margin</span><span class="val ${d.isTight?'warn-text':''}">${d.marginPer100.toFixed(1)} min/100mi${d.isTight?' ⚠️':''}</span></div>`}
-        ${fuelStopHtml}
-      </div>
-
-      <div class="result-card">
-        <h3>💰 Cost &amp; Profit</h3>
-        <div class="result-row"><span class="lbl">Fuel — loaded (${fmtMi(loadedMiles)} ÷ ${s.mpg} mpg × $${s.fuelPrice})</span><span class="val">${fmt$(d.loadedFuelCost)}</span></div>
-        <div class="result-row"><span class="lbl">Maintenance — loaded ($${s.maint}/mi)</span><span class="val">${fmt$(d.maintCost)}</span></div>
-        <div class="result-row"><span class="lbl">Target Profit (${profitTargetLabel})</span><span class="val">${fmt$(d.profitTarget)}</span></div>
-        ${deadheadIn > 0 ? `
-        <div class="result-row"><span class="lbl">Deadhead fuel (${fmtMi(deadheadIn)} ÷ ${s.mpg} mpg)</span><span class="val">${fmt$(d.deadheadFuelCost)}</span></div>
-        <div class="result-row"><span class="lbl">Deadhead maintenance ($${s.maint}/mi)</span><span class="val">${fmt$(d.deadheadMaintCost)}</span></div>
-        <div class="result-row"><span class="lbl">Deadhead time (${fmtHr(d.deadheadTimeHours)} × $${s.deadheadRate}/hr)</span><span class="val">${fmt$(d.deadheadTimeCost)}</span></div>` : ''}
-        ${d.overnightQualifies ? `<div class="result-row"><span class="lbl">🌙 Overnight (${d.overnightNights}× $${s.overnight})</span><span class="val">${fmt$(d.overnightCost)}</span></div>` : ''}
-        ${d.weekendQualifies   ? `<div class="result-row"><span class="lbl">📅 Weekend (${d.weekendExcessHours.toFixed(1)}h × $${s.weekend}/hr)</span><span class="val">${fmt$(d.weekendCost)}</span></div>` : ''}
-        ${d.detentionQualifies ? `<div class="result-row"><span class="lbl">⏳ Detention (${d.buffer.toFixed(1)}h × $${s.detention}/hr)</span><span class="val">${fmt$(d.detentionCost)}</span></div>` : ''}
-        ${d.baseTripApplied    ? `<div class="result-row warn-row"><span class="lbl">📋 Base trip minimum</span><span class="val">${fmt$(s.baseTripCost)}</span></div>` : ''}
-        <div class="result-row warn-row"><span class="lbl">Min Acceptable (${profitFloorLabel})</span><span class="val">${fmt$(d.minAcceptable)}</span></div>
-        <div class="result-row total accent-row"><span class="lbl">${bidRowLabel}</span><span class="val">${fmt$(d.recBid)}</span></div>
-      </div>
-
-      <div class="result-card">
-        <h3>📌 Trip Summary</h3>
-        <div class="result-row"><span class="lbl">From</span><span class="val small-val">${pickupCoord.label} <span style="color:var(--muted)">${tzAbbrev(pickupTz)}</span></span></div>
-        <div class="result-row"><span class="lbl">To</span><span class="val small-val">${destCoord.label} <span style="color:var(--muted)">${tzAbbrev(destTz)}</span></span></div>
-        <div class="result-row"><span class="lbl">Pickup</span><span class="val">${DAY_NAMES[pickupDay]}, ${isImmediate ? fmtTimeDecimal(pickupHour) : fmtTime(pickupHour)} ${tzAbbrev(pickupTz)}${isImmediate ? ' ⚡' : ''}</span></div>
-        <div class="result-row"><span class="lbl">Delivery</span><span class="val">${
-          isDirect
-            ? `${DAY_NAMES[d.deliveryDayActual]}, ~${fmtTimeDecimal(deliveryHour)} ${tzAbbrev(destTz)} 📦`
-            : `${DAY_NAMES[d.deliveryDayActual]}, ${fmtTime(is2359?24:deliveryHour)} ${tzAbbrev(destTz)}`
-        }</span></div>
-        <div class="result-row"><span class="lbl">Billing Days</span><span class="val">${d.billingDays.toFixed(2)} days (${isDirect ? `${d.driveHours.toFixed(1)} h + 0.75 h buffer` : `${d.driveHours.toFixed(1)} h`} ÷ 15)</span></div>
-        <div class="result-row"><span class="lbl">Dist. to Home from Drop</span><span class="val">${fmtMi(destToHomeMiles)}</span></div>
-      </div>
-
-      <a href="${mapsUrl}" target="_blank" class="btn-export" style="display:block;text-align:center;text-decoration:none;margin-top:9px">🗺️ Open Route in Google Maps</a>
-    `;
-
+    renderResults(lastRouteData);
     out.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   } catch (err) {
@@ -1549,265 +1223,319 @@ async function calculate() {
   }
 }
 
-// ═══════════════════════════════════════════
-// COMPARE ROUTES
-// ═══════════════════════════════════════════
-async function compareRoutes() {
-  const btn = document.getElementById('cmp-btn');
-  const out = document.getElementById('compare-results');
+// ════════════════════════════════════════════════════════
+// RENDER RESULTS  (uses cached route data + live form fields)
+// ════════════════════════════════════════════════════════
+function renderResults(d) {
+  if (!d) return;
+  const out = document.getElementById('results');
 
-  const read = (id, fn) => fn(document.getElementById(id).value);
-  const cmpCurrentCityIn = document.getElementById('cmp-current-city').value.trim();
+  const winRaw         = document.getElementById('delivery-window').value.trim();
+  const wbRaw          = document.getElementById('winning-bid').value.trim();
+  const dwParsed       = parseDeliveryWindow(winRaw, d.destTzName);
+  const deliveryWindow = dwParsed.hours;
+  const hasWinningBid  = wbRaw !== '' && !isNaN(parseFloat(wbRaw)) && parseFloat(wbRaw) > 0;
+  const winningBid     = hasWinningBid ? parseFloat(wbRaw) : null;
 
-  const aPickup    = read('cmp-a-pickup',   v => v.trim());
-  const aDest      = read('cmp-a-dest',     v => v.trim());
-  const aDHRaw     = document.getElementById('cmp-a-dh').value.trim();
-  const aHasManDH  = aDHRaw !== '' && !isNaN(parseFloat(aDHRaw));
-  let   aDH        = aHasManDH ? parseFloat(aDHRaw) : 0;
-  const aPDay      = read('cmp-a-pday',     v => parseInt(v));
-  const aPTime     = read('cmp-a-ptime',    v => parseInt(v));
-  const aIsDirect  = document.getElementById('cmp-a-direct').checked;
-  let   aDDay      = read('cmp-a-dday',     v => parseInt(v));
-  let   aRawD      = read('cmp-a-dtime',    v => parseInt(v));
-  let   a2359      = !aIsDirect && aRawD === 24;
-  let   aDTime     = a2359 ? 0 : aRawD;
-  const aOffered   = read('cmp-a-offered',  v => parseFloat(v)||0);
+  const { s, fuelNote, pickupCoord, destCoord, homeCoord, nearestHub, destTzName, pickupTzName,
+    loadedMiles, deadheadMiles, destToHomeMiles, hubMiles,
+    driveHours, deadheadSource, hasManualDH, passesWyoming,
+    deadheadOpEx, routeOpEx, homeOpEx, hubOpEx,
+    deadheadMRCost, hubMRCost,
+    deadheadTotal, homeTotal, hubTotal,
+    baseRate, orv, recIdx, cpm, dhRate, hubRate, costPerMile,
+    resolveHtml, wyHtml, mapsUrl } = d;
 
-  const bPickup    = read('cmp-b-pickup',   v => v.trim());
-  const bDest      = read('cmp-b-dest',     v => v.trim());
-  const bDHRaw     = document.getElementById('cmp-b-dh').value.trim();
-  const bHasManDH  = bDHRaw !== '' && !isNaN(parseFloat(bDHRaw));
-  let   bDH        = bHasManDH ? parseFloat(bDHRaw) : 0;
-  const bPDay      = read('cmp-b-pday',     v => parseInt(v));
-  const bPTime     = read('cmp-b-ptime',    v => parseInt(v));
-  const bIsDirect  = document.getElementById('cmp-b-direct').checked;
-  let   bDDay      = read('cmp-b-dday',     v => parseInt(v));
-  let   bRawD      = read('cmp-b-dtime',    v => parseInt(v));
-  let   b2359      = !bIsDirect && bRawD === 24;
-  let   bDTime     = b2359 ? 0 : bRawD;
-  const bOffered   = read('cmp-b-offered',  v => parseFloat(v)||0);
-  const needCurrDH = !aHasManDH || !bHasManDH;
-
-  if (!aPickup || !aDest || !bPickup || !bDest) {
-    out.innerHTML = `<div class="warn-box">⚠️ Fill in all city fields for both routes.</div>`; return;
-  }
-  const aAddDays = (aDDay - aPDay + 7) % 7;
-  const bAddDays = (bDDay - bPDay + 7) % 7;
-  if (aAddDays === 0 && !a2359 && aDTime <= aPTime) {
-    out.innerHTML = `<div class="warn-box">⚠️ Route A: same-day delivery must be after pickup time.</div>`; return;
-  }
-  if (bAddDays === 0 && !b2359 && bDTime <= bPTime) {
-    out.innerHTML = `<div class="warn-box">⚠️ Route B: same-day delivery must be after pickup time.</div>`; return;
-  }
-
-  btn.disabled = true;
-  out.innerHTML = `<div class="loading"><div class="spinner"></div>Looking up both routes…</div>`;
-
-  try {
-    const s = loadSettings();
-    const cmpCurrentStr  = cmpCurrentCityIn || s.homeCity;
-    const geoBase        = [geocode(aPickup), geocode(aDest), geocode(bPickup), geocode(bDest), geocode(s.homeCity)];
-    if (needCurrDH) geoBase.push(geocode(cmpCurrentStr));
-    const geoRes         = await Promise.all(geoBase);
-    const [aPC, aDC, bPC, bDC, homeCoord] = geoRes;
-    const currCoord      = needCurrDH ? geoRes[5] : null;
-
-    out.innerHTML = `<div class="loading"><div class="spinner"></div>Calculating distances &amp; timezones…</div>`;
-
-    const routeBase = [
-      getRouteMiles(aPC, aDC), getRouteMiles(aDC, homeCoord), getRouteMiles(homeCoord, aPC),
-      getTimezone(aPC.lat, aPC.lon), getTimezone(aDC.lat, aDC.lon),
-      getRouteMiles(bPC, bDC), getRouteMiles(bDC, homeCoord), getRouteMiles(homeCoord, bPC),
-      getTimezone(bPC.lat, bPC.lon), getTimezone(bDC.lat, bDC.lon),
-      getTimezone(homeCoord.lat, homeCoord.lon)
-    ];
-    if (!aHasManDH) routeBase.push(getRouteMiles(currCoord, aPC));
-    if (!bHasManDH) routeBase.push(getRouteMiles(currCoord, bPC));
-    const rRes = await Promise.all(routeBase);
-    const [aLM, aDHM, aPHM, aTzP, aTzD, bLM, bDHM, bPHM, bTzP, bTzD, homeTz] = rRes;
-    let rIdx = 11;
-    if (!aHasManDH) { aDH = rRes[rIdx++]; }
-    if (!bHasManDH) { bDH = rRes[rIdx++]; }
-
-    // Resolve direct delivery times from drive hours
-    const resolveDirectTime = (isDirect, miles, pDay, pTime) => {
-      if (!isDirect) return null;
-      const driveH = miles / s.speed;
-      if (driveH > 14) return { tooFar: true, driveH };
-      const absArr = pTime + driveH;
-      return { dDay: (pDay + Math.floor(absArr / 24)) % 7, dTime: absArr % 24, is2359: false };
-    };
-    const aDir = resolveDirectTime(aIsDirect, aLM, aPDay, aPTime);
-    const bDir = resolveDirectTime(bIsDirect, bLM, bPDay, bPTime);
-    if (aDir?.tooFar || bDir?.tooFar) {
-      const which = aDir?.tooFar ? 'Route A' : 'Route B';
-      const driveH = aDir?.tooFar ? aDir.driveH : bDir.driveH;
-      out.innerHTML = `<div class="warn-box">⚠️ <strong>${which}</strong> — ${buildDirectDecline(driveH, s.speed)}</div>`;
-      return;
+  // HOS warning (depends on delivery window)
+  let hosWarnHtml = '';
+  if (deliveryWindow !== null) {
+    const bufferH     = deliveryWindow - driveHours;
+    const periodsOf24 = Math.ceil(deliveryWindow / 24);
+    const bufferPer24 = deliveryWindow > 0 ? bufferH / periodsOf24 : bufferH;
+    if (driveHours > 15 && bufferPer24 < 9) {
+      hosWarnHtml = `
+        <div class="wy-warning" style="border-color:rgba(231,76,60,0.6);background:linear-gradient(145deg,#2a0a0a,#1a0808)">
+          <div class="wy-warning-icon">⏱</div>
+          <div class="wy-warning-body">
+            <div class="wy-warning-title" style="color:#ff6b6b">HOS Warning — Tight Schedule</div>
+            <div class="wy-warning-sub" style="color:#c04040">
+              Drive time is <strong style="color:#ff8a80">${fmtHr(driveHours)}</strong> with only
+              <strong style="color:#ff8a80">${fmtHr(bufferH)}</strong> buffer
+              (${bufferPer24.toFixed(1)}h/24h — min 9h required).
+              HOS rest may not fit within the delivery window.
+            </div>
+          </div>
+        </div>`;
     }
-    if (aDir) { aDDay = aDir.dDay; aDTime = aDir.dTime; a2359 = false; }
-    if (bDir) { bDDay = bDir.dDay; bDTime = bDir.dTime; b2359 = false; }
-
-    const a = computeBidData({ loadedMiles: aLM, deadheadIn: aDH, destToHomeMiles: aDHM, pickupFromHomeMiles: aPHM, pickupTz: aTzP, destTz: aTzD, homeTz, pickupDay: aPDay, deliveryDay: aDDay, pickupHour: aPTime, deliveryHour: aDTime, is2359: a2359, billableBufferHours: aIsDirect ? DIRECT_BUFFER_H : 0 }, s);
-    const b = computeBidData({ loadedMiles: bLM, deadheadIn: bDH, destToHomeMiles: bDHM, pickupFromHomeMiles: bPHM, pickupTz: bTzP, destTz: bTzD, homeTz, pickupDay: bPDay, deliveryDay: bDDay, pickupHour: bPTime, deliveryHour: bDTime, is2359: b2359, billableBufferHours: bIsDirect ? DIRECT_BUFFER_H : 0 }, s);
-
-    const hi = (aV, bV) => aV > bV ? ['better','worse'] : aV < bV ? ['worse','better'] : ['',''];
-    const lo = (aV, bV) => aV < bV ? ['better','worse'] : aV > bV ? ['worse','better'] : ['',''];
-
-    const fmtBid = (d, direct) => (d.infeasible && !direct) ? `<span style="color:var(--danger)">DECLINE</span>` : fmt$(d.recBid);
-    const fmtBuf = (d, direct) => (d.infeasible && !direct) ? '—' : fmtHr(d.buffer);
-
-    const aInfeas = a.infeasible && !aIsDirect;
-    const bInfeas = b.infeasible && !bIsDirect;
-    const [ab, bb] = aInfeas && bInfeas ? ['',''] : aInfeas ? ['worse','better'] : bInfeas ? ['better','worse'] : hi(a.recBid, b.recBid);
-    const [ar, br] = aInfeas && bInfeas ? ['',''] : aInfeas ? ['worse','better'] : bInfeas ? ['better','worse'] : hi(a.rpmLoaded, b.rpmLoaded);
-    const [au, bu] = aInfeas && bInfeas ? ['',''] : aInfeas ? ['worse','better'] : bInfeas ? ['better','worse'] : hi(a.buffer, b.buffer);
-    const [ad, bd] = lo(a.destToHomeMiles, b.destToHomeMiles);
-
-    out.innerHTML = `
-      <div class="result-card" style="margin-top:14px">
-        <h3>⚖️ Comparison</h3>
-        <table class="compare-table">
-          <thead><tr><th></th><th>Route A</th><th>Route B</th></tr></thead>
-          <tbody>
-            <tr><td>Route</td>
-              <td style="font-size:11px">${aPC.label}<br>→ ${aDC.label}</td>
-              <td style="font-size:11px">${bPC.label}<br>→ ${bDC.label}</td>
-            </tr>
-            <tr><td>Loaded Miles</td>
-              <td class="${lo(aLM,bLM)[0]}">${fmtMi(aLM)}</td>
-              <td class="${lo(aLM,bLM)[1]}">${fmtMi(bLM)}</td>
-            </tr>
-            <tr><td>Bid</td><td class="${ab}">${fmtBid(a,aIsDirect)}</td><td class="${bb}">${fmtBid(b,bIsDirect)}</td></tr>
-            <tr><td>Min Acceptable</td>
-              <td>${aInfeas?'—':fmt$(a.minAcceptable)}</td>
-              <td>${bInfeas?'—':fmt$(b.minAcceptable)}</td>
-            </tr>
-            <tr><td>$/loaded mi</td>
-              <td class="${ar}">${aInfeas?'—':'$'+a.rpmLoaded.toFixed(3)}</td>
-              <td class="${br}">${bInfeas?'—':'$'+b.rpmLoaded.toFixed(3)}</td>
-            </tr>
-            <tr><td>Drive + Sleep</td>
-              <td>${fmtHr(a.driveHours+a.sleepHours)}</td>
-              <td>${fmtHr(b.driveHours+b.sleepHours)}</td>
-            </tr>
-            <tr><td>Billing Days</td>
-              <td class="${lo(a.billingDays,b.billingDays)[0]}">${a.billingDays.toFixed(2)}</td>
-              <td class="${lo(a.billingDays,b.billingDays)[1]}">${b.billingDays.toFixed(2)}</td>
-            </tr>
-            <tr><td>Buffer</td><td class="${au}">${fmtBuf(a)}</td><td class="${bu}">${fmtBuf(b)}</td></tr>
-            <tr><td>Fuel Stops</td>
-              <td>${a.fuelStops>0?a.fuelStops+' stop'+(a.fuelStops>1?'s':''):'None'}</td>
-              <td>${b.fuelStops>0?b.fuelStops+' stop'+(b.fuelStops>1?'s':''):'None'}</td>
-            </tr>
-            <tr><td>Dist. to Home</td>
-              <td class="${ad}">${fmtMi(aDHM)}</td>
-              <td class="${bd}">${fmtMi(bDHM)}</td>
-            </tr>
-            <tr><td>Home Time?</td>
-              <td class="${a.homeTimeQualifies?'home-yes':''}">${a.homeTimeQualifies?'🏠 Yes':'No'}</td>
-              <td class="${b.homeTimeQualifies?'home-yes':''}">${b.homeTimeQualifies?'🏠 Yes':'No'}</td>
-            </tr>
-            ${(aOffered > 0 || bOffered > 0) ? (() => {
-              const offerCell = (offered, d, miles) => {
-                if (!offered || miles <= 0) return '<td style="color:var(--muted)">—</td>';
-                const rpm = offered / miles;
-                if (d.infeasible) return `<td style="color:var(--muted)">${fmt$(offered)}<br><span style="font-size:10px">DECLINE</span></td>`;
-                if (offered >= d.recBid)          return `<td style="color:var(--success)">${fmt$(offered)}<br><span style="font-size:10px">✅ Accept</span></td>`;
-                if (offered >= d.minAcceptable) {
-                  const counter = (offered + d.recBid) / 2;
-                  return `<td style="color:var(--warning)">${fmt$(offered)}<br><span style="font-size:10px">🤝 Counter ${fmt$(counter)}</span></td>`;
-                }
-                return `<td style="color:var(--danger)">${fmt$(offered)}<br><span style="font-size:10px">❌ Below floor</span></td>`;
-              };
-              return `<tr><td>Rate Offered</td>${offerCell(aOffered,a,aLM)}${offerCell(bOffered,b,bLM)}</tr>`;
-            })() : ''}
-          </tbody>
-        </table>
-        <div style="font-size:10px;color:var(--muted);margin-top:10px">Green = better value for that metric</div>
-        <div style="display:flex;gap:8px;margin-top:10px">
-          <a href="https://www.google.com/maps/dir/${aPC.lat},${aPC.lon}/${aDC.lat},${aDC.lon}" target="_blank"
-             style="flex:1;display:block;padding:9px;border:1px solid var(--border);border-radius:8px;background:none;color:var(--muted);font-size:12px;font-weight:600;text-align:center;text-decoration:none">🗺️ Maps: Route A</a>
-          <a href="https://www.google.com/maps/dir/${bPC.lat},${bPC.lon}/${bDC.lat},${bDC.lon}" target="_blank"
-             style="flex:1;display:block;padding:9px;border:1px solid var(--border);border-radius:8px;background:none;color:var(--muted);font-size:12px;font-weight:600;text-align:center;text-decoration:none">🗺️ Maps: Route B</a>
-        </div>
-      </div>`;
-
-  } catch (err) {
-    out.innerHTML = `<div class="warn-box">⚠️ ${err.message}</div>`;
-  } finally {
-    btn.disabled = false;
   }
-}
 
-// ═══════════════════════════════════════════
-// DECLINE SCREEN
-// ═══════════════════════════════════════════
-function buildDecline(driveHours, sleepHours, totalTripHours, durationHours) {
-  const deficit   = totalTripHours - durationHours;
-  const sleepNote = sleepHours > 0 ? ` + ${fmtHr(sleepHours)} sleep` : '';
-  return `<div class="decline-card">
-    <div class="decline-icon">🚫</div>
-    <div class="decline-title">Decline This Load</div>
-    <div class="decline-sub">This delivery cannot be completed in time.</div>
-    <div class="decline-detail">
-      Requires <strong>${fmtHr(totalTripHours)}</strong> (${fmtHr(driveHours)} driving${sleepNote})
-      but window is only <strong>${fmtHr(durationHours)}</strong> — short by <strong>${fmtHr(deficit)}</strong>.
+  // Drive info
+  const hos11hSegments  = Math.ceil(driveHours / 11);
+  const requiredRestH   = (hos11hSegments - 1) * 10;
+  const totalTripH      = driveHours + requiredRestH;
+  const need30minBreak  = driveHours > 8;
+  const needOvernightRest = driveHours > 11;
+  const totalBillHours  = (deadheadMiles + loadedMiles + hubMiles) / s.speed;
+
+  const tzLabel = (destTzName && pickupTzName && destTzName !== pickupTzName)
+    ? ` <span style="color:var(--muted);font-size:10px;font-weight:400">${(destTzName.split('/')[1]||destTzName).replace(/_/g,' ')} time</span>`
+    : '';
+  const windowRows = deliveryWindow !== null ? `
+    <div class="result-row ${(deliveryWindow - driveHours) < 0 ? 'danger-row' : ''}">
+      <span class="lbl">Delivery Window${tzLabel}</span>
+      <span class="val">${fmtHr(deliveryWindow)}</span>
     </div>
-  </div>`;
+    <div class="result-row ${(deliveryWindow - driveHours) < 9 ? 'warn-row' : 'success-row'}">
+      <span class="lbl">Buffer (window − drive time)</span>
+      <span class="val">${fmtHr(deliveryWindow - driveHours)}</span>
+    </div>` : `
+    <div class="result-row">
+      <span class="lbl">Delivery Window</span>
+      <span class="val" style="color:var(--muted)">Not specified</span>
+    </div>`;
+
+  // CPM table
+  const pph = (v) => {
+    const h = totalBillHours > 0 ? v / totalBillHours : 0;
+    return (h >= 0 ? '+' : '−') + '$' + Math.abs(h).toFixed(2) + '/hr';
+  };
+  const tot = (v) => (v >= 0 ? '+' : '−') + '$' + Math.abs(v).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  const cell = (v) => `<span style="font-weight:700">${pph(v)}</span><br><span style="font-size:10px;opacity:0.75">${tot(v)}</span>`;
+
+  const baseCost = routeOpEx + deadheadTotal;
+  const cpmRowsHtml = cpm.map((rate, i) => {
+    const revenue   = loadedMiles * rate;
+    const profDHDel = revenue - baseCost;
+    const profHome  = revenue - baseCost - homeTotal;
+    const profHub   = revenue - baseCost - hubTotal;
+    const isRec     = (i === recIdx);
+    const cls       = (v) => v >= 0 ? 'pos' : 'neg';
+    return `<tr class="${isRec ? 'recommended' : ''}">
+      <td><strong>$${rate.toFixed(2)}</strong>/mi${isRec ? '<span class="rec-badge">✦ Best</span>' : ''}</td>
+      <td class="${cls(profDHDel)}">${cell(profDHDel)}</td>
+      <td class="${cls(profHome)}">${cell(profHome)}</td>
+      <td class="${cls(profHub)}">${cell(profHub)}</td>
+    </tr>`;
+  }).join('');
+
+  // Winning bid panel
+  const bidPanelHtml = hasWinningBid ? (() => {
+    const wb      = winningBid;
+    const wbPerMi = wb / loadedMiles;
+    const pDHDel  = wb - baseCost;
+    const pHome   = wb - baseCost - homeTotal;
+    const pHub    = wb - baseCost - hubTotal;
+    const orvDiff = wb - orv;
+    const orvCls  = orvDiff >= 0 ? 'color:var(--success)' : 'color:var(--warning)';
+    const orvLabel= orvDiff >= 0 ? `${fmtSigned$(orvDiff)} above ORV` : `${fmtSigned$(orvDiff)} below ORV`;
+    return `
+      <div class="result-card" style="border-color:rgba(100,255,218,0.35);background:linear-gradient(145deg,#0d1f1a,#0a1a10)">
+        <h3 style="color:var(--accent)">🏆 Winning Bid Breakdown</h3>
+        <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+          <span style="font-size:32px;font-weight:900;color:var(--accent)">${fmt$(wb)}</span>
+          <span style="font-size:14px;color:var(--muted)">$${wbPerMi.toFixed(4)}/mi loaded · ${fmtMi(loadedMiles)}</span>
+        </div>
+        <div class="result-row" style="border-color:rgba(100,255,218,0.15)">
+          <span class="lbl">vs. Optimum Route Value (${fmt$(orv)})</span>
+          <span class="val" style="${orvCls};font-weight:700">${orvLabel}</span>
+        </div>
+        <div style="margin:12px 0 6px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px">Profit by Scenario</div>
+        <div class="cpm-table-wrap">
+          <table class="cpm-table">
+            <thead><tr><th>Scenario</th><th>$/hr</th><th>Total</th></tr></thead>
+            <tbody>
+              <tr>
+                <td style="font-size:11px">DH + Delivery<br><span style="color:var(--muted);font-size:9px">excl. home &amp; hub return</span></td>
+                <td class="${pDHDel >= 0 ? 'pos' : 'neg'}" style="font-weight:700">${pph(pDHDel)}</td>
+                <td class="${pDHDel >= 0 ? 'pos' : 'neg'}" style="font-weight:700">${tot(pDHDel)}</td>
+              </tr>
+              <tr>
+                <td style="font-size:11px">+ Home Travel<br><span style="color:var(--muted);font-size:9px">${fmtMi(destToHomeMiles)} to ${homeCoord.label}</span></td>
+                <td class="${pHome >= 0 ? 'pos' : 'neg'}" style="font-weight:700">${pph(pHome)}</td>
+                <td class="${pHome >= 0 ? 'pos' : 'neg'}" style="font-weight:700">${tot(pHome)}</td>
+              </tr>
+              <tr>
+                <td style="font-size:11px">+ Hub Return<br><span style="color:var(--muted);font-size:9px">${fmtMi(hubMiles)} to ${nearestHub.name}</span></td>
+                <td class="${pHub >= 0 ? 'pos' : 'neg'}" style="font-weight:700">${pph(pHub)}</td>
+                <td class="${pHub >= 0 ? 'pos' : 'neg'}" style="font-weight:700">${tot(pHub)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:8px;font-size:10px;color:var(--muted)">$/hr denominator: ${fmtHr(totalBillHours)} (DH + route + hub drive time)</div>
+      </div>`;
+  })() : `
+    <div class="result-card">
+      <h3>💰 Bid Range — Profit by Scenario</h3>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px">
+        <strong>${fmtMi(loadedMiles)}</strong> loaded · <strong>${fmtHr(totalBillHours)}</strong> total drive (DH + route + hub). ✦ Best = closest to ORV (${fmt$(orv)}).
+      </div>
+      <div class="cpm-table-wrap">
+        <table class="cpm-table">
+          <thead><tr><th>Rate</th><th>DH+Del</th><th>+Home</th><th>+Hub</th></tr></thead>
+          <tbody>${cpmRowsHtml}</tbody>
+        </table>
+      </div>
+      <div style="margin-top:8px;font-size:10px;color:var(--muted)">
+        Profit per hour = net profit ÷ ${fmtHr(totalBillHours)} (DH + route + hub drive time).
+        DH+Del = deadhead + delivery costs · +Home = add home travel · +Hub = add hub travel
+      </div>
+    </div>
+
+    <div class="orv-card">
+      <h3>⭐ Optimum Route Value</h3>
+      <div class="orv-total">${fmt$(orv)}</div>
+      <div class="orv-sub">Revenue target that fully covers all costs on this route</div>
+      <div class="orv-row"><span class="lbl">Base Rate ${baseRate > 0 ? `($150 − ${Math.floor(driveHours)}×$10, ${fmtHr(driveHours)} drive)` : `(${fmtHr(driveHours)} drive — floored at $0)`}</span><span class="val">${fmt$(baseRate)}</span></div>
+      <div class="orv-row"><span class="lbl">Deadhead Cost (${fmtMi(deadheadMiles)} op + $${dhRate.toFixed(2)}/mi rate)</span><span class="val">${fmt$(deadheadTotal)}</span></div>
+      <div class="orv-row"><span class="lbl">Route Expense (${fmtMi(loadedMiles)} operating)</span><span class="val">${fmt$(routeOpEx)}</span></div>
+      <div class="orv-row"><span class="lbl">Hub Travel Cost (${fmtMi(hubMiles)} to ${nearestHub.name})</span><span class="val">${fmt$(hubTotal)}</span></div>
+      <div class="orv-row"><span class="lbl">Drive-Time Bonus ($35 × ${driveHours.toFixed(2)} hrs)</span><span class="val">${fmt$(35 * driveHours)}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0 0;border-top:1px solid rgba(100,255,218,0.2);margin-top:4px">
+        <span style="font-size:12px;font-weight:700;color:var(--accent)">Recommended Rate</span>
+        <span style="font-size:18px;font-weight:800;color:var(--accent)">$${cpm[recIdx].toFixed(2)}/mi → ${fmt$(loadedMiles * cpm[recIdx])}</span>
+      </div>
+    </div>`;
+
+  out.innerHTML = `
+    ${fuelNote}${resolveHtml}${wyHtml}${hosWarnHtml}
+
+    <div class="result-card">
+      <h3>💸 Expenses by Segment</h3>
+      <div class="expense-grid">
+        <div class="expense-cell">
+          <div class="expense-cell-label">Deadhead</div>
+          <div class="expense-cell-miles">${fmtMi(deadheadMiles)} · ${fmtHr(deadheadMiles/s.speed)}</div>
+          <div class="expense-cell-cost">${fmt$(deadheadOpEx)}</div>
+        </div>
+        <div class="expense-cell">
+          <div class="expense-cell-label">Route (Loaded)</div>
+          <div class="expense-cell-miles">${fmtMi(loadedMiles)} · ${fmtHr(driveHours)}</div>
+          <div class="expense-cell-cost">${fmt$(routeOpEx)}</div>
+        </div>
+        <div class="expense-cell">
+          <div class="expense-cell-label">→ Nearest Hub</div>
+          <div class="expense-cell-miles">${fmtMi(hubMiles)} · ${nearestHub.name}</div>
+          <div class="expense-cell-cost">${fmt$(hubOpEx)}</div>
+        </div>
+        <div class="expense-cell">
+          <div class="expense-cell-label">→ Home</div>
+          <div class="expense-cell-miles">${fmtMi(destToHomeMiles)} · ${homeCoord.label}</div>
+          <div class="expense-cell-cost">${fmt$(homeOpEx)}</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--muted)">
+        Operating cost: $${s.fuelPrice.toFixed(3)}/gal ÷ ${s.mpg}mpg + $${s.maint}/mi = <strong style="color:var(--text)">$${costPerMile.toFixed(4)}/mi</strong>
+      </div>
+      ${(dhRate > 0 || hubRate > 0) ? `
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:7px">Empty-Mile Rates (opportunity cost)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+          ${dhRate > 0 ? `<div style="background:rgba(79,142,247,0.06);border:1px solid rgba(79,142,247,0.2);border-radius:8px;padding:8px 10px"><div style="font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Deadhead</div><div style="font-size:11px;color:var(--muted)">${fmtMi(deadheadMiles)} × $${dhRate.toFixed(2)}</div><div style="font-size:16px;font-weight:800;color:#8ab4f8">${fmt$(deadheadMRCost)}</div></div>` : ''}
+          ${hubRate > 0 ? `<div style="background:rgba(79,142,247,0.06);border:1px solid rgba(79,142,247,0.2);border-radius:8px;padding:8px 10px"><div style="font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Hub Travel</div><div style="font-size:11px;color:var(--muted)">${fmtMi(hubMiles)} × $${hubRate.toFixed(2)}</div><div style="font-size:16px;font-weight:800;color:#8ab4f8">${fmt$(hubMRCost)}</div></div>` : ''}
+        </div>
+      </div>` : ''}
+    </div>
+
+    <div class="result-card">
+      <h3>⏱ Drive Information</h3>
+      <div class="result-row"><span class="lbl">Pickup</span><span class="val" style="max-width:55%;text-align:right;font-size:12px">${pickupCoord.label}</span></div>
+      <div class="result-row"><span class="lbl">Destination</span><span class="val" style="max-width:55%;text-align:right;font-size:12px">${destCoord.label}</span></div>
+      <div class="result-row"><span class="lbl">Deadhead to Pickup${!hasManualDH ? ` (from ${deadheadSource})` : ''}</span><span class="val">${fmtMi(deadheadMiles)} · ${fmtHr(deadheadMiles/s.speed)}</span></div>
+      <div class="result-row"><span class="lbl">Loaded Route Distance</span><span class="val">${fmtMi(loadedMiles)}</span></div>
+      <div class="result-row ${driveHours > 11 ? 'warn-row' : ''}"><span class="lbl">Route Drive Time @ ${s.speed} mph${driveHours > 11 ? ' ⚠' : ''}</span><span class="val">${fmtHr(driveHours)}</span></div>
+      ${need30minBreak ? `<div class="result-row"><span class="lbl" style="color:#f39c12">30-min HOS break required (&gt;8h drive)</span><span class="val" style="color:#f39c12">Required</span></div>` : ''}
+      ${needOvernightRest ? `<div class="result-row"><span class="lbl" style="color:#f39c12">HOS rest segments needed (11h limit)</span><span class="val" style="color:#f39c12">${hos11hSegments-1} × 10h off-duty</span></div>
+      <div class="result-row"><span class="lbl">Total Trip Time (drive + required rest)</span><span class="val">${fmtHr(totalTripH)}</span></div>` : ''}
+      ${windowRows}
+      <div class="result-row"><span class="lbl">Nearest Freight Hub</span><span class="val" style="max-width:55%;text-align:right;font-size:12px">${nearestHub.name}</span></div>
+      <div class="result-row"><span class="lbl">Distance to Hub (from dest)</span><span class="val">${fmtMi(hubMiles)} · ${fmtHr(hubMiles/s.speed)}</span></div>
+      <div class="result-row"><span class="lbl">Distance to Home (from dest)</span><span class="val">${fmtMi(destToHomeMiles)} · ${fmtHr(destToHomeMiles/s.speed)}</span></div>
+      <div class="result-row total"><span class="lbl">Total Miles (DH + Route)</span><span class="val">${fmtMi(deadheadMiles + loadedMiles)}</span></div>
+      <div style="margin-top:10px">
+        <a href="${mapsUrl}" target="_blank" style="display:block;padding:9px;border:1px solid var(--border);border-radius:8px;background:none;color:var(--muted);font-size:12px;font-weight:600;text-align:center;text-decoration:none">🗺️ Open Route in Google Maps</a>
+      </div>
+    </div>
+
+    ${bidPanelHtml}
+  `;
 }
 
-// ═══════════════════════════════════════════
-// TIME SELECT BUILDER
-// ═══════════════════════════════════════════
-function buildTimeSelect(id, defaultVal) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  let html = '';
-  for (let h = 0; h < 24; h++) {
-    html += `<option value="${h}"${h===defaultVal?' selected':''}>${String(h).padStart(2,'0')}:00</option>`;
-  }
-  html += `<option value="24"${defaultVal===24?' selected':''}>23:59</option>`;
-  el.innerHTML = html;
+// ════════════════════════════════════════════════════════
+// TABS
+// ════════════════════════════════════════════════════════
+function switchTab(el, tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('page-' + tab).classList.add('active');
 }
 
-// ═══════════════════════════════════════════
-// KEYBOARD + INIT
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════════════════
+// KEYBOARD
+// ════════════════════════════════════════════════════════
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.getElementById('page-calc').classList.contains('active')) calculate();
+  if (e.key === 'Enter' && document.getElementById('page-calc').classList.contains('active')) {
+    calculate();
+  }
 });
 
-// Build all time selects
-['pickup-time','delivery-time','cmp-a-ptime','cmp-a-dtime','cmp-b-ptime','cmp-b-dtime'].forEach(id => {
-  const defaultVal = id.includes('dtime') || id === 'delivery-time' ? 16 : 8;
-  buildTimeSelect(id, defaultVal);
+// Auto-clear winning bid and cached route when route inputs change
+['pickup-city', 'dest-city'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    document.getElementById('winning-bid').value = '';
+    lastRouteData = null;
+  });
 });
 
+// Real-time re-render for delivery window and winning bid
+document.getElementById('delivery-window').addEventListener('input', function() {
+  const raw = this.value.trim();
+  const hint = document.getElementById('dw-hint');
+  if (!raw) {
+    this.classList.remove('field-invalid');
+    hint.textContent = '';
+    hint.className = 'dw-hint';
+  } else {
+    const parsed = parseDeliveryWindow(raw, lastRouteData?.destTzName);
+    if (parsed.error) {
+      this.classList.add('field-invalid');
+      hint.textContent = 'Format not recognized';
+      hint.className = 'dw-hint err';
+    } else if (parsed.hours !== null) {
+      this.classList.remove('field-invalid');
+      const noteStr = parsed.note ? ` · ${parsed.note}` : '';
+      hint.textContent = `= ${parsed.display}${noteStr}`;
+      hint.className = 'dw-hint ok';
+    } else {
+      this.classList.remove('field-invalid');
+      hint.textContent = '';
+      hint.className = 'dw-hint';
+    }
+  }
+  renderResults(lastRouteData);
+});
+
+document.getElementById('winning-bid').addEventListener('input', () => {
+  renderResults(lastRouteData);
+});
+
+// ════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════
 populateSettings();
-updateRateCard();
-renderBidLog();
-updateLogTabLabel();
-
-const todayDay = new Date().getDay();
-['pickup-day','delivery-day','cmp-a-pday','cmp-a-dday','cmp-b-pday','cmp-b-dday'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.value = todayDay;
-});
-
-if (/Chrome/.test(navigator.userAgent) && /Android|iPhone|iPad/.test(navigator.userAgent)
-    && !window.matchMedia('(display-mode: standalone)').matches) {
-  document.getElementById('install-hint').style.display = 'block';
-}
 
 if ('serviceWorker' in navigator) {
   const swSrc = `
-    const CACHE='ratesetter-v1';
+    const CACHE='ratesetter-v2';
     self.addEventListener('install',e=>self.skipWaiting());
     self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
     self.addEventListener('fetch',e=>{
-      if(e.request.url.includes('api.eia.gov')||e.request.url.includes('nominatim')||e.request.url.includes('osrm')||e.request.url.includes('timezonefinder'))return;
-      e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{const c=res.clone();caches.open(CACHE).then(ca=>ca.put(e.request,c));return res;})));
+      if(e.request.url.includes('api.eia.gov')||e.request.url.includes('nominatim')||
+         e.request.url.includes('osrm')||e.request.url.includes('timezonefinder'))return;
+      e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{
+        const c=res.clone();caches.open(CACHE).then(ca=>ca.put(e.request,c));return res;
+      })));
     });
   `;
   const blob = new Blob([swSrc], {type:'application/javascript'});
